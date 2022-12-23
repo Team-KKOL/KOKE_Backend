@@ -9,6 +9,10 @@ version = '0.0.1-SNAPSHOT'
 sourceCompatibility = '17'
 
 configurations {
+    developmentOnly
+    runtimeClasspath {
+        extendsFrom developmentOnly
+    }
     compileOnly {
         extendsFrom annotationProcessor
     }
@@ -17,6 +21,12 @@ configurations {
 repositories {
     mavenCentral()
 }
+
+ext {
+    set('snippetsDir', file("build/generated-snippets"))
+}
+
+def generated = "src/main/generated"
 
 dependencies {
     implementation 'org.springframework.boot:spring-boot-starter-batch'
@@ -70,6 +80,14 @@ dependencies {
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
     testImplementation 'org.springframework.batch:spring-batch-test'
     testImplementation 'org.springframework.security:spring-security-test'
+}
+
+sourceSets {
+    main.java.srcDirs += [generated]
+}
+
+tasks.withType(JavaCompile).configureEach {
+    options.annotationProcessorGeneratedSourcesDirectory(file(generated))
 }
 
 tasks.named('test') {
