@@ -1,13 +1,16 @@
 package com.koke.koke_backend;
 
-import org.springframework.boot.SpringApplication;
+import com.koke.koke_backend.module.initializer.EncryptInitializer;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.builder.SpringApplicationBuilder;
 
 @SpringBootApplication
 public class KokeBackendApplication {
 
     public static void main(String[] args) {
-        SpringApplication.run(KokeBackendApplication.class, args);
+        new SpringApplicationBuilder(KokeBackendApplication.class)
+                .initializers(new EncryptInitializer())
+                .run(args);
     }
 
 }

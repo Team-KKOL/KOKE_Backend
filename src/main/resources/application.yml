@@ -1,1 +1,54 @@
+spring:
+  application:
+    name: koke_backend
+  devtools:
+    restart:
+      enabled: true
+  datasource:
+    url: ENC(D7U/qfTvYvC0gbTxTsc7gxuKhk+MoezAfUQnBZvXxDwQb2DMrVx83zKGCpYCNtuBGTfkurvYsEp0Tm2giKI4bY4LJD4ykXVyVJyx2CgGorGusOZcE4vY2dOYt5N8H9vB)
+    username: ENC(UHlF351brOUFhxWrkrrB/ds9xQaPlanX3pXME6o3Rbs=)
+    password: ENC(Zi1Wzawi+DVlzHYGOdYRzagyGfdtb6mL/IV12Mzl9Xw=)
+    driver-class-name: com
+  jpa:
+    database-platform: org.mariadb.jdbc.Driver
+    show-sql: false
+    hibernate:
+      ddl-auto: none
+      naming:
+        physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
+  mvc:
+    pathmatch:
+      matching-strategy: ant_path_matcher
+  config:
+    activate:
+      on-profile: develop
+  data:
+    redis:
+      host: ENC(CeB5sKExvKTODBPjIu3ls9iMRHs0hVtX+ySdB5jBnqdGH7Qu4MkQZy4er1CT8nD0GbAidlMgesQNGb29XOCR70t/0JRMWha7j2UfJtsybIU=)
+      port: 6379
+      database: 0
+jwt:
+  accessTokenValidity: 14d
+  refreshTokenValidity: 1M
+  secret: YnBucy1oZXBjLWJhY2tlbmQtanNvbndlYnRva2VuLXNlY3JldEtleQo=YnBucy1oZXBjLWJhY2tlbmQtanNvbndlYnRva2VuLXNlY3JldEtleQo=YnBucy1oZXBjLWJhY2tlbmQtanNvbndlYnRva2VuLXNlY3JldEtleQo=YnBucy1oZXBjLWJhY2tlbmQtanNvbndlYnRva2VuLXNlY3JldEtleQo=YnBucy1oZXBjLWJhY2tlbmQtanNvbndlYnRva2VuLXNlY3JldEtleQo=YnBucy1oZXBjLWJhY2tlbmQtanNvbndlYnRva2VuLXNlY3JldEtleQo=YnBucy1oZXBjLWJhY2tlbmQtanNvbndlYnRva2VuLXNlY3JldEtleQo=YnBucy1oZXBjLWJhY2tlbmQtanNvbndlYnRva2VuLXNlY3JldEtleQo=
+springdoc:
+  model-and-view-allowed: true
+  default-consumes-media-type: application/json
+  default-produces-media-type: application/json
+  swagger-ui:
+    path: rest-api-doc.html
+    default-models-expand-depth: -1
 
+logging:
+  config: classpath:logback-spring.xml
+  charset:
+    console: UTF-8
+    file: UTF-8
+custom:
+  path: '/home/ubunutu/koke_file'
+
+server:
+  port: 9001
+  tomcat:
+    remoteip:
+      protocol-header: x-forwarded-proto
