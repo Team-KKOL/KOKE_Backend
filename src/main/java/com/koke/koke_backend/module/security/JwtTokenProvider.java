@@ -12,8 +12,6 @@ import io.jsonwebtoken.Jwts;
 import jakarta.annotation.PostConstruct;
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.data.redis.core.ValueOperations;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -40,12 +38,8 @@ public class JwtTokenProvider { // JWT 토큰 생성 및 검증 모듈
 	private Key secretKey;
 	private final JwtProperty jwtProperty;
 	private final UserDetailsService userDetailsService;
-	@Autowired
-	@Qualifier("access")
-	private RedisTemplate<String, Object> redisTemplateAccess;
-	@Autowired
-	@Qualifier("refresh")
-	private RedisTemplate<String, Object> redisTemplateRefresh;
+	private final RedisTemplate<String, AccessToken> redisTemplateAccess;
+	private final RedisTemplate<String, RefreshToken> redisTemplateRefresh;
 
 	private final ObjectMapper objectMapper;
 
@@ -98,7 +92,7 @@ public class JwtTokenProvider { // JWT 토큰 생성 및 검증 모듈
 		Claims claims = Jwts.claims();
 		claims.put("role", Role.USER);
 
-		ValueOperations<String, Object> opsForValue = redisTemplateAccess.opsForValue();
+		ValueOperations<String, AccessToken> opsForValue = redisTemplateAccess.opsForValue();
 
 		Date now = new Date();
 		Date expireDate = new Date(now.getTime() + jwtProperty.getAccessTokenValidity());
@@ -126,7 +120,7 @@ public class JwtTokenProvider { // JWT 토큰 생성 및 검증 모듈
 		Claims claims = Jwts.claims();
 		claims.put("role", Role.USER);
 
-		ValueOperations<String, Object> opsForValue = redisTemplateRefresh.opsForValue();
+		ValueOperations<String, RefreshToken> opsForValue = redisTemplateRefresh.opsForValue();
 
 		Date now = new Date();
 		Date expireDate = new Date(now.getTime() + jwtProperty.getRefreshTokenValidity());

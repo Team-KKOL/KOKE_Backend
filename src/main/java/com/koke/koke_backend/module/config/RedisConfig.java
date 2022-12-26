@@ -19,16 +19,16 @@ import org.springframework.data.redis.serializer.StringRedisSerializer;
 @EnableRedisRepositories
 public class RedisConfig {
 
-	@Value("${spring.redis.database}")
+	@Value("${spring.data.redis.database}")
 	private int redisDb;
 
-	@Value("${spring.redis.host}")
+	@Value("${spring.data.redis.host}")
 	private String redisHost;
 
-	@Value("${spring.redis.port}")
+	@Value("${spring.data.redis.port}")
 	private int redisPort;
 
-	@Value("${spring.redis.password}")
+	@Value("${spring.data.redis.password}")
 	private String redisPw;
 
 	@Bean
@@ -42,18 +42,36 @@ public class RedisConfig {
 		return new LettuceConnectionFactory(redisStandaloneConfiguration);
 	}
 
-	@Bean("access")
-	public RedisTemplate<String, Object> redisTemplateForAccessToken() {
-		RedisTemplate<String, Object> redisTemplate = new RedisTemplate<>();
+//	@Bean("access")
+//	public RedisTemplate<String, Object> redisTemplateForAccessToken() {
+//		RedisTemplate<String, Object> redisTemplate = new RedisTemplate<>();
+//		redisTemplate.setConnectionFactory(redisConnectionFactory());
+//		redisTemplate.setKeySerializer(new StringRedisSerializer());
+//		redisTemplate.setValueSerializer(new Jackson2JsonRedisSerializer<>(AccessToken.class));
+//		return redisTemplate;
+//	}
+
+	@Bean
+	public RedisTemplate<String, AccessToken> redisTemplateForAccessToken() {
+		RedisTemplate<String, AccessToken> redisTemplate = new RedisTemplate<>();
 		redisTemplate.setConnectionFactory(redisConnectionFactory());
 		redisTemplate.setKeySerializer(new StringRedisSerializer());
 		redisTemplate.setValueSerializer(new Jackson2JsonRedisSerializer<>(AccessToken.class));
 		return redisTemplate;
 	}
 
-	@Bean("refresh")
-	public RedisTemplate<String, Object> redisTemplateForRefreshToken() {
-		RedisTemplate<String, Object> redisTemplate = new RedisTemplate<>();
+//	@Bean("refresh")
+//	public RedisTemplate<String, Object> redisTemplateForRefreshToken() {
+//		RedisTemplate<String, Object> redisTemplate = new RedisTemplate<>();
+//		redisTemplate.setConnectionFactory(redisConnectionFactory());
+//		redisTemplate.setKeySerializer(new StringRedisSerializer());
+//		redisTemplate.setValueSerializer(new Jackson2JsonRedisSerializer<>(RefreshToken.class));
+//		return redisTemplate;
+//	}
+
+	@Bean
+	public RedisTemplate<String, RefreshToken> redisTemplateForRefreshToken() {
+		RedisTemplate<String, RefreshToken> redisTemplate = new RedisTemplate<>();
 		redisTemplate.setConnectionFactory(redisConnectionFactory());
 		redisTemplate.setKeySerializer(new StringRedisSerializer());
 		redisTemplate.setValueSerializer(new Jackson2JsonRedisSerializer<>(RefreshToken.class));

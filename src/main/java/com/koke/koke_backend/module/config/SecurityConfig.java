@@ -41,7 +41,7 @@ public class SecurityConfig {
 	private final JwtTokenProvider jwtTokenProvider;
 	private final Environment env;
 
-	private static final Profiles profile = Profiles.of("master", "develop");
+	private static final Profiles profile = Profiles.of("123");
 
 	private static final String[] NOT_NEED_TOKEN_URLS = {"/swagger-ui/**", "/swagger-ui/index.html", "/v3/api-docs/**",
 			"/rest-api-doc.html", "/signUp", "/signUp/offer", "/login/**", "/refresh", "/static/**", "/css/**", "/js/**", "/img/**",

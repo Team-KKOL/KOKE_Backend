@@ -5,12 +5,12 @@ spring:
     restart:
       enabled: true
   datasource:
-    url: ENC(23LpMmehZ3d4+CwDWJGoZYJEl15uQJ8UJSYKUaGxw44wVmvgcQTjmpdBJKPG0+yJTPdNgvY3NV0ZZ2eQ8bPK+GfVkX8aNbc+CUZYpu0mRe3R2WBfyyKoImI64mzNN6dX99KpkE3Rq75qcXBtakMgfw==)
+    url: ENC(hKRHN9cc7mGICw0GzAKT6XaDZJjd5omviV7fXp9gVhN79odVeU9IjcJhiDZrXw9oG8m4gEHDrEYZNpbVsxCDbwbo+ggNHWZpNow3nyOCtN/zttzbs4L0ouQ33hIyV7LqyMBR0OpFqfR4K2l5pr6H4w==)
     username: ENC(UHlF351brOUFhxWrkrrB/ds9xQaPlanX3pXME6o3Rbs=)
     password: ENC(Zi1Wzawi+DVlzHYGOdYRzagyGfdtb6mL/IV12Mzl9Xw=)
-    driver-class-name: com
+    driver-class-name: org.mariadb.jdbc.Driver
   jpa:
-    database-platform: org.mariadb.jdbc.Driver
+    database-platform: org.hibernate.dialect.MariaDBDialect
     show-sql: false
     hibernate:
       ddl-auto: none
@@ -24,9 +24,10 @@ spring:
       on-profile: master
   data:
     redis:
-      host: ENC(CeB5sKExvKTODBPjIu3ls9iMRHs0hVtX+ySdB5jBnqdGH7Qu4MkQZy4er1CT8nD0GbAidlMgesQNGb29XOCR70t/0JRMWha7j2UfJtsybIU=)
+      host: ENC(ygmbC+pwseqZ8gFoPJLtGHBzUD31ofcEnuIeZ/C+zqiRDxpViccLtXklecKy27e+ATePEFA2nk4eEdCi3ABX/Va7dGTzmKT9F5n0Nx93jhQ=)
       port: 6379
       database: 0
+      password:
 jwt:
   accessTokenValidity: 14d
   refreshTokenValidity: 1M
@@ -62,12 +63,12 @@ spring:
     restart:
       enabled: true
   datasource:
-    url: ENC(jg+7TOerguYLmWJpjAgrmgbk3u3P5tcXeGTi/sSTyZWDShKqgnuAB08RcJQJBNNYo5rMbFoIgiRVXWGgUm3LoyccmaSyWxuac3FDpDwqxbvGOfSvSc9iZYVb/uMrSLQpHIoTQ5vcBfZQlelYU6kJcQ==)
+    url: ENC(BzzU8Z8hG3BL3y50gl7SBCdNbIx/pB4HoslUGBeFCUFLf5QCYYbhZwtYrdNgPM/31U4O5gbluhh8ltOVAGTJfJ3EOYFT0x+raQ6d7k9Iq7wWsZCDH/4mO+6XlN0v9bJCkcbrwyIz/zBETgNCvAj8kw==)
     username: ENC(UHlF351brOUFhxWrkrrB/ds9xQaPlanX3pXME6o3Rbs=)
     password: ENC(Zi1Wzawi+DVlzHYGOdYRzagyGfdtb6mL/IV12Mzl9Xw=)
-    driver-class-name: com
+    driver-class-name: org.mariadb.jdbc.Driver
   jpa:
-    database-platform: org.mariadb.jdbc.Driver
+    database-platform: org.hibernate.dialect.MariaDBDialect
     show-sql: false
     hibernate:
       ddl-auto: none
@@ -81,9 +82,10 @@ spring:
       on-profile: develop
   data:
     redis:
-      host: ENC(CeB5sKExvKTODBPjIu3ls9iMRHs0hVtX+ySdB5jBnqdGH7Qu4MkQZy4er1CT8nD0GbAidlMgesQNGb29XOCR70t/0JRMWha7j2UfJtsybIU=)
+      host: ENC(ygmbC+pwseqZ8gFoPJLtGHBzUD31ofcEnuIeZ/C+zqiRDxpViccLtXklecKy27e+ATePEFA2nk4eEdCi3ABX/Va7dGTzmKT9F5n0Nx93jhQ=)
       port: 6379
       database: 1
+      password:
 jwt:
   accessTokenValidity: 14d
   refreshTokenValidity: 1M
@@ -102,7 +104,7 @@ logging:
     console: UTF-8
     file: UTF-8
 custom:
-  path: '/home/ubunutu/koke_file_test'
+  path: '/home/ubuntu/koke_file_test'
 
 server:
   port: 9001
