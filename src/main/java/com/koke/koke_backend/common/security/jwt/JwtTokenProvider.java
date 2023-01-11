@@ -2,7 +2,6 @@ package com.koke.koke_backend.common.security.jwt;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.koke.koke_backend.common.enums.Role;
 import com.koke.koke_backend.common.yml.JwtProperty;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.ExpiredJwtException;

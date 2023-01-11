@@ -24,16 +24,19 @@ public class RedisConfig {
 
 	@Bean
 	public RedisConnectionFactory redisConnectionFactory() {
-		RedisURI redisURI = RedisURI.builder()
+		RedisConfiguration redisConfiguration = LettuceConnectionFactory.createRedisConfiguration(redisURI());
+		LettuceConnectionFactory lettuceConnectionFactory = new LettuceConnectionFactory(redisConfiguration);
+		lettuceConnectionFactory.afterPropertiesSet();
+		return lettuceConnectionFactory;
+	}
+
+	private RedisURI redisURI() {
+		return RedisURI.builder()
 				.withHost(redisProperties.getHost())
 				.withPort(redisProperties.getPort())
 				.withDatabase(redisProperties.getDatabase())
 				.withAuthentication(redisProperties.getUsername(), redisProperties.getPassword())
 				.build();
-		RedisConfiguration redisConfiguration = LettuceConnectionFactory.createRedisConfiguration(redisURI);
-		LettuceConnectionFactory lettuceConnectionFactory = new LettuceConnectionFactory(redisConfiguration);
-		lettuceConnectionFactory.afterPropertiesSet();
-		return lettuceConnectionFactory;
 	}
 
 	@Bean

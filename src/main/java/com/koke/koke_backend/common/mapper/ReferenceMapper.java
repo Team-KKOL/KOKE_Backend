@@ -1,4 +1,4 @@
-package com.koke.koke_backend.common.mapper.base;
+package com.koke.koke_backend.common.mapper;
 
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;

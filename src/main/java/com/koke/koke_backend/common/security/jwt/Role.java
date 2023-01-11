@@ -1,4 +1,4 @@
-package com.koke.koke_backend.common.enums;
+package com.koke.koke_backend.common.security.jwt;
 
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;

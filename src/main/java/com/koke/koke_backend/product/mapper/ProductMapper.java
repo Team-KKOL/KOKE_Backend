@@ -1,6 +1,6 @@
-package com.koke.koke_backend.common.mapper;
+package com.koke.koke_backend.product.mapper;
 
-import com.koke.koke_backend.common.mapper.base.EntityMapper;
+import com.koke.koke_backend.common.mapper.EntityMapper;
 import org.mapstruct.*;
 
 @Mapper(
