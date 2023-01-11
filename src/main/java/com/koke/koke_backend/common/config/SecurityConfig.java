@@ -1,8 +1,8 @@
 package com.koke.koke_backend.common.config;
 
-import com.koke.koke_backend.common.security.JwtAuthEntryPoint;
-import com.koke.koke_backend.common.security.JwtAuthenticationFilter;
-import com.koke.koke_backend.common.security.JwtTokenProvider;
+import com.koke.koke_backend.common.security.jwt.JwtAuthEntryPoint;
+import com.koke.koke_backend.common.security.jwt.JwtAuthenticationFilter;
+import com.koke.koke_backend.common.security.jwt.JwtTokenProvider;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

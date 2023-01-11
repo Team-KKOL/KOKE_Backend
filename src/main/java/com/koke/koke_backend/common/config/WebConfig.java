@@ -12,28 +12,28 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 @RequiredArgsConstructor
 public class WebConfig implements WebMvcConfigurer {
 
-	@Value("${custom.path}")
-	private String uploadPath;
-	private final ObjectMapper objectMapper;
+    @Value("${custom.path}")
+    private String uploadPath;
+    private final ObjectMapper objectMapper;
 
-	@Override
-	public void addCorsMappings(CorsRegistry registry) {
-		registry
-				.addMapping("/**")
-				.allowedMethods("*")
-				.allowedOrigins("*")
-				.exposedHeaders("TOKEN");
-	}
+    @Override
+    public void addCorsMappings(CorsRegistry registry) {
+        registry
+                .addMapping("/**")
+                .allowedMethods("*")
+                .allowedOrigins("*")
+                .exposedHeaders("TOKEN");
+    }
 
-	@Override
-	public void addResourceHandlers(ResourceHandlerRegistry registry) {
-		String sb = "file:" +
-				uploadPath +
-				"/";
+    @Override
+    public void addResourceHandlers(ResourceHandlerRegistry registry) {
+        String sb = "file:" +
+                uploadPath +
+                "/";
 
-		registry
-				.addResourceHandler("/mdpt_file/**")
-				.addResourceLocations(sb);
-	}
+        registry
+                .addResourceHandler("/mdpt_file/**")
+                .addResourceLocations(sb);
+    }
 
 }

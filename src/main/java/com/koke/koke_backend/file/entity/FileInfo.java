@@ -1,5 +1,6 @@
 package com.koke.koke_backend.file.entity;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.koke.koke_backend.common.entity.BaseTimeEntity;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -16,12 +17,12 @@ import static jakarta.persistence.GenerationType.IDENTITY;
 @NoArgsConstructor
 @AllArgsConstructor
 @Table
-public class FileDtl extends BaseTimeEntity {
+public class FileInfo extends BaseTimeEntity {
 
     @Id
     @GeneratedValue(strategy = IDENTITY)
     @Column(length = 20)
-    private Long fileDtlId;
+    private Long fileInfoId;
 
     @Column(length = 200, nullable = false)
     private String originFileNm;
@@ -40,6 +41,7 @@ public class FileDtl extends BaseTimeEntity {
 
     @ManyToOne(fetch = LAZY)
     @JoinColumn(name = "fileMstId", referencedColumnName = "fileMstId")
+    @JsonBackReference
     private FileMst fileMst;
 
 }

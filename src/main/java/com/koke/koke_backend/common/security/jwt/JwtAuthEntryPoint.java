@@ -1,4 +1,4 @@
-package com.koke.koke_backend.common.security;
+package com.koke.koke_backend.common.security.jwt;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.koke.koke_backend.common.dto.ApiResponse;

@@ -20,52 +20,52 @@ import static java.time.LocalDate.now;
 @Configuration
 public class SwaggerOASConfig {
 
-	private static final String SCHEMA_PATTERN = "^\\d{4}-\\d{2}-\\d{2} \\d{2}:\\d{2}:\\d{2}$";
+    private static final String SCHEMA_PATTERN = "^\\d{4}-\\d{2}-\\d{2} \\d{2}:\\d{2}:\\d{2}$";
 
-	@Bean
-	public OpenAPI api() {
-		return new OpenAPI()
-				.components(new Components().addSecuritySchemes("TOKEN", securityScheme()))
-				.info(apiInfo()); // API 문서에 대한 정보 추가
-	}
+    @Bean
+    public OpenAPI api() {
+        return new OpenAPI()
+                .components(new Components().addSecuritySchemes("TOKEN", securityScheme()))
+                .info(apiInfo()); // API 문서에 대한 정보 추가
+    }
 
-	private Info apiInfo() {
-		return new Info()
-				.title("KOKE Spring REST API Documentation (" + now() + ")")
-				.description("KOKE Spring Backend REST API 명세서")
-				.version("0.5");
-	}
+    private Info apiInfo() {
+        return new Info()
+                .title("KOKE Spring REST API Documentation (" + now() + ")")
+                .description("KOKE Spring Backend REST API 명세서")
+                .version("0.5");
+    }
 
-	@Bean
-	public SecurityScheme securityScheme() {
-		return new SecurityScheme()
-				.type(HTTP)
-				.scheme("bearer")
-				.bearerFormat("JWT")
-				.in(HEADER)
-				.name("TOKEN");
-	}
+    @Bean
+    public SecurityScheme securityScheme() {
+        return new SecurityScheme()
+                .type(HTTP)
+                .scheme("bearer")
+                .bearerFormat("JWT")
+                .in(HEADER)
+                .name("TOKEN");
+    }
 
-	@Bean
-	public OpenApiCustomiser openAPICustomiser() {
-		return openApi -> {
-			Map<String, Schema> schemas = openApi.getComponents().getSchemas();
-			schemas.values().forEach(schema -> {
-				Map<String, Schema<?>> properties = schema.getProperties() != null ?
-						schema.getProperties() : Map.of();
+    @Bean
+    public OpenApiCustomiser openAPICustomiser() {
+        return openApi -> {
+            Map<String, Schema> schemas = openApi.getComponents().getSchemas();
+            schemas.values().forEach(schema -> {
+                Map<String, Schema<?>> properties = schema.getProperties() != null ?
+                        schema.getProperties() : Map.of();
 
-				for (String propertyName : properties.keySet()) {
-					Schema<?> propertySchema = properties.get(propertyName);
-					if (propertySchema instanceof DateTimeSchema) {
-						properties.replace(propertyName, new StringSchema()
-								.example(propertySchema.getTitle())
-								.pattern(SCHEMA_PATTERN)
-								//copies original description
-								.description(propertySchema.getDescription()));
-					}
-				}
-			});
-		};
-	}
+                for (String propertyName : properties.keySet()) {
+                    Schema<?> propertySchema = properties.get(propertyName);
+                    if (propertySchema instanceof DateTimeSchema) {
+                        properties.replace(propertyName, new StringSchema()
+                                .example(propertySchema.getTitle())
+                                .pattern(SCHEMA_PATTERN)
+                                //copies original description
+                                .description(propertySchema.getDescription()));
+                    }
+                }
+            });
+        };
+    }
 
 }
