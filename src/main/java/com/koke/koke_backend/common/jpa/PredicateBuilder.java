@@ -14,15 +14,15 @@ import java.util.ArrayList;
 import java.util.List;
 
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-public class PredicateTemplate {
+public class PredicateBuilder {
 
 	private final List<Predicate> predicateBuilders = new ArrayList<>();
 
-	public static PredicateTemplate builder() {
-		return new PredicateTemplate();
+	public static PredicateBuilder builder() {
+		return new PredicateBuilder();
 	}
 
-	public <P extends Predicate> PredicateTemplate and(P pr) {
+	public <P extends Predicate> PredicateBuilder and(P pr) {
 		predicateBuilders.add(pr);
 		return this;
 	}
@@ -33,7 +33,7 @@ public class PredicateTemplate {
 
 	// StringPath : QueryDSL에서 다루는 Q-Entity 클래스의 String 타입 필드를 나타내는 클래스
 
-	public PredicateTemplate eqString(StringPath column, String value) {
+	public PredicateBuilder eqString(StringPath column, String value) {
 
 		// column.eq(value) -> BooleanExpression 클래스(Predicate 인터페이스의 구현체 중 하나)
 
@@ -44,7 +44,7 @@ public class PredicateTemplate {
 		return this;
 	}
 
-	public PredicateTemplate containsString(StringPath column, String value) {
+	public PredicateBuilder containsString(StringPath column, String value) {
 
 		if (StringUtils.hasText(value)) {
 			predicateBuilders.add(column.contains(value));
@@ -53,7 +53,7 @@ public class PredicateTemplate {
 		return this;
 	}
 
-	public PredicateTemplate containsStringDesc(StringPath column1, StringPath column2, String value) {
+	public PredicateBuilder containsStringDesc(StringPath column1, StringPath column2, String value) {
 
 		if (StringUtils.hasText(value)) {
 			predicateBuilders.add(new BooleanBuilder()
@@ -63,7 +63,7 @@ public class PredicateTemplate {
 		return this;
 	}
 
-	public PredicateTemplate inString(StringPath column, List<String> value) {
+	public PredicateBuilder inString(StringPath column, List<String> value) {
 
 		if (value != null) {
 			predicateBuilders.add(column.in(value));
@@ -72,7 +72,7 @@ public class PredicateTemplate {
 		return this;
 	}
 
-	public PredicateTemplate eqLong(NumberPath<Long> column, Long value) {
+	public PredicateBuilder eqLong(NumberPath<Long> column, Long value) {
 
 		if (value != null) {
 			predicateBuilders.add(column.eq(value));
@@ -81,7 +81,7 @@ public class PredicateTemplate {
 		return this;
 	}
 
-	public PredicateTemplate neLong(NumberPath<Long> column, Long value) {
+	public PredicateBuilder neLong(NumberPath<Long> column, Long value) {
 
 		if (value != null) {
 			predicateBuilders.add(column.ne(value));
@@ -90,7 +90,7 @@ public class PredicateTemplate {
 		return this;
 	}
 
-	public PredicateTemplate inLong(NumberPath<Long> column, List<Long> value) {
+	public PredicateBuilder inLong(NumberPath<Long> column, List<Long> value) {
 
 		if (value != null) {
 			predicateBuilders.add(column.in(value));
@@ -99,7 +99,7 @@ public class PredicateTemplate {
 		return this;
 	}
 
-	public <E extends Enum<E>> PredicateTemplate eqEnum(EnumPath<E> column, E value) {
+	public <E extends Enum<E>> PredicateBuilder eqEnum(EnumPath<E> column, E value) {
 
 		if (value != null) {
 			predicateBuilders.add(column.eq(value));
@@ -108,7 +108,7 @@ public class PredicateTemplate {
 		return this;
 	}
 
-	public <E extends Enum<E>> PredicateTemplate inEnum(EnumPath<E> column, List<E> value) {
+	public <E extends Enum<E>> PredicateBuilder inEnum(EnumPath<E> column, List<E> value) {
 
 		if (value != null) {
 			predicateBuilders.add(column.in(value));
@@ -117,7 +117,7 @@ public class PredicateTemplate {
 		return this;
 	}
 
-	public PredicateTemplate betweenDateTime(DateTimePath<LocalDateTime> column, LocalDateTime startDate, LocalDateTime endDate) {
+	public PredicateBuilder betweenDateTime(DateTimePath<LocalDateTime> column, LocalDateTime startDate, LocalDateTime endDate) {
 
 		if (startDate != null && endDate != null) {
 			predicateBuilders.add(column.between(startDate, endDate));
@@ -126,7 +126,7 @@ public class PredicateTemplate {
 		return this;
 	}
 
-	public PredicateTemplate betweenDateTimeDynamic(DateTimePath<LocalDateTime> column, LocalDateTime startDate, LocalDateTime endDate) {
+	public PredicateBuilder betweenDateTimeDynamic(DateTimePath<LocalDateTime> column, LocalDateTime startDate, LocalDateTime endDate) {
 		if (startDate != null) {
 			predicateBuilders.add(column.goe(startDate));
 		}
@@ -138,7 +138,7 @@ public class PredicateTemplate {
 		return this;
 	}
 
-	public PredicateTemplate betweenDate(DatePath<LocalDate> column, LocalDate startDate, LocalDate endDate) {
+	public PredicateBuilder betweenDate(DatePath<LocalDate> column, LocalDate startDate, LocalDate endDate) {
 		if (startDate != null && endDate != null) {
 			predicateBuilders.add(column.between(startDate, endDate));
 		}
@@ -146,7 +146,7 @@ public class PredicateTemplate {
 		return this;
 	}
 
-	public PredicateTemplate betweenDateDynamic(DatePath<LocalDate> column, LocalDate startDate, LocalDate endDate) {
+	public PredicateBuilder betweenDateDynamic(DatePath<LocalDate> column, LocalDate startDate, LocalDate endDate) {
 		if (startDate != null) {
 			predicateBuilders.add(column.goe(startDate));
 		}
@@ -158,7 +158,7 @@ public class PredicateTemplate {
 		return this;
 	}
 
-	public PredicateTemplate eqDateTime(DateTimePath<LocalDateTime> column, LocalDateTime value) {
+	public PredicateBuilder eqDateTime(DateTimePath<LocalDateTime> column, LocalDateTime value) {
 
 		if (value != null) {
 			predicateBuilders.add(column.eq(value));
@@ -167,7 +167,7 @@ public class PredicateTemplate {
 		return this;
 	}
 
-	public PredicateTemplate eqDate(DatePath<LocalDate> column, LocalDate value) {
+	public PredicateBuilder eqDate(DatePath<LocalDate> column, LocalDate value) {
 
 		if (value != null) {
 			predicateBuilders.add(column.eq(value));
