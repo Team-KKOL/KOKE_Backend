@@ -1,14 +1,13 @@
 package com.koke.koke_backend.product.repository;
 
 import com.querydsl.jpa.impl.JPAQueryFactory;
-import jakarta.persistence.EntityManager;
+import lombok.RequiredArgsConstructor;
 
+@RequiredArgsConstructor
 public class QProductRepositoryImpl implements QProductRepository {
 
     private final JPAQueryFactory queryFactory;
 
-    public QProductRepositoryImpl(EntityManager em) {
-        this.queryFactory = new JPAQueryFactory(em);
-    }
+
 
 }

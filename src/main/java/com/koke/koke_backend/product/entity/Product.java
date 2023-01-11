@@ -1,6 +1,7 @@
 package com.koke.koke_backend.product.entity;
 
 import com.koke.koke_backend.common.entity.BaseTimeEntity;
+import com.koke.koke_backend.file.entity.FileMst;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -12,7 +13,7 @@ import lombok.experimental.SuperBuilder;
 @Getter
 @NoArgsConstructor
 @AllArgsConstructor
-@Table(name = "TB_PRODUCT")
+@Table
 public class Product extends BaseTimeEntity {
 
 //    {
@@ -55,11 +56,13 @@ public class Product extends BaseTimeEntity {
     @Column
     private String price;
 
-    @Column
-    private String logoImg;
+    @ManyToOne
+    @JoinColumn(name = "logoImgFileMstId", referencedColumnName = "fileMstId")
+    private FileMst logoImg;
 
-    @Column
-    private String productImg;
+    @ManyToOne
+    @JoinColumn(name = "productImgFileMstId", referencedColumnName = "fileMstId")
+    private FileMst productImg;
 
     @Lob
     @Column
