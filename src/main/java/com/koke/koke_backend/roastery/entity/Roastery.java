@@ -20,7 +20,7 @@ public class Roastery extends BaseEntity {
     @Id
     @Column(length = 40)
     @Comment("로스터리 카페 ID")
-    private String roasteryId;
+    private String id;
 
     @Column(length = 20, nullable = false)
     @Comment("로스터리 카페명")
@@ -40,10 +40,12 @@ public class Roastery extends BaseEntity {
 
     @OneToOne
     @JoinColumn(name = "logoImgId", referencedColumnName = "logoImgId")
+    @Comment("로스터리 카페 로고 이미지 ID")
     private FileMst logoImg;
 
     @OneToOne
     @JoinColumn(name = "photoImgId", referencedColumnName = "fileMstId")
+    @Comment("로스터리 카페 이미지 ID")
     private FileMst photoImg;
 
 }

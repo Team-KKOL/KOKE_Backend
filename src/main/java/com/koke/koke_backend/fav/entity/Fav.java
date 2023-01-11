@@ -4,11 +4,13 @@ import com.koke.koke_backend.common.entity.BaseEntity;
 import com.koke.koke_backend.fav.enums.FavType;
 import com.koke.koke_backend.product.entity.Product;
 import com.koke.koke_backend.roastery.entity.Roastery;
+import com.koke.koke_backend.user.entity.User;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.experimental.SuperBuilder;
+import org.hibernate.annotations.Comment;
 
 import static jakarta.persistence.FetchType.LAZY;
 import static jakarta.persistence.GenerationType.IDENTITY;
@@ -26,22 +28,27 @@ public class Fav extends BaseEntity {
     @Id
     @GeneratedValue(strategy =  IDENTITY)
     @Column(length = 30)
+    @Comment("좋아요 ID")
     private Long favId;
 
     @Enumerated(EnumType.STRING)
     @Column(length = 20, nullable = false)
+    @Comment("좋아요 타입")
     private FavType favType;
 
     @ManyToOne(fetch = LAZY)
-    @JoinColumn(name = "productId", referencedColumnName = "productId")
+    @JoinColumn(name = "productId", referencedColumnName = "id")
+    @Comment("좋아요 대상 상품 ID")
     private Product product;
 
     @ManyToOne(fetch = LAZY)
-    @JoinColumn(name = "roasteryId", referencedColumnName = "roasteryId")
+    @JoinColumn(name = "roasteryId", referencedColumnName = "id")
+    @Comment("좋아요 대상 로스터리 ID")
     private Roastery roastery;
 
-//    @ManyToOne(fetch = LAZY)
-//    @JoinColumn(name = "userEmail", referencedColumnName = "email")
-//    private User user;
+    @ManyToOne(fetch = LAZY)
+    @JoinColumn(name = "userSeq", referencedColumnName = "userSeq")
+    @Comment("좋아요한 사용자 ID")
+    private User user;
 
 }

@@ -42,10 +42,10 @@ public class Product extends BaseTimeEntity {
 
     @Id
     @Column(length = 30)
-    private String productId;
+    private String id;
 
     @Column(length = 30)
-    private String productName;
+    private String name;
 
     @Column(length = 50)
     private String taste;
