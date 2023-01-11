@@ -2,12 +2,15 @@ package com.koke.koke_backend.fav.entity;
 
 import com.koke.koke_backend.common.entity.BaseEntity;
 import com.koke.koke_backend.fav.enums.FavType;
+import com.koke.koke_backend.product.entity.Product;
+import com.koke.koke_backend.roastery.entity.Roastery;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.experimental.SuperBuilder;
 
+import static jakarta.persistence.FetchType.LAZY;
 import static jakarta.persistence.GenerationType.IDENTITY;
 
 @SuperBuilder(toBuilder = true)
@@ -28,5 +31,17 @@ public class Fav extends BaseEntity {
     @Enumerated(EnumType.STRING)
     @Column(length = 20, nullable = false)
     private FavType favType;
+
+    @ManyToOne(fetch = LAZY)
+    @JoinColumn(name = "productId", referencedColumnName = "productId")
+    private Product product;
+
+    @ManyToOne(fetch = LAZY)
+    @JoinColumn(name = "roasteryId", referencedColumnName = "roasteryId")
+    private Roastery roastery;
+
+//    @ManyToOne(fetch = LAZY)
+//    @JoinColumn(name = "userEmail", referencedColumnName = "email")
+//    private User user;
 
 }

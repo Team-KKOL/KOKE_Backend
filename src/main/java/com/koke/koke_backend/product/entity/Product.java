@@ -56,11 +56,11 @@ public class Product extends BaseTimeEntity {
     @Column
     private String price;
 
-    @ManyToOne
+    @OneToOne
     @JoinColumn(name = "logoImgMstId", referencedColumnName = "fileMstId")
     private FileMst logoImg;
 
-    @ManyToOne
+    @OneToOne
     @JoinColumn(name = "productImgMstId", referencedColumnName = "fileMstId")
     private FileMst productImg;
 
