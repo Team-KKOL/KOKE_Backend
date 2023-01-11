@@ -1,7 +1,7 @@
 package com.koke.koke_backend.common.security;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.koke.koke_backend.dto.ResponseDto;
+import com.koke.koke_backend.common.dto.ApiResponse;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
@@ -29,22 +29,21 @@ import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
 @RequiredArgsConstructor
 public class JwtAuthEntryPoint implements AuthenticationEntryPoint {
 
-	private static final ResponseDto exceptionResponse =
-			new ResponseDto("3", "권한이 없습니다. 로그인해주세요.");
+    @Override
+    public void commence(HttpServletRequest request, HttpServletResponse response,
+                         AuthenticationException authException) throws IOException, ServletException, InsufficientAuthenticationException {
+        log.error("Unauthorized error: {}", authException.getMessage());
+        log.error("", authException);
 
-	@Override
-	public void commence(HttpServletRequest request, HttpServletResponse response,
-						 AuthenticationException authException) throws IOException, ServletException, InsufficientAuthenticationException {
-		log.error("Unauthorized error: {}", authException.getMessage());
-		log.error("", authException);
+        response.setCharacterEncoding("UTF-8");
+        response.setContentType(APPLICATION_JSON_VALUE + ";charset=UTF-8");
+        response.setStatus(SC_UNAUTHORIZED);
 
-		response.setCharacterEncoding("UTF-8");
-		response.setContentType(APPLICATION_JSON_VALUE + ";charset=UTF-8");
-		response.setStatus(SC_UNAUTHORIZED);
-		try (OutputStream os = response.getOutputStream()) {
-			ObjectMapper om = new ObjectMapper();
-			om.writeValue(os, exceptionResponse);
-			os.flush();
-		}
-	}
+
+        try (OutputStream os = response.getOutputStream()) {
+            ObjectMapper om = new ObjectMapper();
+            om.writeValue(os, ApiResponse.unauthorized("권한이 없습니다. 로그인해주세요."));
+            os.flush();
+        }
+    }
 }

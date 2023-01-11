@@ -41,4 +41,14 @@ public record ApiResponse<T>(String message, T body) {
         return new ResponseEntity<>(apiResponse, BAD_REQUEST);
     }
 
+    public static <T> ResponseEntity<ApiResponse<T>> forbidden(String message) {
+        ApiResponse<T> apiResponse = new ApiResponse<>(message, null);
+        return new ResponseEntity<>(apiResponse, FORBIDDEN);
+    }
+
+    public static <T> ResponseEntity<ApiResponse<T>> unauthorized(String message) {
+        ApiResponse<T> apiResponse = new ApiResponse<>(message, null);
+        return new ResponseEntity<>(apiResponse, UNAUTHORIZED);
+    }
+
 }

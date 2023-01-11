@@ -1,13 +1,14 @@
 package com.koke.koke_backend.common.security;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.koke.koke_backend.dto.ResponseDto;
+import com.koke.koke_backend.common.dto.ApiResponse;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.filter.OncePerRequestFilter;
@@ -16,7 +17,6 @@ import java.io.IOException;
 import java.io.OutputStream;
 
 import static org.apache.http.HttpStatus.SC_FORBIDDEN;
-import static org.springframework.http.HttpStatus.FORBIDDEN;
 
 /**
  * @author : 김하빈(hbkim@bpnsolution.com)
@@ -41,13 +41,14 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
 
 		if (token != null && jwtTokenProvider.isAccessTokenExpired(token)) {
 			ObjectMapper om = new ObjectMapper();
-			ResponseDto res = new ResponseDto("2", "accessToken이 만료되었습니다. accessToken 재발급을 진행해주세요.", FORBIDDEN);
+			ResponseEntity<ApiResponse<Object>> apiResponse =
+					ApiResponse.forbidden("accessToken이 만료되었습니다. accessToken 재발급을 진행해주세요.");
 
 			response.setCharacterEncoding("UTF-8");
 			response.setContentType(MediaType.APPLICATION_JSON_VALUE + ";charset=UTF-8");
 			response.setStatus(SC_FORBIDDEN);
 			try (OutputStream os = response.getOutputStream()) {
-				om.writeValue(os, res);
+				om.writeValue(os, apiResponse);
 				os.flush();
 			}
 		}
