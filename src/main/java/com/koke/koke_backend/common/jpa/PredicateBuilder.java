@@ -109,7 +109,6 @@ public class PredicateBuilder {
 	}
 
 	public <E extends Enum<E>> PredicateBuilder inEnum(EnumPath<E> column, List<E> value) {
-
 		if (value != null) {
 			predicateBuilders.add(column.in(value));
 		}
@@ -118,7 +117,6 @@ public class PredicateBuilder {
 	}
 
 	public PredicateBuilder betweenDateTime(DateTimePath<LocalDateTime> column, LocalDateTime startDate, LocalDateTime endDate) {
-
 		if (startDate != null && endDate != null) {
 			predicateBuilders.add(column.between(startDate, endDate));
 		}

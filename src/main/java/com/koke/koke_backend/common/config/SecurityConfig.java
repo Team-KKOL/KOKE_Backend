@@ -41,9 +41,9 @@ public class SecurityConfig {
 
 	private static final Profiles profile = Profiles.of("123");
 
-	private static final String[] NOT_NEED_TOKEN_URLS = {"/swagger-ui/**", "/swagger-ui/index.html", "/v3/api-docs/**",
-			"/rest-api-doc.html", "/signUp", "/signUp/offer", "/login/**", "/refresh", "/static/**", "/css/**", "/js/**", "/img/**",
-			"/lib/**", "/manifest.json", "/lodash.json", "/purchased/**", "/agree/**", "/file/**", "/mdpt_file/**"
+	private static final String[] NOT_NEED_TOKEN_URLS = {"/swagger-ui/**", "/swagger-ui.html", "/v3/api-docs/**",
+			"/signUp", "/login/**", "/refresh", "/static/**", "/css/**", "/js/**", "/img/**",
+			"/lib/**", "/manifest.json", "/lodash.json"
 	};
 
 	@Bean
