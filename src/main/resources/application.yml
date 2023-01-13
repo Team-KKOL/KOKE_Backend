@@ -133,14 +133,14 @@ spring:
     oauth2.client:
       registration:
         google:
-          clientId: "798078014402-sbuv8hancc9ndt0q9v561t5sqgpqp9i1.apps.googleusercontent.com}"
-          clientSecret: "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"
+          clientId: ENC(Opoo9OrktGzMbUh6jxDJv+urs1bSztwyByEmcZx2HJRt3kVgSdWVc7eepNLsfZySQ/EH8O5hSA8P/25u9KYLz0Tyd/l1xavrxJVXgH5dSPHSMIEsyLKthrG0F0PsXaiN)
+          clientSecret: ENC(adR2s183Qd/+yFsAf+5gar13tx29wXh/uQ2IFHqw+/LrAJy7F4xPk3B4LGkLgpXz9XEHH9ghSPBaKdPDdMc2mw==)
           scope:
             - email
             - profile
         naver:
-          clientId: "3gMJ4E4ENS0fEydCkveD"
-          clientSecret: "bC9M9XHjGM"
+          clientId: ENC(F9rbZISjUIS2FUwV/3l7Npp+HkA3WHHhYwvfKf7UcsVKhgpjJVe/D/bNbU2C7Ree)
+          clientSecret: ENC(hZr/XZfMDKDSVcgLKr6dVdEV1XNMqXwcw/ObBt5XZ2M=)
           clientAuthenticationMethod: post
           authorizationGrantType: authorization_code
           redirectUri: "{baseUrl}/{action}/oauth2/code/{registrationId}"
@@ -150,8 +150,8 @@ spring:
             - profile_image
           clientName: Naver
         kakao:
-          clientId: "18dfa53dbef416be3464e36c39aefdec"
-          clientSecret: "z69G8pyimhO1TZltaVNwv02LSI6whVpP"
+          clientId: ENC(u/UaXouMRjGiTyNtjdMleZHn3abae+TyEM1ha34X1MR6GRUluTVcJFmTkzndKqip04aXJJbmAtspAt7xBvy4sw==)
+          clientSecret: ENC(1ukLqdPf4k+jfVVf4GjHRKtmbjZ9lo/909wajaKT8M31X85n1Xdsg+SFAr/C2FlGidqNIIwkRTAR2DP+ggsdeQ==)
           clientAuthenticationMethod: post
           authorizationGrantType: authorization_code
           redirectUri: "{baseUrl}/{action}/oauth2/code/{registrationId}"
