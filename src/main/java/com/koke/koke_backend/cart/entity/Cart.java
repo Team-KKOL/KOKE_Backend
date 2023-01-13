@@ -2,6 +2,7 @@ package com.koke.koke_backend.cart.entity;
 
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.koke.koke_backend.common.entity.BaseTimeEntity;
+import com.koke.koke_backend.user.entity.User;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -13,6 +14,7 @@ import org.hibernate.annotations.Comment;
 import java.util.ArrayList;
 import java.util.List;
 
+import static jakarta.persistence.FetchType.LAZY;
 import static jakarta.persistence.GenerationType.IDENTITY;
 
 @SuperBuilder(toBuilder = true)
@@ -34,5 +36,9 @@ public class Cart extends BaseTimeEntity {
             cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REMOVE}, orphanRemoval = true)
     @JsonManagedReference
     private List<CartProduct> cartProducts = new ArrayList<>();
+
+    @OneToOne(fetch = LAZY)
+    @JoinColumn(name = "userSeq", referencedColumnName = "userSeq")
+    private User user;
 
 }
