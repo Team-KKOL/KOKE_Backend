@@ -32,14 +32,14 @@ spring:
     oauth2.client:
       registration:
         google:
-          clientId: '{구글 client-id}'
-          clientSecret: '{구글 client-secret}'
+          clientId: "798078014402-sbuv8hancc9ndt0q9v561t5sqgpqp9i1.apps.googleusercontent.com}"
+          clientSecret: "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"
           scope:
             - email
             - profile
         naver:
-          clientId: '{네이버 client-id}'
-          clientSecret: '{네이버 client-secret}'
+          clientId: "3gMJ4E4ENS0fEydCkveD"
+          clientSecret: "bC9M9XHjGM"
           clientAuthenticationMethod: post
           authorizationGrantType: authorization_code
           redirectUri: "{baseUrl}/{action}/oauth2/code/{registrationId}"
@@ -49,8 +49,8 @@ spring:
             - profile_image
           clientName: Naver
         kakao:
-          clientId: '{카카오 client-id}'
-          clientSecret: '{카카오 client-secret}'
+          clientId: "18dfa53dbef416be3464e36c39aefdec"
+          clientSecret: "z69G8pyimhO1TZltaVNwv02LSI6whVpP"
           clientAuthenticationMethod: post
           authorizationGrantType: authorization_code
           redirectUri: "{baseUrl}/{action}/oauth2/code/{registrationId}"
@@ -133,14 +133,14 @@ spring:
     oauth2.client:
       registration:
         google:
-          clientId: '{구글 client-id}'
-          clientSecret: '{구글 client-secret}'
+          clientId: "798078014402-sbuv8hancc9ndt0q9v561t5sqgpqp9i1.apps.googleusercontent.com}"
+          clientSecret: "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"
           scope:
             - email
             - profile
         naver:
-          clientId: '{네이버 client-id}'
-          clientSecret: '{네이버 client-secret}'
+          clientId: "3gMJ4E4ENS0fEydCkveD"
+          clientSecret: "bC9M9XHjGM"
           clientAuthenticationMethod: post
           authorizationGrantType: authorization_code
           redirectUri: "{baseUrl}/{action}/oauth2/code/{registrationId}"
@@ -150,8 +150,8 @@ spring:
             - profile_image
           clientName: Naver
         kakao:
-          clientId: '{카카오 client-id}'
-          clientSecret: '{카카오 client-secret}'
+          clientId: "18dfa53dbef416be3464e36c39aefdec"
+          clientSecret: "z69G8pyimhO1TZltaVNwv02LSI6whVpP"
           clientAuthenticationMethod: post
           authorizationGrantType: authorization_code
           redirectUri: "{baseUrl}/{action}/oauth2/code/{registrationId}"
@@ -197,3 +197,4 @@ server:
   tomcat:
     remoteip:
       protocol-header: x-forwarded-proto
+
