@@ -49,4 +49,13 @@ public class Category extends BaseTimeEntity {
     @JsonManagedReference
     private List<Category> childs = new ArrayList<>();
 
+    @Builder.Default
+    @OneToMany(mappedBy = "category", cascade = {
+            CascadeType.PERSIST,
+            CascadeType.MERGE,
+            CascadeType.REMOVE
+    }, orphanRemoval = true)
+    @JsonManagedReference
+    private List<ProductCategory> productCategories = new ArrayList<>();
+
 }

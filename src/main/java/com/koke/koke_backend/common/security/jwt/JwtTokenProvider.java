@@ -82,12 +82,12 @@ public class JwtTokenProvider { // JWT 토큰 생성 및 검증 모듈
 	}
 
 	// JWT ACCESS 토큰 생성
-	public AccessToken createAccessToken(String did) {
+	public AccessToken createAccessToken(String userId, Role role) {
 
-		String accessTokenKey = new StringBuilder().append("access_").append(did).toString();
+		String accessTokenKey = new StringBuilder().append("access_").append(userId).toString();
 
 		Claims claims = Jwts.claims();
-		claims.put("role", Role.USER);
+		claims.put("role", role);
 
 		ValueOperations<String, AccessToken> opsForValue = redisTemplateAccess.opsForValue();
 
@@ -95,13 +95,13 @@ public class JwtTokenProvider { // JWT 토큰 생성 및 검증 모듈
 		Date expireDate = new Date(now.getTime() + jwtProperty.getAccessTokenValidity());
 		String tokenValue = Jwts.builder()
 				.setClaims(claims) // 데이터
-				.setSubject(did)
+				.setSubject(userId)
 				.setIssuedAt(now) // 토큰 발행일자
 				.setExpiration(expireDate) // set ExpireTime
 				.signWith(secretKey, HS512) // 암호화 알고리즘, secret값 세팅
 				.compact();
 
-		AccessToken buildAccessToken = AccessToken.builder().userId(did).accessToken(tokenValue).build();
+		AccessToken buildAccessToken = AccessToken.builder().userId(userId).accessToken(tokenValue).build();
 
 		opsForValue.set(accessTokenKey, buildAccessToken);
 		redisTemplateAccess.expireAt(accessTokenKey, expireDate);
@@ -110,12 +110,12 @@ public class JwtTokenProvider { // JWT 토큰 생성 및 검증 모듈
 
 	}
 
-	public RefreshToken createRefreshToken(String did) {
+	public RefreshToken createRefreshToken(String userId, Role role) {
 
-		String refreshTokenKey = new StringBuilder().append("refresh_").append(did).toString();
+		String refreshTokenKey = new StringBuilder().append("refresh_").append(userId).toString();
 
 		Claims claims = Jwts.claims();
-		claims.put("role", Role.USER);
+		claims.put("role", role);
 
 		ValueOperations<String, RefreshToken> opsForValue = redisTemplateRefresh.opsForValue();
 
@@ -123,13 +123,13 @@ public class JwtTokenProvider { // JWT 토큰 생성 및 검증 모듈
 		Date expireDate = new Date(now.getTime() + jwtProperty.getRefreshTokenValidity());
 		String tokenValue = Jwts.builder()
 				.setClaims(claims) // 데이터
-				.setSubject(did)
+				.setSubject(userId)
 				.setIssuedAt(now) // 토큰 발행일자
 				.setExpiration(expireDate) // set ExpireTime
 				.signWith(secretKey, HS512) // 암호화 알고리즘, secret값 세팅
 				.compact();
 
-		RefreshToken buildRefreshToken = RefreshToken.builder().userId(did).refreshToken(tokenValue).build();
+		RefreshToken buildRefreshToken = RefreshToken.builder().userId(userId).refreshToken(tokenValue).build();
 
 		opsForValue.set(refreshTokenKey, buildRefreshToken);
 		redisTemplateRefresh.expireAt(refreshTokenKey, expireDate);

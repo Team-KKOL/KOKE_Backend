@@ -1,3 +1,9 @@
+server:
+  port: 9001
+  tomcat:
+    remoteip:
+      protocol-header: x-forwarded-proto
+
 spring:
   application:
     name: koke_backend
@@ -75,6 +81,7 @@ jwt:
   accessTokenValidity: 14d
   refreshTokenValidity: 1M
   secret: YnBucy1oZXBjLWJhY2tlbmQtanNvbndlYnRva2VuLXNlY3JldEtleQo=YnBucy1oZXBjLWJhY2tlbmQtanNvbndlYnRva2VuLXNlY3JldEtleQo=YnBucy1oZXBjLWJhY2tlbmQtanNvbndlYnRva2VuLXNlY3JldEtleQo=YnBucy1oZXBjLWJhY2tlbmQtanNvbndlYnRva2VuLXNlY3JldEtleQo=YnBucy1oZXBjLWJhY2tlbmQtanNvbndlYnRva2VuLXNlY3JldEtleQo=YnBucy1oZXBjLWJhY2tlbmQtanNvbndlYnRva2VuLXNlY3JldEtleQo=YnBucy1oZXBjLWJhY2tlbmQtanNvbndlYnRva2VuLXNlY3JldEtleQo=YnBucy1oZXBjLWJhY2tlbmQtanNvbndlYnRva2VuLXNlY3JldEtleQo=
+
 springdoc:
   model-and-view-allowed: true
   default-consumes-media-type: application/json
@@ -82,22 +89,22 @@ springdoc:
   swagger-ui:
     path: rest-api-doc.html
     default-models-expand-depth: -1
-
 logging:
   config: classpath:logback-spring.xml
   charset:
     console: UTF-8
     file: UTF-8
+
 custom:
   path: '/home/ubunutu/koke_file'
 
+---
+
 server:
-  port: 9001
+  port: 9002
   tomcat:
     remoteip:
       protocol-header: x-forwarded-proto
-
----
 
 spring:
   application:
@@ -176,6 +183,7 @@ jwt:
   accessTokenValidity: 14d
   refreshTokenValidity: 1M
   secret: YnBucy1oZXBjLWJhY2tlbmQtanNvbndlYnRva2VuLXNlY3JldEtleQo=YnBucy1oZXBjLWJhY2tlbmQtanNvbndlYnRva2VuLXNlY3JldEtleQo=YnBucy1oZXBjLWJhY2tlbmQtanNvbndlYnRva2VuLXNlY3JldEtleQo=YnBucy1oZXBjLWJhY2tlbmQtanNvbndlYnRva2VuLXNlY3JldEtleQo=YnBucy1oZXBjLWJhY2tlbmQtanNvbndlYnRva2VuLXNlY3JldEtleQo=YnBucy1oZXBjLWJhY2tlbmQtanNvbndlYnRva2VuLXNlY3JldEtleQo=YnBucy1oZXBjLWJhY2tlbmQtanNvbndlYnRva2VuLXNlY3JldEtleQo=YnBucy1oZXBjLWJhY2tlbmQtanNvbndlYnRva2VuLXNlY3JldEtleQo=
+
 springdoc:
   model-and-view-allowed: true
   default-consumes-media-type: application/json
@@ -183,18 +191,12 @@ springdoc:
   swagger-ui:
     path: rest-api-doc.html
     default-models-expand-depth: -1
-
 logging:
   config: classpath:logback-spring.xml
   charset:
     console: UTF-8
     file: UTF-8
+
 custom:
   path: '/home/ubuntu/koke_file_test'
-
-server:
-  port: 9001
-  tomcat:
-    remoteip:
-      protocol-header: x-forwarded-proto
 

@@ -1,12 +1,18 @@
 package com.koke.koke_backend.product.entity;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.koke.koke_backend.category.entity.ProductCategory;
 import com.koke.koke_backend.common.entity.BaseTimeEntity;
 import com.koke.koke_backend.file.entity.FileMst;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.experimental.SuperBuilder;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @SuperBuilder(toBuilder = true)
 @Entity
@@ -67,5 +73,14 @@ public class Product extends BaseTimeEntity {
     @Lob
     @Column
     private String textInfo;
+
+    @Builder.Default
+    @OneToMany(mappedBy = "product", cascade = {
+            CascadeType.PERSIST,
+            CascadeType.MERGE,
+            CascadeType.REMOVE
+    }, orphanRemoval = true)
+    @JsonManagedReference
+    private List<ProductCategory> productCategories = new ArrayList<>();
 
 }

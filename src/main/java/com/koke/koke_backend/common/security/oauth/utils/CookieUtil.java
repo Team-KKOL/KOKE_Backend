@@ -3,7 +3,7 @@ package com.koke.koke_backend.common.security.oauth.utils;
 import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import org.springframework.util.SerializationUtils;
+import org.apache.commons.lang3.SerializationUtils;
 
 import java.util.Base64;
 import java.util.Optional;
@@ -49,7 +49,7 @@ public class CookieUtil {
 
     public static String serialize(Object obj) {
         return Base64.getUrlEncoder()
-                .encodeToString(SerializationUtils.serialize(obj));
+                .encodeToString(org.springframework.util.SerializationUtils.serialize(obj));
     }
 
     public static <T> T deserialize(Cookie cookie, Class<T> cls) {
