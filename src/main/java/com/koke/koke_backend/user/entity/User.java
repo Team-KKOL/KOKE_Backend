@@ -27,10 +27,10 @@ public class User extends BaseTimeEntity implements UserDetails {
     @Id
     @Column(length = 30)
 //    @Pattern(regexp = "^[a-z0-9]{4,30}$", message = "아이디는 영문, 숫자 4~30자로 입력해주세요.")
-    @Comment("사용자 Id")
+    @Comment("사용자 ID")
     private String userId;
 
-    @Column(length = 128)
+    @Column(length = 20)
     @Comment("비밀번호")
     private String password;
 

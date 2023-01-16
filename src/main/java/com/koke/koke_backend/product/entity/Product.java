@@ -4,15 +4,19 @@ import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.koke.koke_backend.category.entity.ProductCategory;
 import com.koke.koke_backend.common.entity.BaseTimeEntity;
 import com.koke.koke_backend.file.entity.FileMst;
+import com.koke.koke_backend.roastery.entity.Roastery;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.experimental.SuperBuilder;
+import org.hibernate.annotations.Comment;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import static jakarta.persistence.FetchType.LAZY;
 
 @SuperBuilder(toBuilder = true)
 @Entity
@@ -48,27 +52,34 @@ public class Product extends BaseTimeEntity {
 
     @Id
     @Column(length = 30)
+    @Comment("커피 ID")
     private String id;
 
-    @Column(length = 30)
+    @Column(nullable = false, length = 30)
+    @Comment("커피명")
     private String name;
 
-    @Column(length = 50)
+    @Column(nullable = false, length = 50)
+    @Comment("커피 맛")
     private String taste;
 
-    @Column
+    @Column(nullable = false, length = 20)
     private String weight;
 
-    @Column
+    @Column(nullable = false, length = 20)
     private String price;
 
-    @OneToOne
+    @OneToOne(fetch = LAZY)
     @JoinColumn(name = "logoImgMstId", referencedColumnName = "fileMstId")
     private FileMst logoImg;
 
-    @OneToOne
+    @OneToOne(fetch = LAZY)
     @JoinColumn(name = "productImgMstId", referencedColumnName = "fileMstId")
     private FileMst productImg;
+
+    @ManyToOne(fetch = LAZY)
+    @JoinColumn(nullable = false, name = "roasteryId", referencedColumnName = "id")
+    private Roastery roastery;
 
     @Lob
     @Column
