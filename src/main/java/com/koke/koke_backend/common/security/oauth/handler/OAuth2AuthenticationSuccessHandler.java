@@ -74,32 +74,8 @@ public class OAuth2AuthenticationSuccessHandler extends SimpleUrlAuthenticationS
 
 		Role role = hasAuthority(authorities, Role.ADMIN.getValue()) ? Role.ADMIN : Role.USER;
 
-
-//		Date now = new Date();
-//		AuthToken accessToken = tokenProvider.createAuthToken(
-//				userInfo.getId(),
-//				role.getCode(),
-//				new Date(now.getTime() + oAuth2Property.getAuth().getTokenExpiry())
-//		);
 		AccessToken accessToken = jwtTokenProvider.createAccessToken(userInfo.getId(), role);
-
-		// refresh 토큰 설정
-//		long refreshTokenExpiry = oAuth2Property.getAuth().getRefreshTokenExpiry();
-//
-//		AuthToken refreshToken = tokenProvider.createAuthToken(
-//				oAuth2Property.getAuth().getTokenSecret(),
-//				new Date(now.getTime() + refreshTokenExpiry)
-//		);
 		RefreshToken refreshToken = jwtTokenProvider.createRefreshToken(userInfo.getId(), role);
-
-		// DB 저장
-//		UserRefreshToken userRefreshToken = userRefreshTokenRepository.findByUserId(userInfo.getId());
-//		if (userRefreshToken != null) {
-//			userRefreshToken.setRefreshToken(refreshToken.getToken());
-//		} else {
-//			userRefreshToken = new UserRefreshToken(userInfo.getId(), refreshToken.getToken());
-//			userRefreshTokenRepository.saveAndFlush(userRefreshToken);
-//		}
 
 		int cookieMaxAge = jwtProperty.getRefreshTokenValidity().intValue() / 60;
 

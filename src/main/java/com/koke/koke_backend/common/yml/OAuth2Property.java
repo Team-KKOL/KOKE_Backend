@@ -1,6 +1,5 @@
 package com.koke.koke_backend.common.yml;
 
-import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -11,7 +10,6 @@ import java.util.List;
 
 @Component
 @ConfigurationProperties(prefix = "oauth2")
-@AllArgsConstructor
 @NoArgsConstructor
 @Getter
 @Setter
