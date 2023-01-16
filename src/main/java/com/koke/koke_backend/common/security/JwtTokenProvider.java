@@ -46,7 +46,7 @@ public class JwtTokenProvider { // JWT 토큰 생성 및 검증 모듈
 	}
 
 	// JWT 토큰에서 회원 구별 정보 추출
-	public String getDidFromToken(String token) {
+	public String getIdFromToken(String token) {
 		return getClaimFromToken(token, Claims::getSubject);
 	}
 
@@ -140,7 +140,7 @@ public class JwtTokenProvider { // JWT 토큰 생성 및 검증 모듈
 
 	// JWT 토큰으로 인증 정보를 조회
 	public Authentication getAuthentication(String token) throws JsonProcessingException {
-		UserDetails userDetails = userDetailsService.loadUserByUsername(this.getDidFromToken(token));
+		UserDetails userDetails = userDetailsService.loadUserByUsername(this.getIdFromToken(token));
 		return new UsernamePasswordAuthenticationToken(userDetails, "", userDetails.getAuthorities());
 	}
 

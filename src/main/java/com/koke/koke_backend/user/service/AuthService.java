@@ -10,16 +10,25 @@ import com.koke.koke_backend.user.dto.SignUpRequestDto;
 import com.koke.koke_backend.user.entity.User;
 import com.koke.koke_backend.user.mapper.UserMapper;
 import com.koke.koke_backend.user.repository.UserRepository;
+import io.jsonwebtoken.ExpiredJwtException;
+import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.data.redis.core.RedisTemplate;
+import org.springframework.data.redis.core.ValueOperations;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.context.request.ServletRequestAttributes;
 
 import java.util.HashMap;
 import java.util.Map;
 import java.util.NoSuchElementException;
 
+import static org.springframework.web.context.request.RequestContextHolder.currentRequestAttributes;
+
+@Slf4j
 @Service
 @Transactional
 @RequiredArgsConstructor
@@ -29,6 +38,8 @@ public class AuthService {
     private final UserMapper userMapper;
     private final JwtTokenProvider jwtTokenProvider;
     private final PasswordEncoder passwordEncoder;
+    private final RedisTemplate<String, AccessToken> redisTemplateAccess;
+    private final RedisTemplate<String, RefreshToken> redisTemplateRefresh;
 
     @Transactional(readOnly = true)
     public ResponseEntity<ApiResponse<Object>> checkUserId(String userId) {
@@ -74,6 +85,38 @@ public class AuthService {
     }
 
     public ResponseEntity<ApiResponse<Object>> logout() {
-        return null;
+        HttpServletRequest request = ((ServletRequestAttributes) currentRequestAttributes()).getRequest();
+        ValueOperations<String, AccessToken> opsForValue = redisTemplateAccess.opsForValue();
+        ValueOperations<String, RefreshToken> opsForValue2 = redisTemplateRefresh.opsForValue();
+
+        String userId = null;
+        String accessToken = jwtTokenProvider.resolveToken(request);
+
+        try {
+            userId = jwtTokenProvider.getIdFromToken(accessToken); // access_token에서 user_id를 가져옴(유효성 검사)
+        } catch (IllegalArgumentException ignored) {
+        } catch (ExpiredJwtException e) { // 만료
+            userId = e.getClaims().getSubject(); // 만료된 access token으로부터 user_id를 가져옴
+            log.info("user_id from expired access token : " + userId);
+        }
+
+        if (opsForValue.get("access_" + userId) != null) {
+            redisTemplateAccess.delete("access_" + userId);
+//            opsForValue.set(accessToken, true);
+//            redisTemplateAccess.expire(accessToken, 1, HOURS);
+        }
+
+        try {
+            Object refreshTokenObject = opsForValue2.get("refresh_" + userId);
+            if (refreshTokenObject != null) { // refresh token이 db에 저장되어있을때
+                redisTemplateAccess.delete("refresh_" + userId); // refresh token의 데이터를 삭제
+            }
+        } catch (IllegalArgumentException e) {
+            log.warn("user does not exist");
+        }
+
+        log.info(" logout ing : " + accessToken);
+
+        return ApiResponse.success("로그아웃 되었습니다.");
     }
 }
