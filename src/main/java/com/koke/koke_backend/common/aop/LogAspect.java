@@ -98,7 +98,7 @@ public class LogAspect {
         return proceed;
     }
 
-    @Around("restApi()")
+//    @Around("restApi()")
     public Object LogRequestUrl(ProceedingJoinPoint joinPoint) throws Throwable {
         HttpServletRequest request = ((ServletRequestAttributes) currentRequestAttributes()).getRequest();
 

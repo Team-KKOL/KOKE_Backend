@@ -19,12 +19,12 @@ public class SignUpRequestDto {
     private String userId;
 
     @NotBlank(message = "패스워드를 입력하지 않으셨습니다.")
-    @Size(min = 10, max = 30, message = "패스워드는 30자 이하로 입력해주세요.")
+    @Size(max = 30, message = "패스워드는 30자 이하로 입력해주세요.")
     private String password;
 
     @NotBlank(message = "사용자명을 입력하지 않으셨습니다.")
     @Size(max = 30, message = "사용자명은 30자 이하로 입력해주세요.")
-    private String username;
+    private String name;
 
     @NotBlank(message = "이메일을 입력하지 않으셨습니다.")
     @Email(message = "이메일 형식이 올바르지 않습니다.")

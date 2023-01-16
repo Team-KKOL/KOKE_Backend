@@ -39,7 +39,7 @@ public class Roastery extends BaseEntity {
     private String snsUrl;
 
     @OneToOne
-    @JoinColumn(name = "logoImgId", referencedColumnName = "logoImgId")
+    @JoinColumn(name = "logoImgId", referencedColumnName = "fileMstId")
     @Comment("로스터리 카페 로고 이미지 ID")
     private FileMst logoImg;
 
