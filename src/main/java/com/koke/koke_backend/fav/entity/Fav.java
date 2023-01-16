@@ -47,7 +47,7 @@ public class Fav extends BaseEntity {
     private Roastery roastery;
 
     @ManyToOne(fetch = LAZY)
-    @JoinColumn(name = "userSeq", referencedColumnName = "userSeq")
+    @JoinColumn(name = "userId", referencedColumnName = "userId")
     @Comment("좋아요한 사용자 ID")
     private User user;
 

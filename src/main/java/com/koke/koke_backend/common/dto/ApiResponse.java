@@ -16,6 +16,11 @@ public record ApiResponse<T>(String message, T body) {
         return new ResponseEntity<>(apiResponse, OK);
     }
 
+    public static <T> ResponseEntity<ApiResponse<T>> success(String message) {
+        ApiResponse<T> apiResponse = new ApiResponse<>(message, null);
+        return new ResponseEntity<>(apiResponse, OK);
+    }
+
     public static <T> ResponseEntity<ApiResponse<T>> success(T body) {
         ApiResponse<T> apiResponse = new ApiResponse<>(SUCCESS_MESSAGE, body);
         return new ResponseEntity<>(apiResponse, OK);
@@ -36,6 +41,11 @@ public record ApiResponse<T>(String message, T body) {
         return new ResponseEntity<>(apiResponse, INTERNAL_SERVER_ERROR);
     }
 
+    public static <T> ResponseEntity<ApiResponse<T>> badRequest(String message) {
+        ApiResponse<T> apiResponse = new ApiResponse<>(message, null);
+        return new ResponseEntity<>(apiResponse, BAD_REQUEST);
+    }
+
     public static <T> ResponseEntity<ApiResponse<T>> badRequest(String message, T body) {
         ApiResponse<T> apiResponse = new ApiResponse<>(message, body);
         return new ResponseEntity<>(apiResponse, BAD_REQUEST);
@@ -50,5 +60,4 @@ public record ApiResponse<T>(String message, T body) {
         ApiResponse<T> apiResponse = new ApiResponse<>(message, null);
         return new ResponseEntity<>(apiResponse, UNAUTHORIZED);
     }
-
 }

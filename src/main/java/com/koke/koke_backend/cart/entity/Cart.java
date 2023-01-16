@@ -38,7 +38,7 @@ public class Cart extends BaseTimeEntity {
     private List<CartProduct> cartProducts = new ArrayList<>();
 
     @OneToOne(fetch = LAZY)
-    @JoinColumn(name = "userSeq", referencedColumnName = "userSeq")
+    @JoinColumn(name = "userId", referencedColumnName = "userId")
     private User user;
 
 }

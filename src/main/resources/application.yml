@@ -34,49 +34,6 @@ spring:
       port: 6379
       database: 0
       password:
-  security:
-    oauth2.client:
-      registration:
-        google:
-          clientId: ENC(Opoo9OrktGzMbUh6jxDJv+urs1bSztwyByEmcZx2HJRt3kVgSdWVc7eepNLsfZySQ/EH8O5hSA8P/25u9KYLz0Tyd/l1xavrxJVXgH5dSPHSMIEsyLKthrG0F0PsXaiN)
-          clientSecret: ENC(adR2s183Qd/+yFsAf+5gar13tx29wXh/uQ2IFHqw+/LrAJy7F4xPk3B4LGkLgpXz9XEHH9ghSPBaKdPDdMc2mw==)
-          scope:
-            - email
-            - profile
-        naver:
-          clientId: ENC(F9rbZISjUIS2FUwV/3l7Npp+HkA3WHHhYwvfKf7UcsVKhgpjJVe/D/bNbU2C7Ree)
-          clientSecret: ENC(hZr/XZfMDKDSVcgLKr6dVdEV1XNMqXwcw/ObBt5XZ2M=)
-          clientAuthenticationMethod: post
-          authorizationGrantType: authorization_code
-          redirectUri: "{baseUrl}/{action}/oauth2/code/{registrationId}"
-          scope:
-            - nickname
-            - email
-            - profile_image
-          clientName: Naver
-        kakao:
-          clientId: ENC(u/UaXouMRjGiTyNtjdMleZHn3abae+TyEM1ha34X1MR6GRUluTVcJFmTkzndKqip04aXJJbmAtspAt7xBvy4sw==)
-          clientSecret: ENC(1ukLqdPf4k+jfVVf4GjHRKtmbjZ9lo/909wajaKT8M31X85n1Xdsg+SFAr/C2FlGidqNIIwkRTAR2DP+ggsdeQ==)
-          clientAuthenticationMethod: post
-          authorizationGrantType: authorization_code
-          redirectUri: "{baseUrl}/{action}/oauth2/code/{registrationId}"
-          scope:
-            - profile_nickname
-            - profile_image
-            - account_email
-          clientName: Kakao
-      # Provider 설정
-      provider:
-        naver:
-          authorizationUri: https://nid.naver.com/oauth2.0/authorize
-          tokenUri: https://nid.naver.com/oauth2.0/token
-          userInfoUri: https://openapi.naver.com/v1/nid/me
-          userNameAttribute: response
-        kakao:
-          authorizationUri: https://kauth.kakao.com/oauth/authorize
-          tokenUri: https://kauth.kakao.com/oauth/token
-          userInfoUri: https://kapi.kakao.com/v2/user/me
-          userNameAttribute: id
 jwt:
   accessTokenValidity: 14d
   refreshTokenValidity: 1M
@@ -136,49 +93,6 @@ spring:
       port: 6379
       database: 1
       password:
-  security:
-    oauth2.client:
-      registration:
-        google:
-          clientId: ENC(Opoo9OrktGzMbUh6jxDJv+urs1bSztwyByEmcZx2HJRt3kVgSdWVc7eepNLsfZySQ/EH8O5hSA8P/25u9KYLz0Tyd/l1xavrxJVXgH5dSPHSMIEsyLKthrG0F0PsXaiN)
-          clientSecret: ENC(adR2s183Qd/+yFsAf+5gar13tx29wXh/uQ2IFHqw+/LrAJy7F4xPk3B4LGkLgpXz9XEHH9ghSPBaKdPDdMc2mw==)
-          scope:
-            - email
-            - profile
-        naver:
-          clientId: ENC(F9rbZISjUIS2FUwV/3l7Npp+HkA3WHHhYwvfKf7UcsVKhgpjJVe/D/bNbU2C7Ree)
-          clientSecret: ENC(hZr/XZfMDKDSVcgLKr6dVdEV1XNMqXwcw/ObBt5XZ2M=)
-          clientAuthenticationMethod: post
-          authorizationGrantType: authorization_code
-          redirectUri: "{baseUrl}/{action}/oauth2/code/{registrationId}"
-          scope:
-            - nickname
-            - email
-            - profile_image
-          clientName: Naver
-        kakao:
-          clientId: ENC(u/UaXouMRjGiTyNtjdMleZHn3abae+TyEM1ha34X1MR6GRUluTVcJFmTkzndKqip04aXJJbmAtspAt7xBvy4sw==)
-          clientSecret: ENC(1ukLqdPf4k+jfVVf4GjHRKtmbjZ9lo/909wajaKT8M31X85n1Xdsg+SFAr/C2FlGidqNIIwkRTAR2DP+ggsdeQ==)
-          clientAuthenticationMethod: post
-          authorizationGrantType: authorization_code
-          redirectUri: "{baseUrl}/{action}/oauth2/code/{registrationId}"
-          scope:
-            - profile_nickname
-            - profile_image
-            - account_email
-          clientName: Kakao
-      # Provider 설정
-      provider:
-        naver:
-          authorizationUri: https://nid.naver.com/oauth2.0/authorize
-          tokenUri: https://nid.naver.com/oauth2.0/token
-          userInfoUri: https://openapi.naver.com/v1/nid/me
-          userNameAttribute: response
-        kakao:
-          authorizationUri: https://kauth.kakao.com/oauth/authorize
-          tokenUri: https://kauth.kakao.com/oauth/token
-          userInfoUri: https://kapi.kakao.com/v2/user/me
-          userNameAttribute: id
 jwt:
   accessTokenValidity: 14d
   refreshTokenValidity: 1M

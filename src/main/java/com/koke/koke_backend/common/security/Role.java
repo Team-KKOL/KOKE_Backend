@@ -1,4 +1,4 @@
-package com.koke.koke_backend.common.security.jwt;
+package com.koke.koke_backend.common.security;
 
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;

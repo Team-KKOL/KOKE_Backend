@@ -34,8 +34,8 @@ public class AddressBook extends BaseTimeEntity {
     private List<Address> addresses = new ArrayList<>();
 
     @OneToOne
-    @JoinColumn(name = "userSeq", referencedColumnName = "userSeq")
-    @Comment("사용자 PK")
+    @JoinColumn(name = "userId", referencedColumnName = "userId")
+    @Comment("사용자 ID")
     private User user;
 
 }

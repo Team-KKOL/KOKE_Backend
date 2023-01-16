@@ -3,8 +3,10 @@ package com.koke.koke_backend.user.repository;
 import com.koke.koke_backend.user.entity.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 
-public interface UserRepository extends JpaRepository<User, Long> {
+import java.util.Optional;
 
-    User findByUserId(String userId);
+public interface UserRepository extends JpaRepository<User, String> {
+
+    Optional<User> findByEmail(String email);
 
 }

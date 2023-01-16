@@ -27,8 +27,8 @@ public class Order extends BaseTimeEntity {
     private String id;
 
     @ManyToOne
-    @JoinColumn(nullable = false, name = "userSeq", referencedColumnName = "userSeq")
-    @Comment("사용자 PK")
+    @JoinColumn(nullable = false, name = "userId", referencedColumnName = "userId")
+    @Comment("사용자 ID")
     private User user;
 
     @Builder.Default
