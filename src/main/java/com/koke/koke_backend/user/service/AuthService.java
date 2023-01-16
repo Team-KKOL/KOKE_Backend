@@ -5,7 +5,9 @@ import com.koke.koke_backend.common.security.AccessToken;
 import com.koke.koke_backend.common.security.JwtTokenProvider;
 import com.koke.koke_backend.common.security.RefreshToken;
 import com.koke.koke_backend.common.security.Role;
+import com.koke.koke_backend.common.yml.JwtProperty;
 import com.koke.koke_backend.user.dto.LoginRequestDto;
+import com.koke.koke_backend.user.dto.RefreshRequestDto;
 import com.koke.koke_backend.user.dto.SignUpRequestDto;
 import com.koke.koke_backend.user.entity.User;
 import com.koke.koke_backend.user.mapper.UserMapper;
@@ -40,6 +42,8 @@ public class AuthService {
     private final PasswordEncoder passwordEncoder;
     private final RedisTemplate<String, AccessToken> redisTemplateAccess;
     private final RedisTemplate<String, RefreshToken> redisTemplateRefresh;
+    private final RedisTemplate<String, Object> redisTemplateObject;
+    private final JwtProperty jwtProperty;
 
     @Transactional(readOnly = true)
     public ResponseEntity<ApiResponse<Object>> checkUserId(String userId) {
@@ -88,6 +92,7 @@ public class AuthService {
         HttpServletRequest request = ((ServletRequestAttributes) currentRequestAttributes()).getRequest();
         ValueOperations<String, AccessToken> opsForValue = redisTemplateAccess.opsForValue();
         ValueOperations<String, RefreshToken> opsForValue2 = redisTemplateRefresh.opsForValue();
+        ValueOperations<String, Object> objectVop = redisTemplateObject.opsForValue();
 
         String userId = null;
         String accessToken = jwtTokenProvider.resolveToken(request);
@@ -102,8 +107,8 @@ public class AuthService {
 
         if (opsForValue.get("access_" + userId) != null) {
             redisTemplateAccess.delete("access_" + userId);
-//            opsForValue.set(accessToken, true);
-//            redisTemplateAccess.expire(accessToken, 1, HOURS);
+            objectVop.set(accessToken, true);
+            redisTemplateObject.expire(accessToken, jwtProperty.getAccessTokenValidityDuration());
         }
 
         try {
@@ -118,5 +123,19 @@ public class AuthService {
         log.info(" logout ing : " + accessToken);
 
         return ApiResponse.success("로그아웃 되었습니다.");
+    }
+
+    @Transactional
+    public ResponseEntity<ApiResponse<Object>> refresh(RefreshRequestDto dto) {
+        if (!jwtTokenProvider.isRefreshTokenExpired(dto.getRefreshToken())) { // refresh token 만료되지 않았을때 -> 여기서 예외가 터짐
+            String userId = jwtTokenProvider.getIdFromToken(dto.getRefreshToken()); // access_token에서 user_id 가져옴(유효성 검사)
+            User user = userRepository.findById(userId).orElseThrow((() -> new NoSuchElementException("가입되지 않은 계정입니다.")));
+
+            AccessToken newAccessToken = jwtTokenProvider.createAccessToken(user.getUserId(), Role.USER);
+
+            return ApiResponse.success(newAccessToken);
+        } else { // refresh 토큰 expire
+            return ApiResponse.badRequest("refreshToken이 만료되었습니다. 다시 로그인해주세요.");
+        }
     }
 }

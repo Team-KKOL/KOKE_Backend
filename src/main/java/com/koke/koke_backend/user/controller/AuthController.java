@@ -2,6 +2,7 @@ package com.koke.koke_backend.user.controller;
 
 import com.koke.koke_backend.common.dto.ApiResponse;
 import com.koke.koke_backend.user.dto.LoginRequestDto;
+import com.koke.koke_backend.user.dto.RefreshRequestDto;
 import com.koke.koke_backend.user.dto.SignUpRequestDto;
 import com.koke.koke_backend.user.service.AuthService;
 import io.swagger.v3.oas.annotations.Operation;
@@ -53,6 +54,13 @@ public class AuthController {
     @GetMapping("/logoutUser")
     public ResponseEntity<ApiResponse<Object>> logout() {
         return authService.logout();
+    }
+
+    @Tag(name = "인증 관리", description = "인증 관리 API")
+    @Operation(summary = "Access Token 재발급", description = "Access Token 재발급 API")
+    @PostMapping("/refresh")
+    public ResponseEntity<ApiResponse<Object>> refresh(@RequestBody RefreshRequestDto dto) {
+        return authService.refresh(dto);
     }
 
 }

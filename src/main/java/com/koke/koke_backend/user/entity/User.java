@@ -26,7 +26,6 @@ public class User extends BaseTimeEntity implements UserDetails {
 
     @Id
     @Column(length = 30)
-//    @Pattern(regexp = "^[a-z0-9]{4,30}$", message = "아이디는 영문, 숫자 4~30자로 입력해주세요.")
     @Comment("사용자 ID")
     private String userId;
 

@@ -9,9 +9,9 @@ import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
-@Constraint(validatedBy = ValidEnumValidator.class)
-@Target({ElementType.METHOD, ElementType.FIELD, ElementType.PARAMETER})
+@Target(ElementType.FIELD)
 @Retention(RetentionPolicy.RUNTIME)
+@Constraint(validatedBy = ValidEnumValidator.class)
 public @interface ValidEnum {
 
 	String message();
