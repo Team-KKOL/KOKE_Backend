@@ -1,8 +1,10 @@
 package com.koke.koke_backend.roastery.entity;
 
 import com.koke.koke_backend.common.entity.BaseEntity;
-import com.koke.koke_backend.file.entity.FileMst;
-import jakarta.persistence.*;
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.Id;
+import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -38,14 +40,22 @@ public class Roastery extends BaseEntity {
     @Comment("로스터리 카페 SNS URL")
     private String snsUrl;
 
-    @OneToOne
-    @JoinColumn(name = "logoImgId", referencedColumnName = "fileMstId")
-    @Comment("로스터리 카페 로고 이미지 ID")
-    private FileMst logoImg;
+    @Column(length = 100)
+    @Comment("로스터리 카페 로고 이미지 URL")
+    private String logoImgUrl;
 
-    @OneToOne
-    @JoinColumn(name = "photoImgId", referencedColumnName = "fileMstId")
-    @Comment("로스터리 카페 이미지 ID")
-    private FileMst photoImg;
+    @Column(length = 100)
+    @Comment("로스터리 카페 이미지 URL")
+    private String photoImgUrl;
+
+//    @OneToOne
+//    @JoinColumn(name = "logoImgId", referencedColumnName = "fileMstId")
+//    @Comment("로스터리 카페 로고 이미지 ID")
+//    private FileMst logoImg;
+//
+//    @OneToOne
+//    @JoinColumn(name = "photoImgId", referencedColumnName = "fileMstId")
+//    @Comment("로스터리 카페 이미지 ID")
+//    private FileMst photoImg;
 
 }

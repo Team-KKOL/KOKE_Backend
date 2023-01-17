@@ -63,17 +63,19 @@ public class PredicateBuilder {
 		return this;
 	}
 
-	public PredicateBuilder inString(StringPath column, List<String> value) {
+	public <N extends Number & Comparable<?>> PredicateBuilder betweenNumberDynamic(NumberPath<N> column, N min, N max) {
+		if (min != null) {
+			predicateBuilders.add(column.goe(min));
+		}
 
-		if (value != null) {
-			predicateBuilders.add(column.in(value));
+		if (max != null) {
+			predicateBuilders.add(column.loe(max));
 		}
 
 		return this;
 	}
 
-	public PredicateBuilder eqLong(NumberPath<Long> column, Long value) {
-
+	public <N extends Number & Comparable<?>> PredicateBuilder eqNumber(NumberPath<N> column, N value) {
 		if (value != null) {
 			predicateBuilders.add(column.eq(value));
 		}
@@ -81,8 +83,7 @@ public class PredicateBuilder {
 		return this;
 	}
 
-	public PredicateBuilder neLong(NumberPath<Long> column, Long value) {
-
+	public <N extends Number & Comparable<?>> PredicateBuilder neNumber(NumberPath<N> column, N value) {
 		if (value != null) {
 			predicateBuilders.add(column.ne(value));
 		}
@@ -90,10 +91,9 @@ public class PredicateBuilder {
 		return this;
 	}
 
-	public PredicateBuilder inLong(NumberPath<Long> column, List<Long> value) {
-
-		if (value != null) {
-			predicateBuilders.add(column.in(value));
+	public <N extends Number & Comparable<?>> PredicateBuilder inNumber(NumberPath<N> column, List<N> valueList) {
+		if (valueList != null) {
+			predicateBuilders.add(column.in(valueList));
 		}
 
 		return this;

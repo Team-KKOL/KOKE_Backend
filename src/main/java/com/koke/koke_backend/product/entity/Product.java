@@ -3,7 +3,6 @@ package com.koke.koke_backend.product.entity;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.koke.koke_backend.category.entity.ProductCategory;
 import com.koke.koke_backend.common.entity.BaseTimeEntity;
-import com.koke.koke_backend.file.entity.FileMst;
 import com.koke.koke_backend.roastery.entity.Roastery;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -52,37 +51,51 @@ public class Product extends BaseTimeEntity {
 
     @Id
     @Column(length = 30)
-    @Comment("커피 ID")
+    @Comment("상품 ID")
     private String id;
 
     @Column(nullable = false, length = 30)
-    @Comment("커피명")
+    @Comment("상품명")
     private String name;
 
     @Column(nullable = false, length = 50)
-    @Comment("커피 맛")
+    @Comment("맛")
     private String taste;
 
     @Column(nullable = false, length = 20)
+    @Comment("상품 무게")
     private String weight;
 
     @Column(nullable = false, length = 20)
+    @Comment("상품 가격")
     private String price;
 
-    @OneToOne(fetch = LAZY)
-    @JoinColumn(name = "logoImgMstId", referencedColumnName = "fileMstId")
-    private FileMst logoImg;
+    @Column(length = 100)
+    @Comment("상품 로고 이미지 URL")
+    private String logoImgUrl;
 
-    @OneToOne(fetch = LAZY)
-    @JoinColumn(name = "productImgMstId", referencedColumnName = "fileMstId")
-    private FileMst productImg;
+    @Column(length = 100)
+    @Comment("상품 이미지 URL")
+    private String photoImgUrl;
+
+//    @OneToOne(fetch = LAZY)
+//    @JoinColumn(name = "logoImgMstId", referencedColumnName = "fileMstId")
+//    @Comment("상품 로고 이미지 ID")
+//    private FileMst logoImg;
+//
+//    @OneToOne(fetch = LAZY)
+//    @JoinColumn(name = "productImgMstId", referencedColumnName = "fileMstId")
+//    @Comment("상품 이미지 ID")
+//    private FileMst productImg;
 
     @ManyToOne(fetch = LAZY)
     @JoinColumn(nullable = false, name = "roasteryId", referencedColumnName = "id")
+    @Comment("로스터리 카페 ID")
     private Roastery roastery;
 
     @Lob
     @Column
+    @Comment("상품 설명")
     private String textInfo;
 
     @Builder.Default

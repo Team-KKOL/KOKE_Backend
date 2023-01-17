@@ -26,12 +26,6 @@ import static java.util.Arrays.asList;
 import static org.springframework.security.config.http.SessionCreationPolicy.STATELESS;
 
 
-/**
- * @author : 김하빈(hbkim@bpnsolution.com)
- * @description : 보안 정책(Jwt 토큰, Session 쿠키, Cors 리퀘스트 제약) 클래스
- * @Date : 2020. 10. 7.
- * @Time : 오전 9:13:30
- */
 @Configuration
 @EnableWebSecurity
 @RequiredArgsConstructor
@@ -68,7 +62,7 @@ public class SecurityConfig {
 
 	@Bean
 	public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
-		http.headers().xssProtection().and().contentSecurityPolicy("script-src 'self'");
+		http.headers().xssProtection().and().contentSecurityPolicy("script-src 'self'"); // XSS Protection
 
 		http.cors().configurationSource(corsConfigurationSource()).and()
 				.csrf().disable() // rest api이므로 csrf 보안이 필요없으므로 disable처리.

@@ -1,7 +1,9 @@
 package com.koke.koke_backend.order.entity;
 
 import com.koke.koke_backend.common.entity.BaseTimeEntity;
+import com.koke.koke_backend.order.enums.OrderStatus;
 import com.koke.koke_backend.product.entity.Product;
+import com.koke.koke_backend.review.entity.Review;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -34,5 +36,13 @@ public class OrderProduct extends BaseTimeEntity {
     @JoinColumn(name = "productId", referencedColumnName = "id")
     @Comment("상품 ID")
     private Product product;
+
+    @Enumerated(EnumType.STRING)
+    @Column(nullable = false, length = 30)
+    private OrderStatus orderStatus;
+
+    @OneToOne(mappedBy = "orderProduct")
+    @JoinColumn(name = "reviewId", referencedColumnName = "id")
+    private Review review;
 
 }

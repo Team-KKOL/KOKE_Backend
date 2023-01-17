@@ -2,7 +2,8 @@ package com.koke.koke_backend.common.dto;
 
 import org.springframework.http.ResponseEntity;
 
-import static org.springframework.http.HttpStatus.*;
+import static org.springframework.http.HttpStatus.FORBIDDEN;
+import static org.springframework.http.HttpStatus.UNAUTHORIZED;
 
 public record ApiResponse<T>(String message, T body) {
 
@@ -13,51 +14,51 @@ public record ApiResponse<T>(String message, T body) {
 
     public static <T> ResponseEntity<ApiResponse<T>> success() {
         ApiResponse<T> apiResponse = new ApiResponse<>(SUCCESS_MESSAGE, null);
-        return new ResponseEntity<>(apiResponse, OK);
+        return ResponseEntity.ok(apiResponse);
     }
 
     public static <T> ResponseEntity<ApiResponse<T>> success(String message) {
         ApiResponse<T> apiResponse = new ApiResponse<>(message, null);
-        return new ResponseEntity<>(apiResponse, OK);
+        return ResponseEntity.ok(apiResponse);
     }
 
     public static <T> ResponseEntity<ApiResponse<T>> success(T body) {
         ApiResponse<T> apiResponse = new ApiResponse<>(SUCCESS_MESSAGE, body);
-        return new ResponseEntity<>(apiResponse, OK);
+        return ResponseEntity.ok(apiResponse);
     }
 
     public static <T> ResponseEntity<ApiResponse<T>> cachingSuccess(T body) {
         ApiResponse<T> apiResponse = new ApiResponse<>(CACHING_SUCCESS_MESSAGE, body);
-        return new ResponseEntity<>(apiResponse, OK);
+        return ResponseEntity.ok(apiResponse);
     }
 
     public static <T> ResponseEntity<ApiResponse<T>> fail(T body) {
         ApiResponse<T> apiResponse = new ApiResponse<>(FAILED_MESSAGE, body);
-        return new ResponseEntity<>(apiResponse, INTERNAL_SERVER_ERROR);
+        return ResponseEntity.internalServerError().body(apiResponse);
     }
 
     public static <T> ResponseEntity<ApiResponse<T>> fail(String message, T body) {
         ApiResponse<T> apiResponse = new ApiResponse<>(message, body);
-        return new ResponseEntity<>(apiResponse, INTERNAL_SERVER_ERROR);
+        return ResponseEntity.internalServerError().body(apiResponse);
     }
 
     public static <T> ResponseEntity<ApiResponse<T>> badRequest(String message) {
         ApiResponse<T> apiResponse = new ApiResponse<>(message, null);
-        return new ResponseEntity<>(apiResponse, BAD_REQUEST);
+        return ResponseEntity.badRequest().body(apiResponse);
     }
 
     public static <T> ResponseEntity<ApiResponse<T>> badRequest(String message, T body) {
         ApiResponse<T> apiResponse = new ApiResponse<>(message, body);
-        return new ResponseEntity<>(apiResponse, BAD_REQUEST);
+        return ResponseEntity.badRequest().body(apiResponse);
     }
 
     public static <T> ResponseEntity<ApiResponse<T>> forbidden(String message) {
         ApiResponse<T> apiResponse = new ApiResponse<>(message, null);
-        return new ResponseEntity<>(apiResponse, FORBIDDEN);
+        return ResponseEntity.status(FORBIDDEN).body(apiResponse);
     }
 
     public static <T> ResponseEntity<ApiResponse<T>> unauthorized(String message) {
         ApiResponse<T> apiResponse = new ApiResponse<>(message, null);
-        return new ResponseEntity<>(apiResponse, UNAUTHORIZED);
+        return ResponseEntity.status(UNAUTHORIZED).body(apiResponse);
     }
 }
