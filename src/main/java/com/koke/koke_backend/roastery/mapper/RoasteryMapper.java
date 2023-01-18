@@ -2,6 +2,7 @@ package com.koke.koke_backend.roastery.mapper;
 
 import com.koke.koke_backend.common.mapper.EntityMapper;
 import com.koke.koke_backend.roastery.dto.ImgUrlDto;
+import com.koke.koke_backend.roastery.dto.RoasteryCreateRequestDto;
 import com.koke.koke_backend.roastery.dto.RoasteryDataDto;
 import com.koke.koke_backend.roastery.entity.Roastery;
 import org.mapstruct.*;
@@ -20,11 +21,19 @@ import static java.lang.System.lineSeparator;
 )
 public interface RoasteryMapper {
 
+	@Mapping(target = "id", source = "dto", qualifiedByName = "getIdFromRoasteryCreateDto")
+	Roastery createDtoToEntity(RoasteryCreateRequestDto dto);
+
+	@Named("getIdFromRoasteryCreateDto")
+	default String getIdFromRoasteryCreateDto(RoasteryCreateRequestDto dto) {
+		return System.currentTimeMillis() + dto.getRoasteryNm();
+	}
+
 	@IterableMapping(qualifiedByName = "toEntity")
 	List<Roastery> toEntityList(List<RoasteryDataDto> roasteryDataDtos);
 
 	@Named("toEntity")
-	@Mapping(target = "id", source = "dto", qualifiedByName = "getId")
+	@Mapping(target = "id", source = "dto", qualifiedByName = "getIdFromRoasteryDataDto")
 	@Mapping(target = "roasteryNm", source = "name")
 	@Mapping(target = "description", source = "summary")
 	@Mapping(target = "awards", source = "awards", qualifiedByName = "getAwards")
@@ -35,8 +44,8 @@ public interface RoasteryMapper {
 	@Mapping(target = "snsUrl", source = "instagram")
 	Roastery toEntity(RoasteryDataDto dto);
 
-	@Named("getId")
-	default String getId(RoasteryDataDto dto) {
+	@Named("getIdFromRoasteryDataDto")
+	default String getIdFromRoasteryDataDto(RoasteryDataDto dto) {
 		return System.currentTimeMillis() + dto.getName();
 	}
 
@@ -49,5 +58,4 @@ public interface RoasteryMapper {
 	default List<String> getPhotoImgUrl(List<ImgUrlDto> imgUrls) {
 		return imgUrls.stream().map(ImgUrlDto::getSrc).toList();
 	}
-
 }

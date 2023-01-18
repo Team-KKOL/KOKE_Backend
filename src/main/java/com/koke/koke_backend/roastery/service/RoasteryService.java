@@ -47,14 +47,15 @@ public class RoasteryService {
     }
 
     @Transactional
-    public ResponseEntity<ApiResponse<?>> create(RoasteryCreateRequestDto roasteryCreateRequestDto) {
-        return null;
+    public ResponseEntity<ApiResponse<Object>> create(RoasteryCreateRequestDto dto) {
+        Roastery roastery = roasteryMapper.createDtoToEntity(dto);
+        roasteryRepository.save(roastery);
+        return ApiResponse.success();
     }
 
     public ResponseEntity<ApiResponse<Object>> parse() throws IOException {
         File file = new ClassPathResource("roasterys.json").getFile();
         objectMapper.enable(DeserializationFeature.ACCEPT_EMPTY_STRING_AS_NULL_OBJECT);
-//        objectMapper.enable(DeserializationFeature.ACCEPT_SINGLE_VALUE_AS_ARRAY);
         objectMapper.configure(JsonParser.Feature.AUTO_CLOSE_SOURCE, true);
         objectMapper.configure(JsonReadFeature.ALLOW_BACKSLASH_ESCAPING_ANY_CHARACTER.mappedFeature(), true);
 

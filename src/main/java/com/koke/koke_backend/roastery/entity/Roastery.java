@@ -24,7 +24,7 @@ public class Roastery extends BaseEntity {
     @Comment("로스터리 카페 ID")
     private String id;
 
-    @Column(length = 20, nullable = false)
+    @Column(length = 30, nullable = false)
     @Comment("로스터리 카페명")
     private String roasteryNm;
 
