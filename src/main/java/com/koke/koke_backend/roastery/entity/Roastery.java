@@ -1,15 +1,15 @@
 package com.koke.koke_backend.roastery.entity;
 
 import com.koke.koke_backend.common.entity.BaseEntity;
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import com.koke.koke_backend.roastery.converter.PhotoImgUrlConverter;
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.experimental.SuperBuilder;
 import org.hibernate.annotations.Comment;
+
+import java.util.List;
 
 @SuperBuilder(toBuilder = true)
 @Entity
@@ -37,6 +37,10 @@ public class Roastery extends BaseEntity {
     private String location;
 
     @Column(length = 50)
+    @Comment("로스터리 카페 웹 URL")
+    private String webUrl;
+
+    @Column(length = 50)
     @Comment("로스터리 카페 SNS URL")
     private String snsUrl;
 
@@ -44,9 +48,11 @@ public class Roastery extends BaseEntity {
     @Comment("로스터리 카페 로고 이미지 URL")
     private String logoImgUrl;
 
-    @Column(length = 100)
+    @Lob
+    @Column
+    @Convert(converter = PhotoImgUrlConverter.class)
     @Comment("로스터리 카페 이미지 URL")
-    private String photoImgUrl;
+    private List<String> photoImgUrl;
 
 //    @OneToOne
 //    @JoinColumn(name = "logoImgId", referencedColumnName = "fileMstId")

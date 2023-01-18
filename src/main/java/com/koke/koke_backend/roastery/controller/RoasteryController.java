@@ -5,11 +5,13 @@ import com.koke.koke_backend.roastery.dto.RoasteryCreateRequestDto;
 import com.koke.koke_backend.roastery.dto.RoasteryListResponseDto;
 import com.koke.koke_backend.roastery.enums.SortType;
 import com.koke.koke_backend.roastery.service.RoasteryService;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.io.IOException;
 import java.util.List;
 
 /**
@@ -23,6 +25,7 @@ import java.util.List;
 
 @RestController
 @RequiredArgsConstructor
+@SecurityRequirement(name = "TOKEN")
 @RequestMapping("/roastery")
 public class RoasteryController {
 
@@ -41,6 +44,11 @@ public class RoasteryController {
     @PostMapping
     public ResponseEntity<ApiResponse<?>> create(@Valid @RequestBody RoasteryCreateRequestDto roasteryCreateRequestDto) {
         return roasteryService.create(roasteryCreateRequestDto);
+    }
+
+    @GetMapping("/parse")
+    public ResponseEntity<ApiResponse<Object>> parse() throws IOException {
+        return roasteryService.parse();
     }
 
 }

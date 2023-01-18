@@ -6,6 +6,8 @@ build/
 !**/src/test/**/build/
 /src/main/generated
 /src/main/resources/coffee.json
+/src/main/resources/roasterys.json
+KOKE_BACKEND_LOG(local)
 
 ### STS ###
 .apt_generated

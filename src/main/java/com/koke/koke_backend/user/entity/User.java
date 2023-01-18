@@ -29,7 +29,7 @@ public class User extends BaseTimeEntity implements UserDetails {
     @Comment("사용자 ID")
     private String userId;
 
-    @Column(length = 20)
+    @Column(length = 100)
     @Comment("비밀번호")
     private String password;
 
