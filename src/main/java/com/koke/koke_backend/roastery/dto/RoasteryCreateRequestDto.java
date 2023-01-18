@@ -19,8 +19,9 @@ public class RoasteryCreateRequestDto {
     @NotBlank(message = "로스터리 카페명을 입력하지 않으셨습니다.")
     private String roasteryNm;
 
+    @NotEmpty(message = "로스터리 카페 소개를 입력하지 않으셨습니다")
     @NotBlank(message = "로스터리 카페 소개를 입력하지 않으셨습니다")
-    private String description;
+    private List<String> description;
 
     private List<String> awards;
 

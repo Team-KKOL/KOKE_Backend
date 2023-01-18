@@ -2,6 +2,7 @@ package com.koke.koke_backend.roastery.controller;
 
 import com.koke.koke_backend.common.dto.ApiResponse;
 import com.koke.koke_backend.roastery.dto.RoasteryCreateRequestDto;
+import com.koke.koke_backend.roastery.dto.RoasteryDetailResponseDto;
 import com.koke.koke_backend.roastery.dto.RoasteryListResponseDto;
 import com.koke.koke_backend.roastery.enums.SortType;
 import com.koke.koke_backend.roastery.service.RoasteryService;
@@ -44,12 +45,12 @@ public class RoasteryController {
     @Tag(name = "로스터리 관리", description = "로스터리 관리 API")
     @Operation(summary = "로스터리 상세 조회", description = "로스터리 상세 조회 API")
     @GetMapping("/{id}")
-    public ResponseEntity<ApiResponse<?>> detail(@ModelAttribute(name = "id") String id) {
+    public ResponseEntity<ApiResponse<RoasteryDetailResponseDto>> detail(@PathVariable(name = "id") String id) {
         return roasteryService.detail(id);
     }
 
     @Tag(name = "로스터리 관리", description = "로스터리 관리 API")
-    @Operation(summary = "로스터리 생성", description = "로스터리 생성 API")
+    @Operation(summary = "로스터리 생성", description = "로스터리 생성 API - 관리자전용")
     @PostMapping
     public ResponseEntity<ApiResponse<Object>> create(@Valid @RequestBody RoasteryCreateRequestDto roasteryCreateRequestDto) {
         return roasteryService.create(roasteryCreateRequestDto);

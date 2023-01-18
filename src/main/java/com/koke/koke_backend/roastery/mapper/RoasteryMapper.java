@@ -10,6 +10,7 @@ import org.mapstruct.*;
 import java.util.List;
 
 import static java.lang.System.lineSeparator;
+import static java.util.UUID.randomUUID;
 
 @Mapper(
 		componentModel = "spring",
@@ -26,7 +27,7 @@ public interface RoasteryMapper {
 
 	@Named("getIdFromRoasteryCreateDto")
 	default String getIdFromRoasteryCreateDto(RoasteryCreateRequestDto dto) {
-		return System.currentTimeMillis() + dto.getRoasteryNm();
+		return System.currentTimeMillis() + randomUUID().toString().substring(0, 5);
 	}
 
 	@IterableMapping(qualifiedByName = "toEntity")
@@ -35,7 +36,7 @@ public interface RoasteryMapper {
 	@Named("toEntity")
 	@Mapping(target = "id", source = "dto", qualifiedByName = "getIdFromRoasteryDataDto")
 	@Mapping(target = "roasteryNm", source = "name")
-	@Mapping(target = "description", source = "summary")
+	@Mapping(target = "description", source = "summary", qualifiedByName = "getDescriptionFromRoasteryDataDto")
 	@Mapping(target = "awards", source = "awards", qualifiedByName = "getAwards")
 	@Mapping(target = "location", source = "address")
 	@Mapping(target = "photoImgUrl", source = "imgUrls", qualifiedByName = "getPhotoImgUrl")
@@ -46,7 +47,12 @@ public interface RoasteryMapper {
 
 	@Named("getIdFromRoasteryDataDto")
 	default String getIdFromRoasteryDataDto(RoasteryDataDto dto) {
-		return System.currentTimeMillis() + dto.getName();
+		return System.currentTimeMillis() + randomUUID().toString().substring(0, 5);
+	}
+
+	@Named("getDescriptionFromRoasteryDataDto")
+	default List<String> getDescription(String summary) {
+		return List.of(summary.split(lineSeparator()));
 	}
 
 	@Named("getAwards")

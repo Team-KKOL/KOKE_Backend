@@ -8,6 +8,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.koke.koke_backend.common.dto.ApiResponse;
 import com.koke.koke_backend.roastery.dto.RoasteryCreateRequestDto;
 import com.koke.koke_backend.roastery.dto.RoasteryDataDto;
+import com.koke.koke_backend.roastery.dto.RoasteryDetailResponseDto;
 import com.koke.koke_backend.roastery.dto.RoasteryListResponseDto;
 import com.koke.koke_backend.roastery.entity.Roastery;
 import com.koke.koke_backend.roastery.enums.SortType;
@@ -23,6 +24,7 @@ import org.springframework.transaction.annotation.Transactional;
 import java.io.File;
 import java.io.IOException;
 import java.util.List;
+import java.util.Optional;
 
 @Slf4j
 @Service
@@ -42,8 +44,12 @@ public class RoasteryService {
 
 
     @Transactional(readOnly = true)
-    public ResponseEntity<ApiResponse<?>> detail(String id) {
-        return null;
+    public ResponseEntity<ApiResponse<RoasteryDetailResponseDto>> detail(String id) {
+        Optional<RoasteryDetailResponseDto> detailOptional = roasteryRepository.detail(id);
+        RoasteryDetailResponseDto detail =
+                detailOptional.orElseThrow(() -> new IllegalArgumentException("해당 로스터리가 존재하지 않습니다."));
+
+        return ApiResponse.success(detail);
     }
 
     @Transactional

@@ -29,8 +29,9 @@ public class Roastery extends BaseEntity {
     private String roasteryNm;
 
     @Column(columnDefinition = "MEDIUMTEXT NOT NULL")
+    @Convert(converter = StringListConverter.class)
     @Comment("로스터리 카페 소개")
-    private String description;
+    private List<String> description;
 
     @Column(columnDefinition = "MEDIUMTEXT")
     @Convert(converter = StringListConverter.class)
