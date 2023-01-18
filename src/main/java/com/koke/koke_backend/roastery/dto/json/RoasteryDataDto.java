@@ -1,4 +1,4 @@
-package com.koke.koke_backend.roastery.dto;
+package com.koke.koke_backend.roastery.dto.json;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.AllArgsConstructor;

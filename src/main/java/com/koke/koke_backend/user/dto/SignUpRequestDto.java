@@ -27,7 +27,7 @@ public class SignUpRequestDto {
     private String password;
 
     @NotBlank(message = "사용자명을 입력하지 않으셨습니다.")
-    @Size(max = 30, message = "사용자명은 30자 이하로 입력해주세요.")
+    @Size(max = 10, message = "사용자명은 10자 이하로 입력해주세요.")
     private String name;
 
     @NotBlank(message = "이메일을 입력하지 않으셨습니다.")

@@ -7,7 +7,6 @@ import com.koke.koke_backend.roastery.dto.RoasteryListResponseDto;
 import com.koke.koke_backend.roastery.enums.SortType;
 import com.koke.koke_backend.roastery.service.RoasteryService;
 import io.swagger.v3.oas.annotations.Operation;
-import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -29,7 +28,6 @@ import java.util.List;
 @Tag(name = "로스터리 관리", description = "로스터리 관리 API")
 @RestController
 @RequiredArgsConstructor
-@SecurityRequirement(name = "TOKEN")
 @RequestMapping("/roastery")
 public class RoasteryController {
 
@@ -50,7 +48,7 @@ public class RoasteryController {
     }
 
     @Tag(name = "로스터리 관리", description = "로스터리 관리 API")
-    @Operation(summary = "로스터리 생성", description = "로스터리 생성 API - 관리자전용")
+    @Operation(summary = "로스터리 생성 - 관리자전용", description = "로스터리 생성 API - 관리자전용")
     @PostMapping
     public ResponseEntity<ApiResponse<Object>> create(@Valid @RequestBody RoasteryCreateRequestDto roasteryCreateRequestDto) {
         return roasteryService.create(roasteryCreateRequestDto);

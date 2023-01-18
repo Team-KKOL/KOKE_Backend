@@ -1,9 +1,9 @@
 package com.koke.koke_backend.roastery.mapper;
 
 import com.koke.koke_backend.common.mapper.EntityMapper;
-import com.koke.koke_backend.roastery.dto.ImgUrlDto;
 import com.koke.koke_backend.roastery.dto.RoasteryCreateRequestDto;
-import com.koke.koke_backend.roastery.dto.RoasteryDataDto;
+import com.koke.koke_backend.roastery.dto.json.ImgUrlDto;
+import com.koke.koke_backend.roastery.dto.json.RoasteryDataDto;
 import com.koke.koke_backend.roastery.entity.Roastery;
 import org.mapstruct.*;
 
