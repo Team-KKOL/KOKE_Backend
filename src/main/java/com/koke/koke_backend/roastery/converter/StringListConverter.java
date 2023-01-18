@@ -12,7 +12,7 @@ import static com.fasterxml.jackson.databind.DeserializationFeature.FAIL_ON_NULL
 import static com.fasterxml.jackson.databind.DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES;
 
 @Converter
-public class PhotoImgUrlConverter implements AttributeConverter<List<String>, String> {
+public class StringListConverter implements AttributeConverter<List<String>, String> {
 
     private final ObjectMapper objectMapper = new ObjectMapper()
             .configure(FAIL_ON_UNKNOWN_PROPERTIES, false)

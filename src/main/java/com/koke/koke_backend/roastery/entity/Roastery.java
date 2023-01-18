@@ -1,7 +1,7 @@
 package com.koke.koke_backend.roastery.entity;
 
 import com.koke.koke_backend.common.entity.BaseEntity;
-import com.koke.koke_backend.roastery.converter.PhotoImgUrlConverter;
+import com.koke.koke_backend.roastery.converter.StringListConverter;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -28,29 +28,33 @@ public class Roastery extends BaseEntity {
     @Comment("로스터리 카페명")
     private String roasteryNm;
 
-    @Column(length = 500, nullable = false)
+    @Column(columnDefinition = "MEDIUMTEXT NOT NULL")
     @Comment("로스터리 카페 소개")
     private String description;
 
-    @Column(length = 50, nullable = false)
+    @Column(columnDefinition = "MEDIUMTEXT")
+    @Convert(converter = StringListConverter.class)
+    @Comment("로스터리 카페 수상 내역")
+    private List<String> awards;
+
+    @Column(length = 200, nullable = false)
     @Comment("로스터리 카페 주소")
     private String location;
 
-    @Column(length = 50)
+    @Column(length = 300)
     @Comment("로스터리 카페 웹 URL")
     private String webUrl;
 
-    @Column(length = 50)
+    @Column(length = 300)
     @Comment("로스터리 카페 SNS URL")
     private String snsUrl;
 
-    @Column(length = 100)
+    @Column(length = 300)
     @Comment("로스터리 카페 로고 이미지 URL")
     private String logoImgUrl;
 
-    @Lob
-    @Column
-    @Convert(converter = PhotoImgUrlConverter.class)
+    @Column(columnDefinition = "MEDIUMTEXT")
+    @Convert(converter = StringListConverter.class)
     @Comment("로스터리 카페 이미지 URL")
     private List<String> photoImgUrl;
 
