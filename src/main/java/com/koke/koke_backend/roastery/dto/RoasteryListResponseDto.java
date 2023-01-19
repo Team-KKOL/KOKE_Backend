@@ -10,6 +10,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class RoasteryListResponseDto {
+    private String id;
 
     private String roasteryNm;
 
