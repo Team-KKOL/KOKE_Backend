@@ -50,12 +50,12 @@ public class RoasteryController {
     @Tag(name = "로스터리 관리", description = "로스터리 관리 API")
     @Operation(summary = "로스터리 생성 - 관리자전용", description = "로스터리 생성 API - 관리자전용")
     @PostMapping
-    public ResponseEntity<ApiResponse<Object>> create(@Valid @RequestBody RoasteryCreateRequestDto roasteryCreateRequestDto) {
-        return roasteryService.create(roasteryCreateRequestDto);
+    public ResponseEntity<ApiResponse<Object>> create(@Valid @RequestBody RoasteryCreateRequestDto dto) {
+        return roasteryService.create(dto);
     }
 
     @Tag(name = "로스터리 관리", description = "로스터리 관리 API")
-    @Operation(summary = "로스터리 데이터 파싱 생성", description = "로스터리 데이터 파싱 생성 API")
+    @Operation(summary = "로스터리 데이터 파싱 생성 - 테스트", description = "로스터리 데이터 파싱 생성 API - 테스트")
     @GetMapping("/parse")
     public ResponseEntity<ApiResponse<Object>> parse() throws IOException {
         return roasteryService.parse();

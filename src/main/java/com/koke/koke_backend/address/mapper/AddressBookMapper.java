@@ -1,6 +1,6 @@
-package com.koke.koke_backend.cart.mapper;
+package com.koke.koke_backend.address.mapper;
 
-import com.koke.koke_backend.cart.entity.Cart;
+import com.koke.koke_backend.address.entity.AddressBook;
 import com.koke.koke_backend.common.mapper.EntityMapper;
 import com.koke.koke_backend.user.entity.User;
 import org.mapstruct.*;
@@ -13,11 +13,13 @@ import org.mapstruct.*;
 		nullValueCheckStrategy = NullValueCheckStrategy.ALWAYS,
 		nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE
 )
-public interface CartMapper {
-	@Mapping(target = "id", ignore = true)
+public interface AddressBookMapper {
+
+    @Mapping(target = "id", ignore = true)
     @Mapping(target = "user", source = "user")
-	@Mapping(target = "cartProducts", ignore = true)
+    @Mapping(target = "addresses", ignore = true)
 	@Mapping(target = "insDtm", ignore = true)
 	@Mapping(target = "updDtm", ignore = true)
-	Cart createCart(User user);
+    AddressBook createAddressBook(User user);
+
 }

@@ -1,5 +1,11 @@
 package com.koke.koke_backend.user.service;
 
+import com.koke.koke_backend.address.entity.AddressBook;
+import com.koke.koke_backend.address.mapper.AddressBookMapper;
+import com.koke.koke_backend.address.repository.AddressBookRepository;
+import com.koke.koke_backend.cart.entity.Cart;
+import com.koke.koke_backend.cart.mapper.CartMapper;
+import com.koke.koke_backend.cart.repository.CartRepository;
 import com.koke.koke_backend.common.dto.ApiResponse;
 import com.koke.koke_backend.common.security.AccessToken;
 import com.koke.koke_backend.common.security.JwtTokenProvider;
@@ -37,7 +43,11 @@ import static org.springframework.web.context.request.RequestContextHolder.curre
 public class AuthService {
 
     private final UserRepository userRepository;
+    private final AddressBookRepository addressBookRepository;
+    private final CartRepository cartRepository;
     private final UserMapper userMapper;
+    private final AddressBookMapper addressBookMapper;
+    private final CartMapper cartMapper;
     private final JwtTokenProvider jwtTokenProvider;
     private final PasswordEncoder passwordEncoder;
     private final RedisTemplate<String, AccessToken> redisTemplateAccess;
@@ -62,7 +72,16 @@ public class AuthService {
     @Transactional
     public ResponseEntity<ApiResponse<Object>> signUp(SignUpRequestDto signUpRequestDto) {
         User user = userMapper.signUpRequestDtoToUser(signUpRequestDto);
-        userRepository.save(user);
+        userRepository.saveAndFlush(user);
+
+        user = userRepository.findById(user.getUserId())
+                .orElseThrow(() -> new NoSuchElementException("사용자가 존재하지 않습니다."));
+
+        AddressBook addressBook = addressBookMapper.createAddressBook(user);
+        addressBookRepository.save(addressBook);
+
+        Cart cart = cartMapper.createCart(user);
+        cartRepository.save(cart);
 
         return ApiResponse.success("회원가입에 성공했습니다.");
     }
