@@ -1,4 +1,4 @@
-package com.koke.koke_backend.roastery.converter;
+package com.koke.koke_backend.common.converter;
 
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
