@@ -30,7 +30,7 @@ public class CelebrityCommentController {
     }
 
     @Tag(name = "셀럽 추천사 관리", description = "셀럽 추천사 관리 API")
-    @Operation(summary = "셀럽 추천사 파싱 저장 조회", description = "셀럽 추천사 파싱 저장 API")
+    @Operation(summary = "셀럽 추천사 파싱 저장 - 테스트", description = "셀럽 추천사 파싱 저장 API - 테스트")
     @GetMapping("/parse")
     public ResponseEntity<ApiResponse<Object>> save() throws IOException {
         return celebrityCommentService.parse();

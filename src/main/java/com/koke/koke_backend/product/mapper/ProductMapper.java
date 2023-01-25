@@ -23,9 +23,10 @@ public interface ProductMapper {
 
 	@Named("toEntity")
 	@Mapping(target = "id", source = "dto", qualifiedByName = "getIdFromProductDataDto")
-	@Mapping(target = "productCategories", ignore = true)
+	@Mapping(target = "description", source = "summary")
 	@Mapping(target = "roastery", ignore = true)
 	@Mapping(target = "weight", ignore = true)
+//	@Mapping(target = "productCategories", ignore = true)
 	Product toEntity(ProductDataDto dto);
 
 	@IterableMapping(qualifiedByName = "toEntity")

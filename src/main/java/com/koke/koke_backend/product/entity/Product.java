@@ -1,19 +1,15 @@
 package com.koke.koke_backend.product.entity;
 
-import com.fasterxml.jackson.annotation.JsonManagedReference;
-import com.koke.koke_backend.category.entity.ProductCategory;
 import com.koke.koke_backend.common.entity.BaseTimeEntity;
 import com.koke.koke_backend.common.jpa.StringListConverter;
 import com.koke.koke_backend.roastery.entity.Roastery;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
-import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.experimental.SuperBuilder;
 import org.hibernate.annotations.Comment;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import static jakarta.persistence.FetchType.LAZY;
@@ -50,9 +46,8 @@ public class Product extends BaseTimeEntity {
     private String name;
 
     @Column(columnDefinition = "MEDIUMTEXT NOT NULL")
-    @Convert(converter = StringListConverter.class)
     @Comment("상품 설명")
-    private List<String> description;
+    private String description;
 
     @Column(columnDefinition = "TEXT NOT NULL")
     @Convert(converter = StringListConverter.class)
@@ -102,13 +97,13 @@ public class Product extends BaseTimeEntity {
     @Comment("로스터리 카페 ID")
     private Roastery roastery;
 
-    @Builder.Default
-    @OneToMany(mappedBy = "product", cascade = {
-            CascadeType.PERSIST,
-            CascadeType.MERGE,
-            CascadeType.REMOVE
-    }, orphanRemoval = true)
-    @JsonManagedReference
-    private List<ProductCategory> productCategories = new ArrayList<>();
+//    @Builder.Default
+//    @OneToMany(mappedBy = "product", cascade = {
+//            CascadeType.PERSIST,
+//            CascadeType.MERGE,
+//            CascadeType.REMOVE
+//    }, orphanRemoval = true)
+//    @JsonManagedReference
+//    private List<ProductCategory> productCategories = new ArrayList<>();
 
 }
