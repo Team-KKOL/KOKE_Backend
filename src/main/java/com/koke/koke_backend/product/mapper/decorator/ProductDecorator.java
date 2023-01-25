@@ -12,6 +12,9 @@ import org.springframework.context.annotation.Primary;
 import java.util.ArrayList;
 import java.util.List;
 
+import static java.lang.Integer.parseInt;
+import static org.apache.commons.lang3.StringUtils.remove;
+
 @Primary
 public abstract class ProductDecorator implements ProductMapper {
 
@@ -26,7 +29,14 @@ public abstract class ProductDecorator implements ProductMapper {
     public Product toEntity(ProductDataDto dto) {
         Product product = delegate.toEntity(dto);
         Roastery roastery = roasteryRepository.findByRoasteryNm(dto.getRoastery());
-        return product.toBuilder().roastery(roastery).build();
+
+        Integer weightValue = parseInt(remove(dto.getWeight(), "g"));
+        List<String> weight = List.of(weightValue + "g", weightValue * 2 + "g");
+
+        return product.toBuilder()
+                .roastery(roastery)
+                .weight(weight)
+                .build();
     }
 
     @Override
@@ -34,6 +44,10 @@ public abstract class ProductDecorator implements ProductMapper {
         if ( productDataDtos == null ) {
             return null;
         }
+
+        productDataDtos = productDataDtos.stream()
+                .filter(p -> !p.getRoastery().contains("크래커스"))
+                .toList();
 
         List<Product> list = new ArrayList<>(productDataDtos.size());
         for ( ProductDataDto productDataDto : productDataDtos ) {

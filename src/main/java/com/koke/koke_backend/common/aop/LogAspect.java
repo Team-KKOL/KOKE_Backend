@@ -98,7 +98,7 @@ public class LogAspect {
         return proceed;
     }
 
-//    @Around("restApi()")
+    @Around("restApi()")
     public Object LogRequestUrl(ProceedingJoinPoint joinPoint) throws Throwable {
         HttpServletRequest request = ((ServletRequestAttributes) currentRequestAttributes()).getRequest();
 
@@ -114,11 +114,11 @@ public class LogAspect {
         String apiInfo = "called api is -- " + httpMethod + " " + request.getRequestURI();
 
         log.info(apiInfo);
-        if ((request.getContentType() != null && !request.getContentType().contains("multipart"))) {
-            String requestParam = "request parameters are -- \n" +
-                    objectMapper.writerWithDefaultPrettyPrinter().writeValueAsString(params(joinPoint));
-            log.info(requestParam);
-        }
+//        if ((request.getContentType() != null && !request.getContentType().contains("multipart"))) {
+//            String requestParam = "request parameters are -- \n" +
+//                    objectMapper.writerWithDefaultPrettyPrinter().writeValueAsString(params(joinPoint));
+//            log.info(requestParam);
+//        }
         return joinPoint.proceed(joinPoint.getArgs());
     }
 
