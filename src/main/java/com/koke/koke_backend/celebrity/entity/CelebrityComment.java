@@ -34,6 +34,10 @@ public class CelebrityComment extends BaseTimeEntity {
     @Comment("셀럽 직업")
     private String celebrityJob;
 
+    @Column(nullable = false, length = 300)
+    @Comment("셀럽 프로필 이미지 URL")
+    private String celebrityImgUrl;
+
     @Column(nullable = false, length = 50)
     @Comment("추천사 제목")
     private String title;

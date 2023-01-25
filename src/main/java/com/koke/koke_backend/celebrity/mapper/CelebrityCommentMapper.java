@@ -26,6 +26,7 @@ public interface CelebrityCommentMapper {
 	@Mapping(target = "id", ignore = true)
 	@Mapping(target = "celebrityName", source = "name")
 	@Mapping(target = "celebrityJob", source = "job")
+	@Mapping(target = "celebrityImgUrl", source = "img")
 	@Mapping(target = "comment", source = "detail", qualifiedByName = "getCommentFromCelebrityCommentDataDto")
 	@Mapping(target = "instagramId", source = "instad")
 	CelebrityComment toEntity(CelebrityCommentDataDto dto);
