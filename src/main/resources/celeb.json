@@ -1,0 +1,58 @@
+[
+  {
+    "img": "https://d227tph7fpseou.cloudfront.net/static/influencers/influencer_1.jpg",
+    "title": "이런 상황에 딱 정답과도 같은 서비스",
+    "detail": "집에서 여러 스페셜티 커피숍의 다양한 원두를 접해보고 싶은 분들, 매번 어떤 원두를 살지 고민에 빠지는 분들, 원두 구매에 누군가의 추천을 원하는 분들에게 딱 좋은 서비스.",
+    "name": "이한오",
+    "job": "'도쿄 스페셜티 커피 라이프'저자",
+    "instad": "@_hanno_co"
+  },
+  {
+    "img": "https://d227tph7fpseou.cloudfront.net/static/influencers/influencer_2.jpg",
+    "title": "온 세상 맛있는 커피가 궁금한 나 같은 사람",
+    "detail": "유명한 커피집을 가볼 수 없는 요즈음, 집에서 궁금했던 커피 맛을 텍스트로 읽으며 상상하는 것이 좋다. 포장을 뜯었을 때 나를 무장해제 시키는 커피 향기도.",
+    "name": "최고요",
+    "job": "탠 크리에이티브 공간 디렉터",
+    "instad": "@koyoch"
+  },
+  {
+    "img": "https://d227tph7fpseou.cloudfront.net/static/influencers/influencer_3.jpg",
+    "title": "커피에 대한 경험을 즐길 수 있게 도와준다",
+    "detail": "스스로에게 '뭐가 좋아?'하고 질문을 던지며 커피에 대한 경험을 즐길 수 있게 도와준다는 점이 마음에 들었다.\n벌써 어떤 원두를 골라볼지 무척 기대된다.",
+    "name": "무과수",
+    "job": "작가",
+    "instad": "@muguasu"
+  },
+  {
+    "img": "https://d227tph7fpseou.cloudfront.net/static/influencers/influencer_4.jpg",
+    "title": "내 입에 맞는 원두를 알아서 보내주는 코케",
+    "detail": "새 원두 주문 깜빡했다간 모닝커피 없이 쓸쓸한 아침을 보내야 하고.\n그러니까 때맞춰 내 입에 맞는 원두를 알아서 보내주는 코케가 얼마나 반가운지.",
+    "name": "김키미",
+    "job": "카카오 브런치 브랜드 마케터",
+    "instad": "@kimmy.pro"
+  },
+  {
+    "img": "https://d227tph7fpseou.cloudfront.net/static/influencers/influencer_5.jpg",
+    "title": "디카페인 원두도 다양하게 고를 수 있다",
+    "detail": "유명 커피 맛집들의 원두를 정기배송해주는 코케에서 디카페인 원두의 종류도 맛과 향별로 다양하게 고를 수 있다는걸 알게 된 후로는 매일 아침이 신난다.",
+    "name": "유난",
+    "job": "광고기획자/에디터",
+    "instad": "@hellounan"
+  },
+  {
+    "img": "https://d227tph7fpseou.cloudfront.net/static/influencers/influencer_6.jpg",
+    "title": "애플뮤직을 처음 시작할 때처럼 취향 진단",
+    "detail": "집에 원두가 떨어지지 않는 게 중요하니까 꼭 필요한 구독. \n무엇보다 선택에 오랜 시간이 걸리는 나에게 랜덤한 추천은 오히려 고맙습니다...!",
+    "name": "고예림",
+    "job": "작사가",
+    "instad": "@rim_ko"
+  },
+  {
+    "img": "https://d227tph7fpseou.cloudfront.net/static/influencers/influencer_7.jpg",
+    "title": "구독하며 원두의 스펙트럼을 늘려볼 예정",
+    "detail": "한 번 가봐야지 생각만 하던 사람들에게 꽤 유용한 서비스일 듯. 물론 골라주는 대로 받아보는 재미도 있어서 우연히 취향을 발견하는 계기가 될 수도 있다.",
+    "name": "차우진",
+    "job": "음악평론가",
+    "instad": "@woojin.re"
+  }
+]

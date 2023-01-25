@@ -2,8 +2,8 @@ package com.koke.koke_backend.product.entity;
 
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.koke.koke_backend.category.entity.ProductCategory;
-import com.koke.koke_backend.common.converter.StringListConverter;
 import com.koke.koke_backend.common.entity.BaseTimeEntity;
+import com.koke.koke_backend.common.jpa.StringListConverter;
 import com.koke.koke_backend.roastery.entity.Roastery;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
