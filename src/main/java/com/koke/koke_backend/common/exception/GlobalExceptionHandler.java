@@ -16,6 +16,8 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 import java.util.NoSuchElementException;
 
 import static com.koke.koke_backend.common.exception.GetPrintStackTrace.GetException;
+import static jakarta.servlet.http.HttpServletResponse.SC_BAD_REQUEST;
+import static jakarta.servlet.http.HttpServletResponse.SC_INTERNAL_SERVER_ERROR;
 import static java.lang.System.lineSeparator;
 import static java.util.stream.Collectors.joining;
 
@@ -33,6 +35,7 @@ public class GlobalExceptionHandler {
 				.append(GetException(e))
 				.toString();
 
+		response.setStatus(SC_INTERNAL_SERVER_ERROR);
 
 		log.error("알 수 없는 오류가 발생했습니다.");
 		log.error(exception);
@@ -48,6 +51,8 @@ public class GlobalExceptionHandler {
 				.append(lineSeparator())
 				.append(GetException(e))
 				.toString();
+
+		response.setStatus(SC_BAD_REQUEST);
 
 		log.error(e.getMessage());
 		log.error(exception);
@@ -69,6 +74,8 @@ public class GlobalExceptionHandler {
 				.filter(StringUtils::hasText)
 				.collect(joining(lineSeparator(), "", ""));
 
+		response.setStatus(SC_BAD_REQUEST);
+
 		log.error(e.getMessage());
 		log.error(exception);
 
@@ -88,6 +95,8 @@ public class GlobalExceptionHandler {
 				.map(DefaultMessageSourceResolvable::getDefaultMessage)
 				.filter(StringUtils::hasText)
 				.collect(joining(lineSeparator(), "", ""));
+
+		response.setStatus(SC_BAD_REQUEST);
 
 		log.error(e.getMessage());
 		log.error(exception);

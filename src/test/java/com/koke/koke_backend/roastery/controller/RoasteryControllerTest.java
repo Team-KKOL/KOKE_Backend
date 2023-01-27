@@ -1,6 +1,6 @@
 package com.koke.koke_backend.roastery.controller;
 
-import com.koke.koke_backend.AbstractIntegrationTest;
+import com.koke.koke_backend.base.AbstractIntegrationTest;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;

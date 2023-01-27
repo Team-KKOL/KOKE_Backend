@@ -1,8 +1,11 @@
-package com.koke.koke_backend;
+package com.koke.koke_backend.base;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.koke.koke_backend.KokeBackendApplication;
 import com.koke.koke_backend.common.initializer.EncryptInitializer;
+import org.junit.jupiter.api.MethodOrderer;
+import org.junit.jupiter.api.TestMethodOrder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.ActiveProfiles;
@@ -21,6 +24,7 @@ import org.testcontainers.utility.DockerImageName;
 )
 @ContextConfiguration(initializers = EncryptInitializer.class)
 @ActiveProfiles("test")
+@TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 public abstract class AbstractIntegrationTest {
 
     @Autowired
