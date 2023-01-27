@@ -33,11 +33,7 @@ public class PredicateBuilder {
         return ExpressionUtils.allOf(predicateBuilders);
     }
 
-    // StringPath : QueryDSL에서 다루는 Q-Entity 클래스의 String 타입 필드를 나타내는 클래스
-
     public PredicateBuilder eqString(StringPath column, String value) {
-
-        // column.eq(value) -> BooleanExpression 클래스(Predicate 인터페이스의 구현체 중 하나)
 
         if (StringUtils.hasText(value)) {
             predicateBuilders.add(column.eq(value));

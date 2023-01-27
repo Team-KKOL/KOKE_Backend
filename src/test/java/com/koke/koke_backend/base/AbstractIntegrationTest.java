@@ -28,7 +28,7 @@ import org.testcontainers.utility.DockerImageName;
 public abstract class AbstractIntegrationTest {
 
     @Autowired
-    private ObjectMapper objectMapper;
+    ObjectMapper objectMapper;
 
     public <T> String toJson(T data) throws JsonProcessingException {
         return objectMapper.writeValueAsString(data);
@@ -49,7 +49,7 @@ public abstract class AbstractIntegrationTest {
                             "--default-time-zone=+09:00"
                     )
                     .withReuse(true);
-    
+
     public static final String REDIS_IMAGE_NAME = "redis:latest";
     @Container
     public static final GenericContainer<?> REDIS_CONTAINER =
