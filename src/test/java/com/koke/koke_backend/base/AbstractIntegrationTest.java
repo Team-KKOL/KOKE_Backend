@@ -49,13 +49,13 @@ public abstract class AbstractIntegrationTest {
                             "--default-time-zone=+09:00"
                     )
                     .withReuse(true);
-
+    
+    public static final String REDIS_IMAGE_NAME = "redis:latest";
     @Container
     public static final GenericContainer<?> REDIS_CONTAINER =
-            new GenericContainer<>(DockerImageName.parse("redis:latest"))
+            new GenericContainer<>(DockerImageName.parse(REDIS_IMAGE_NAME))
                     .withEnv("TZ", "Asia/Seoul")
                     .withExposedPorts(6379)
-//                    .withCommand("redis-server --port 6389")
                     .withReuse(true);
 
     @DynamicPropertySource

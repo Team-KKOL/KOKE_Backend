@@ -13,6 +13,8 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
+import static com.querydsl.core.types.dsl.Expressions.numberTemplate;
+
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class PredicateBuilder {
 
@@ -56,9 +58,12 @@ public class PredicateBuilder {
     public PredicateBuilder eqStringList(ListPath<String, StringPath> column, List<String> values) {
         if (values != null && !values.isEmpty()) {
             BooleanExpression[] booleanExpressions = values.stream()
-                    .map(column::contains)
+                    .map(p -> numberTemplate(Integer.class,
+                            "JSON_CONTAINS(JSON_EXTRACT({0}, '$[*]'), {1})",
+                            column, String.format("\"%s\"", p)).eq(1))
                     .toArray(BooleanExpression[]::new);
-            predicateBuilders.add(new BooleanBuilder().andAnyOf(booleanExpressions));
+
+            predicateBuilders.add(ExpressionUtils.allOf(booleanExpressions));
         }
 
         return this;

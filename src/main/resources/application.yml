@@ -22,6 +22,7 @@ spring:
       ddl-auto: create
       naming:
         physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
+      metadata_builder_contributor: com.koke.koke_backend.module.jpa.SqlFunctionsMetadataBuilderContributor
   mvc:
     pathmatch:
       matching-strategy: ant_path_matcher
@@ -84,6 +85,7 @@ spring:
       ddl-auto: none
       naming:
         physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
+      metadata_builder_contributor: com.koke.koke_backend.module.jpa.SqlFunctionsMetadataBuilderContributor
   mvc:
     pathmatch:
       matching-strategy: ant_path_matcher
@@ -143,9 +145,10 @@ spring:
     database-platform: org.hibernate.dialect.MariaDBDialect
     show-sql: false
     hibernate:
-      ddl-auto: create
+      ddl-auto: none
       naming:
         physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
+      metadata_builder_contributor: com.koke.koke_backend.module.jpa.SqlFunctionsMetadataBuilderContributor
   mvc:
     pathmatch:
       matching-strategy: ant_path_matcher

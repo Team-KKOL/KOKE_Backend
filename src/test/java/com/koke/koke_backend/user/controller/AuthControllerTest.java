@@ -6,7 +6,9 @@ import com.koke.koke_backend.common.security.RefreshToken;
 import com.koke.koke_backend.user.dto.LoginRequestDto;
 import com.koke.koke_backend.user.dto.RefreshRequestDto;
 import com.koke.koke_backend.user.dto.SignUpRequestDto;
-import org.junit.jupiter.api.*;
+import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Order;
+import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.data.redis.core.RedisTemplate;
@@ -31,19 +33,6 @@ class AuthControllerTest extends AbstractIntegrationTest {
 
     @Autowired
     private RedisTemplate<String, RefreshToken> redisTemplateRefresh;
-
-    @BeforeAll
-    static void setUpAll() {
-
-    }
-
-    @BeforeEach
-    void setUpEach() {
-    }
-
-    @AfterEach
-    void tearDownEach() {
-    }
 
     private static final String USER_ID = "habin123";
     private static final String PASSWORD = "tyuiop90()";
