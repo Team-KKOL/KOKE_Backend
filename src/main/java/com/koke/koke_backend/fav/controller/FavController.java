@@ -12,6 +12,4 @@ public class FavController {
 
     private final FavService favService;
 
-
-
 }

@@ -1,7 +1,7 @@
 package com.koke.koke_backend.roastery.entity;
 
 import com.koke.koke_backend.common.entity.BaseEntity;
-import com.koke.koke_backend.roastery.converter.StringListConverter;
+import com.koke.koke_backend.common.jpa.StringListConverter;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;

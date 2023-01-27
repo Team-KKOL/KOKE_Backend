@@ -89,7 +89,7 @@ public class AuthService {
     @Transactional
     public ResponseEntity<ApiResponse<Object>> login(LoginRequestDto loginRequestDto) {
         User user = userRepository.findById(loginRequestDto.getUserId())
-                .orElseThrow(() -> new NoSuchElementException("가입되지 않은 아이디입니다."));
+                .orElseThrow(() -> new NoSuchElementException("가입되지 않은 ID입니다."));
 
         boolean pwIsMatch = passwordEncoder.matches(loginRequestDto.getPassword(), user.getPassword());
 

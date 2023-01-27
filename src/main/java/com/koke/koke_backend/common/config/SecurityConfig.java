@@ -38,7 +38,7 @@ public class SecurityConfig {
 	private static final Profiles profile = Profiles.of("master", "develop");
 
 	private static final String[] NOT_NEED_TOKEN_URLS = {"/swagger-ui/4.15.5/index.html", "/swagger-ui/**", "/swagger-ui.html",
-			"/v3/api-docs/**", "/check/**", "/signUp", "/login", "/refresh", "/roastery/**",
+			"/v3/api-docs/**", "/check/**", "/signUp", "/login", "/refresh", "/roastery/**", "/product/**", "/celebrity/**",
 			"/static/**", "/css/**", "/js/**", "/img/**", "/lib/**", "/manifest.json", "/lodash.json"
 	};
 
