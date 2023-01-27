@@ -2,11 +2,13 @@ package com.koke.koke_backend.roastery.repository;
 
 import com.koke.koke_backend.roastery.dto.RoasteryDetailResponseDto;
 import com.koke.koke_backend.roastery.dto.RoasteryListResponseDto;
+import com.koke.koke_backend.roastery.dto.RoasteryTop4ResponseDto;
 import com.koke.koke_backend.roastery.enums.SortType;
 import com.querydsl.core.types.OrderSpecifier;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import lombok.RequiredArgsConstructor;
 
+import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 
@@ -49,6 +51,23 @@ public class QRoasteryRepositoryImpl implements QRoasteryRepository {
                 .fetchOne();
 
         return Optional.ofNullable(fetchOne);
+    }
+
+    @Override
+    public List<RoasteryTop4ResponseDto> top4() {
+        List<RoasteryTop4ResponseDto> fetch = queryFactory.select(fields(RoasteryTop4ResponseDto.class,
+                        roastery.id,
+                        roastery.roasteryNm,
+                        roastery.logoImgUrl,
+                        roastery.photoImgUrl,
+                        roastery.location
+                ))
+                .from(roastery)
+                .fetch();
+
+        Collections.shuffle(fetch);
+
+        return fetch.subList(0, 4);
     }
 
     private OrderSpecifier<?> getOrderSpecifier(SortType sortType) throws IllegalStateException {

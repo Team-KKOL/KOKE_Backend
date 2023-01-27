@@ -4,6 +4,7 @@ import com.koke.koke_backend.common.dto.ApiResponse;
 import com.koke.koke_backend.roastery.dto.RoasteryCreateRequestDto;
 import com.koke.koke_backend.roastery.dto.RoasteryDetailResponseDto;
 import com.koke.koke_backend.roastery.dto.RoasteryListResponseDto;
+import com.koke.koke_backend.roastery.dto.RoasteryTop4ResponseDto;
 import com.koke.koke_backend.roastery.enums.SortType;
 import com.koke.koke_backend.roastery.service.RoasteryService;
 import io.swagger.v3.oas.annotations.Operation;
@@ -38,6 +39,13 @@ public class RoasteryController {
     @GetMapping
     public ResponseEntity<ApiResponse<List<RoasteryListResponseDto>>> list(@RequestParam(name = "sort") SortType sortType) {
         return roasteryService.list(sortType);
+    }
+
+    @Tag(name = "로스터리 관리", description = "로스터리 관리 API")
+    @Operation(summary = "로스터리 상위 4개 조회", description = "로스터리 상위 4개 조회 API")
+    @GetMapping("/top4")
+    public ResponseEntity<ApiResponse<List<RoasteryTop4ResponseDto>>> top4() {
+        return roasteryService.top4();
     }
 
     @Tag(name = "로스터리 관리", description = "로스터리 관리 API")

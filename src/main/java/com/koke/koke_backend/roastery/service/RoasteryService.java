@@ -9,6 +9,7 @@ import com.koke.koke_backend.common.dto.ApiResponse;
 import com.koke.koke_backend.roastery.dto.RoasteryCreateRequestDto;
 import com.koke.koke_backend.roastery.dto.RoasteryDetailResponseDto;
 import com.koke.koke_backend.roastery.dto.RoasteryListResponseDto;
+import com.koke.koke_backend.roastery.dto.RoasteryTop4ResponseDto;
 import com.koke.koke_backend.roastery.dto.json.RoasteryDataDto;
 import com.koke.koke_backend.roastery.entity.Roastery;
 import com.koke.koke_backend.roastery.enums.SortType;
@@ -44,6 +45,12 @@ public class RoasteryService {
 
 
     @Transactional(readOnly = true)
+    public ResponseEntity<ApiResponse<List<RoasteryTop4ResponseDto>>> top4() {
+        List<RoasteryTop4ResponseDto> list = roasteryRepository.top4();
+        return ApiResponse.success(list);
+    }
+
+    @Transactional(readOnly = true)
     public ResponseEntity<ApiResponse<RoasteryDetailResponseDto>> detail(String id) {
         Optional<RoasteryDetailResponseDto> detailOptional = roasteryRepository.detail(id);
         RoasteryDetailResponseDto detail =
@@ -73,5 +80,4 @@ public class RoasteryService {
 
         return ApiResponse.success();
     }
-
 }
