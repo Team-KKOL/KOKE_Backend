@@ -16,162 +16,184 @@ import java.util.List;
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class PredicateBuilder {
 
-	private final List<Predicate> predicateBuilders = new ArrayList<>();
+    private final List<Predicate> predicateBuilders = new ArrayList<>();
 
-	public static PredicateBuilder builder() {
-		return new PredicateBuilder();
-	}
+    public static PredicateBuilder builder() {
+        return new PredicateBuilder();
+    }
 
-	public <P extends Predicate> PredicateBuilder and(P pr) {
-		predicateBuilders.add(pr);
-		return this;
-	}
+    public <P extends Predicate> PredicateBuilder and(P pr) {
+        predicateBuilders.add(pr);
+        return this;
+    }
 
-	public Predicate build() {
-		return ExpressionUtils.allOf(predicateBuilders);
-	}
+    public Predicate build() {
+        return ExpressionUtils.allOf(predicateBuilders);
+    }
 
-	// StringPath : QueryDSL에서 다루는 Q-Entity 클래스의 String 타입 필드를 나타내는 클래스
+    // StringPath : QueryDSL에서 다루는 Q-Entity 클래스의 String 타입 필드를 나타내는 클래스
 
-	public PredicateBuilder eqString(StringPath column, String value) {
+    public PredicateBuilder eqString(StringPath column, String value) {
 
-		// column.eq(value) -> BooleanExpression 클래스(Predicate 인터페이스의 구현체 중 하나)
+        // column.eq(value) -> BooleanExpression 클래스(Predicate 인터페이스의 구현체 중 하나)
 
-		if (StringUtils.hasText(value)) {
-			predicateBuilders.add(column.eq(value));
-		}
+        if (StringUtils.hasText(value)) {
+            predicateBuilders.add(column.eq(value));
+        }
 
-		return this;
-	}
+        return this;
+    }
 
-	public PredicateBuilder containsString(StringPath column, String value) {
+    public PredicateBuilder containsString(StringPath column, String value) {
 
-		if (StringUtils.hasText(value)) {
-			predicateBuilders.add(column.contains(value));
-		}
+        if (StringUtils.hasText(value)) {
+            predicateBuilders.add(column.contains(value));
+        }
 
-		return this;
-	}
+        return this;
+    }
 
-	public PredicateBuilder containsStringDesc(StringPath column1, StringPath column2, String value) {
+    public PredicateBuilder eqStringList(ListPath<String, StringPath> column, List<String> values) {
+        if (values != null && !values.isEmpty()) {
+            BooleanExpression[] booleanExpressions = values.stream()
+                    .map(column::contains)
+                    .toArray(BooleanExpression[]::new);
+            predicateBuilders.add(new BooleanBuilder().andAnyOf(booleanExpressions));
+        }
 
-		if (StringUtils.hasText(value)) {
-			predicateBuilders.add(new BooleanBuilder()
-					.andAnyOf(column2.contains(value), column2.contains(value)));
-		}
+        return this;
+    }
 
-		return this;
-	}
+    public PredicateBuilder containsStringList(ListPath<String, StringPath> column, List<String> values) {
+        if (values != null && !values.isEmpty()) {
+            BooleanExpression[] booleanExpressions = values.stream()
+                    .map(column::contains)
+                    .toArray(BooleanExpression[]::new);
+            predicateBuilders.add(new BooleanBuilder().andAnyOf(booleanExpressions));
+        }
 
-	public <N extends Number & Comparable<?>> PredicateBuilder betweenNumberDynamic(NumberPath<N> column, N min, N max) {
-		if (min != null) {
-			predicateBuilders.add(column.goe(min));
-		}
+        return this;
+    }
 
-		if (max != null) {
-			predicateBuilders.add(column.loe(max));
-		}
+    public PredicateBuilder containsStringDesc(StringPath column1, StringPath column2, String value) {
 
-		return this;
-	}
+        if (StringUtils.hasText(value)) {
+            predicateBuilders.add(new BooleanBuilder()
+                    .andAnyOf(column2.contains(value), column2.contains(value)));
+        }
 
-	public <N extends Number & Comparable<?>> PredicateBuilder eqNumber(NumberPath<N> column, N value) {
-		if (value != null) {
-			predicateBuilders.add(column.eq(value));
-		}
+        return this;
+    }
 
-		return this;
-	}
+    public <N extends Number & Comparable<?>> PredicateBuilder betweenNumberDynamic(NumberPath<N> column, N min, N max) {
+        if (min != null) {
+            predicateBuilders.add(column.goe(min));
+        }
 
-	public <N extends Number & Comparable<?>> PredicateBuilder neNumber(NumberPath<N> column, N value) {
-		if (value != null) {
-			predicateBuilders.add(column.ne(value));
-		}
+        if (max != null) {
+            predicateBuilders.add(column.loe(max));
+        }
 
-		return this;
-	}
+        return this;
+    }
 
-	public <N extends Number & Comparable<?>> PredicateBuilder inNumber(NumberPath<N> column, List<N> valueList) {
-		if (valueList != null) {
-			predicateBuilders.add(column.in(valueList));
-		}
+    public <N extends Number & Comparable<?>> PredicateBuilder eqNumber(NumberPath<N> column, N value) {
+        if (value != null) {
+            predicateBuilders.add(column.eq(value));
+        }
 
-		return this;
-	}
+        return this;
+    }
 
-	public <E extends Enum<E>> PredicateBuilder eqEnum(EnumPath<E> column, E value) {
+    public <N extends Number & Comparable<?>> PredicateBuilder neNumber(NumberPath<N> column, N value) {
+        if (value != null) {
+            predicateBuilders.add(column.ne(value));
+        }
 
-		if (value != null) {
-			predicateBuilders.add(column.eq(value));
-		}
+        return this;
+    }
 
-		return this;
-	}
+    public <N extends Number & Comparable<?>> PredicateBuilder inNumber(NumberPath<N> column, List<N> valueList) {
+        if (valueList != null) {
+            predicateBuilders.add(column.in(valueList));
+        }
 
-	public <E extends Enum<E>> PredicateBuilder inEnum(EnumPath<E> column, List<E> value) {
-		if (value != null) {
-			predicateBuilders.add(column.in(value));
-		}
+        return this;
+    }
 
-		return this;
-	}
+    public <E extends Enum<E>> PredicateBuilder eqEnum(EnumPath<E> column, E value) {
 
-	public PredicateBuilder betweenDateTime(DateTimePath<LocalDateTime> column, LocalDateTime startDate, LocalDateTime endDate) {
-		if (startDate != null && endDate != null) {
-			predicateBuilders.add(column.between(startDate, endDate));
-		}
+        if (value != null) {
+            predicateBuilders.add(column.eq(value));
+        }
 
-		return this;
-	}
+        return this;
+    }
 
-	public PredicateBuilder betweenDateTimeDynamic(DateTimePath<LocalDateTime> column, LocalDateTime startDate, LocalDateTime endDate) {
-		if (startDate != null) {
-			predicateBuilders.add(column.goe(startDate));
-		}
+    public <E extends Enum<E>> PredicateBuilder inEnum(EnumPath<E> column, List<E> value) {
+        if (value != null) {
+            predicateBuilders.add(column.in(value));
+        }
 
-		if (endDate != null) {
-			predicateBuilders.add(column.loe(endDate));
-		}
+        return this;
+    }
 
-		return this;
-	}
+    public PredicateBuilder betweenDateTime(DateTimePath<LocalDateTime> column, LocalDateTime startDate, LocalDateTime endDate) {
+        if (startDate != null && endDate != null) {
+            predicateBuilders.add(column.between(startDate, endDate));
+        }
 
-	public PredicateBuilder betweenDate(DatePath<LocalDate> column, LocalDate startDate, LocalDate endDate) {
-		if (startDate != null && endDate != null) {
-			predicateBuilders.add(column.between(startDate, endDate));
-		}
+        return this;
+    }
 
-		return this;
-	}
+    public PredicateBuilder betweenDateTimeDynamic(DateTimePath<LocalDateTime> column, LocalDateTime startDate, LocalDateTime endDate) {
+        if (startDate != null) {
+            predicateBuilders.add(column.goe(startDate));
+        }
 
-	public PredicateBuilder betweenDateDynamic(DatePath<LocalDate> column, LocalDate startDate, LocalDate endDate) {
-		if (startDate != null) {
-			predicateBuilders.add(column.goe(startDate));
-		}
+        if (endDate != null) {
+            predicateBuilders.add(column.loe(endDate));
+        }
 
-		if (endDate != null) {
-			predicateBuilders.add(column.loe(endDate));
-		}
+        return this;
+    }
 
-		return this;
-	}
+    public PredicateBuilder betweenDate(DatePath<LocalDate> column, LocalDate startDate, LocalDate endDate) {
+        if (startDate != null && endDate != null) {
+            predicateBuilders.add(column.between(startDate, endDate));
+        }
 
-	public PredicateBuilder eqDateTime(DateTimePath<LocalDateTime> column, LocalDateTime value) {
+        return this;
+    }
 
-		if (value != null) {
-			predicateBuilders.add(column.eq(value));
-		}
+    public PredicateBuilder betweenDateDynamic(DatePath<LocalDate> column, LocalDate startDate, LocalDate endDate) {
+        if (startDate != null) {
+            predicateBuilders.add(column.goe(startDate));
+        }
 
-		return this;
-	}
+        if (endDate != null) {
+            predicateBuilders.add(column.loe(endDate));
+        }
 
-	public PredicateBuilder eqDate(DatePath<LocalDate> column, LocalDate value) {
+        return this;
+    }
 
-		if (value != null) {
-			predicateBuilders.add(column.eq(value));
-		}
+    public PredicateBuilder eqDateTime(DateTimePath<LocalDateTime> column, LocalDateTime value) {
 
-		return this;
-	}
+        if (value != null) {
+            predicateBuilders.add(column.eq(value));
+        }
+
+        return this;
+    }
+
+    public PredicateBuilder eqDate(DatePath<LocalDate> column, LocalDate value) {
+
+        if (value != null) {
+            predicateBuilders.add(column.eq(value));
+        }
+
+        return this;
+    }
 
 }
