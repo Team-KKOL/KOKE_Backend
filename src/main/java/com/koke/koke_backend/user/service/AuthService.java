@@ -100,6 +100,8 @@ public class AuthService {
             Map<String, Object> result = new HashMap<>();
             result.put("accessToken", accessToken);
             result.put("refreshToken", refreshToken);
+            result.put("userId", user.getUserId());
+            result.put("name", user.getName());
 
             return ApiResponse.success(result);
         } else {

@@ -3,6 +3,7 @@ package com.koke.koke_backend.product.controller;
 import com.koke.koke_backend.common.dto.ApiResponse;
 import com.koke.koke_backend.product.dto.ProductListRequestDto;
 import com.koke.koke_backend.product.dto.ProductListResponseDto;
+import com.koke.koke_backend.product.entity.Product;
 import com.koke.koke_backend.product.service.ProductService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -27,6 +28,13 @@ public class ProductController {
     @PostMapping
     public ResponseEntity<ApiResponse<Page<ProductListResponseDto>>> list(@Valid @RequestBody ProductListRequestDto dto) {
         return productService.list(dto);
+    }
+
+    @Tag(name = "커피 관리", description = "커피 관리 API")
+    @Operation(summary = "커피 상세 조회", description = "커피 상세 조회 API")
+    @GetMapping("/{id}")
+    public ResponseEntity<ApiResponse<Product>> detail(@PathVariable String id) {
+        return productService.detail(id);
     }
 
     @Tag(name = "커피 관리", description = "커피 관리 API")

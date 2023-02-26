@@ -24,6 +24,8 @@ import java.io.File;
 import java.io.IOException;
 import java.util.List;
 
+import static com.koke.koke_backend.common.singleton.StaticLambdaExpression.getNSEE;
+
 @Slf4j
 @Service
 @Transactional
@@ -38,6 +40,13 @@ public class ProductService {
     public ResponseEntity<ApiResponse<Page<ProductListResponseDto>>> list(ProductListRequestDto dto) {
         Page<ProductListResponseDto> list = productRepository.list(dto);
         return ApiResponse.success(list);
+    }
+
+    @Transactional(readOnly = true)
+    public ResponseEntity<ApiResponse<Product>> detail(String id) {
+        return productRepository.findById(id)
+                .map(ApiResponse::success)
+                .orElseThrow(getNSEE.apply("커피 정보"));
     }
 
     @Transactional

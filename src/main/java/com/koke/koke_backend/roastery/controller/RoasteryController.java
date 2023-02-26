@@ -31,7 +31,7 @@ import java.util.List;
 @RequiredArgsConstructor
 @RequestMapping("/roastery")
 public class RoasteryController {
-
+    
     private final RoasteryService roasteryService;
 
     @Tag(name = "로스터리 관리", description = "로스터리 관리 API")

@@ -34,7 +34,7 @@ public abstract class AbstractIntegrationTest {
         return objectMapper.writeValueAsString(data);
     }
 
-    public static final String MARIA_DB_IMAGE_NAME = "mariadb:latest";
+    private static final String MARIA_DB_IMAGE_NAME = "mariadb:latest";
     @Container
     public static final MariaDBContainer<?> MARIA_DB_CONTAINER =
             new MariaDBContainer<>(DockerImageName.parse(MARIA_DB_IMAGE_NAME))
@@ -50,7 +50,7 @@ public abstract class AbstractIntegrationTest {
                     )
                     .withReuse(true);
 
-    public static final String REDIS_IMAGE_NAME = "redis:latest";
+    private static final String REDIS_IMAGE_NAME = "redis:latest";
     @Container
     public static final GenericContainer<?> REDIS_CONTAINER =
             new GenericContainer<>(DockerImageName.parse(REDIS_IMAGE_NAME))

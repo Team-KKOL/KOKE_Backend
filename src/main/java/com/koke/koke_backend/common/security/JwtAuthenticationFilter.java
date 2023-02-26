@@ -18,12 +18,6 @@ import java.io.OutputStream;
 
 import static org.apache.http.HttpStatus.SC_FORBIDDEN;
 
-/**
- * @author : 김하빈(hbkim@bpnsolution.com)
- * @description : Jwt 토큰 인증 필터 클래스
- * @Date : 2020. 10. 7.
- * @Time : 오전 9:09:09
- */
 @RequiredArgsConstructor
 public class JwtAuthenticationFilter extends OncePerRequestFilter {
 
