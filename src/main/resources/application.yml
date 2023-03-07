@@ -3,6 +3,10 @@ server:
   tomcat:
     remoteip:
       protocol-header: x-forwarded-proto
+  ssl:
+    key-store: classpath:keystore.p12
+    key-store-type: PKCS12
+    key-store-password: khb0915
 
 spring:
   application:
@@ -62,10 +66,15 @@ custom:
 ---
 
 server:
-  port: 9002
+  port: 443
   tomcat:
     remoteip:
       protocol-header: x-forwarded-proto
+  ssl:
+    key-store: classpath:keystore.p12
+    key-store-type: PKCS12
+    key-store-password: khb0915
+    enabled: true
 
 spring:
   application:
@@ -129,6 +138,13 @@ server:
   tomcat:
     remoteip:
       protocol-header: x-forwarded-proto
+  ssl:
+    key-store: classpath:keystore.p12
+    key-store-type: PKCS12
+    key-store-password: khb0915
+    enabled: true
+  http2:
+    enabled: true
 
 spring:
   application:

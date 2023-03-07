@@ -18,6 +18,7 @@ import org.springframework.test.web.servlet.MvcResult;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.context.WebApplicationContext;
 
+import static org.springframework.restdocs.mockmvc.MockMvcRestDocumentation.document;
 import static org.springframework.restdocs.mockmvc.MockMvcRestDocumentation.documentationConfiguration;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
@@ -50,7 +51,8 @@ class RoasteryControllerTest extends AbstractIntegrationTest {
                         status().isOk(),
                         jsonPath("$.message").value("SUCCESS")
                 )
-                .andDo(print());
+                .andDo(print())
+                .andDo(document("로스터리 데이터 파싱 생성"));
     }
 
     @Test

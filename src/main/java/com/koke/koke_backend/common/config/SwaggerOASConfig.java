@@ -56,7 +56,8 @@ public class SwaggerOASConfig implements WebMvcConfigurer {
         registry
                 .addMapping("/**")
                 .allowedMethods("*")
-                .allowedOrigins("*")
+                .allowedOrigins("http://localhost:3000", "http://localhost:9002",
+                        "http://15.165.242.95", "https://api.kkol.store")
                 .exposedHeaders("TOKEN");
     }
 

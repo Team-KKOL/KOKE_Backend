@@ -24,7 +24,7 @@ import java.io.File;
 import java.io.IOException;
 import java.util.List;
 
-import static com.koke.koke_backend.common.singleton.StaticLambdaExpression.getNSEE;
+import static com.koke.koke_backend.common.singleton.Constant.getNSEE;
 
 @Slf4j
 @Service

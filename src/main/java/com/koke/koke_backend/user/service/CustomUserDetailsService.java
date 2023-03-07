@@ -8,7 +8,7 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import static com.koke.koke_backend.common.singleton.StaticLambdaExpression.getNSEE;
+import static com.koke.koke_backend.common.singleton.Constant.getNSEE;
 
 @Service
 @Transactional(readOnly = true)
