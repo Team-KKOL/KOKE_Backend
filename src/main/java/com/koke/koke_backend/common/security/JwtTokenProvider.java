@@ -16,6 +16,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.stereotype.Component;
+import org.springframework.web.context.request.ServletRequestAttributes;
 
 import java.security.Key;
 import java.util.Date;
@@ -27,6 +28,7 @@ import static io.jsonwebtoken.SignatureAlgorithm.HS512;
 import static io.jsonwebtoken.security.Keys.hmacShaKeyFor;
 import static java.nio.charset.StandardCharsets.UTF_8;
 import static org.springframework.http.HttpHeaders.AUTHORIZATION;
+import static org.springframework.web.context.request.RequestContextHolder.currentRequestAttributes;
 
 @Component
 @RequiredArgsConstructor
@@ -158,6 +160,12 @@ public class JwtTokenProvider { // JWT 토큰 생성 및 검증 모듈
 		}
 
 		return null;
+	}
+
+	public String getUserIdFromCurrentRequest() {
+		HttpServletRequest request = ((ServletRequestAttributes) currentRequestAttributes()).getRequest();
+		String accessToken = resolveToken(request);
+		return getIdFromToken(accessToken);
 	}
 
 }

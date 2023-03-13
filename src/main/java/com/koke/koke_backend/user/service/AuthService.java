@@ -19,7 +19,6 @@ import com.koke.koke_backend.user.entity.User;
 import com.koke.koke_backend.user.mapper.UserMapper;
 import com.koke.koke_backend.user.repository.UserRepository;
 import io.jsonwebtoken.ExpiredJwtException;
-import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.redis.core.RedisTemplate;
@@ -28,13 +27,10 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.web.context.request.ServletRequestAttributes;
 
 import java.util.HashMap;
 import java.util.Map;
 import java.util.NoSuchElementException;
-
-import static org.springframework.web.context.request.RequestContextHolder.currentRequestAttributes;
 
 @Slf4j
 @Service
@@ -110,13 +106,12 @@ public class AuthService {
     }
 
     public ResponseEntity<ApiResponse<Object>> logout() {
-        HttpServletRequest request = ((ServletRequestAttributes) currentRequestAttributes()).getRequest();
+        String accessToken = jwtTokenProvider.getUserIdFromCurrentRequest();
         ValueOperations<String, AccessToken> opsForValue = redisTemplateAccess.opsForValue();
         ValueOperations<String, RefreshToken> opsForValue2 = redisTemplateRefresh.opsForValue();
         ValueOperations<String, Object> objectVop = redisTemplateObject.opsForValue();
 
         String userId = null;
-        String accessToken = jwtTokenProvider.resolveToken(request);
 
         try {
             userId = jwtTokenProvider.getIdFromToken(accessToken); // access_token에서 user_id를 가져옴(유효성 검사)

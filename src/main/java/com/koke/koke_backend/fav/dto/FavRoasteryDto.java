@@ -5,12 +5,15 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
+import java.util.List;
+
 @Builder(toBuilder = true)
 @Getter
 @NoArgsConstructor
 @AllArgsConstructor
-public class FavSaveDto {
+public class FavRoasteryDto {
 
-    private String productId;
+    private String roasteryNm;
+    private List<String> photoImgUrl;
 
 }

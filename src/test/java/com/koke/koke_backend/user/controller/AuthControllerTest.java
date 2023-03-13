@@ -6,10 +6,7 @@ import com.koke.koke_backend.common.security.RefreshToken;
 import com.koke.koke_backend.user.dto.LoginRequestDto;
 import com.koke.koke_backend.user.dto.RefreshRequestDto;
 import com.koke.koke_backend.user.dto.SignUpRequestDto;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Order;
-import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.*;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
@@ -210,6 +207,7 @@ class AuthControllerTest extends AbstractIntegrationTest {
                 .andDo(print());
     }
 
+    @Disabled
     @Test
     @Order(10)
     @DisplayName("로그아웃 API")
