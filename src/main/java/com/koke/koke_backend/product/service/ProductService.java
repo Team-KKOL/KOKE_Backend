@@ -6,6 +6,7 @@ import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.koke.koke_backend.common.dto.ApiResponse;
+import com.koke.koke_backend.product.dto.ProductDetailResponseDto;
 import com.koke.koke_backend.product.dto.ProductListRequestDto;
 import com.koke.koke_backend.product.dto.ProductListResponseDto;
 import com.koke.koke_backend.product.dto.json.ProductDataDto;
@@ -43,8 +44,8 @@ public class ProductService {
     }
 
     @Transactional(readOnly = true)
-    public ResponseEntity<ApiResponse<Product>> detail(String id) {
-        return productRepository.findById(id)
+    public ResponseEntity<ApiResponse<ProductDetailResponseDto>> detail(String id) {
+        return productRepository.detail(id)
                 .map(ApiResponse::success)
                 .orElseThrow(getNSEE.apply("커피 정보"));
     }
