@@ -1,4 +1,4 @@
-package com.koke.koke_backend.common.security;
+package com.koke.koke_backend.common.security.token;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -13,14 +13,12 @@ import java.io.Serializable;
 @Getter
 @AllArgsConstructor
 @NoArgsConstructor
-@RedisHash("RefreshToken")
-public class RefreshToken implements Serializable {
-
-	private static final long serialVersionUID = 7882162987576256776L;
+@RedisHash("AccessToken")
+public class AccessToken implements Serializable {
 
 	@Id
 	private String userId;
 
-	private String refreshToken;
+	private String accessToken;
 
 }

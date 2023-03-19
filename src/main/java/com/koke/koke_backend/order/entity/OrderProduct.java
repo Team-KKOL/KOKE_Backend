@@ -1,6 +1,7 @@
 package com.koke.koke_backend.order.entity;
 
 import com.koke.koke_backend.common.entity.BaseTimeEntity;
+import com.koke.koke_backend.order.enums.GrindType;
 import com.koke.koke_backend.order.enums.OrderStatus;
 import com.koke.koke_backend.product.entity.Product;
 import com.koke.koke_backend.review.entity.Review;
@@ -39,7 +40,17 @@ public class OrderProduct extends BaseTimeEntity {
 
     @Enumerated(EnumType.STRING)
     @Column(nullable = false, length = 30)
+    @Comment("주문 상태")
     private OrderStatus orderStatus;
+
+    @Column(nullable = false, length = 10)
+    @Comment("원두 용량")
+    private String volume;
+
+    @Enumerated(EnumType.STRING)
+    @Column(nullable = false, length = 30)
+    @Comment("원두 분쇄 여부")
+    private GrindType grind;
 
     @OneToOne(mappedBy = "orderProduct")
     @JoinColumn(name = "reviewId", referencedColumnName = "id")

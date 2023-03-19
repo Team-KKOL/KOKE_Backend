@@ -1,8 +1,8 @@
 package com.koke.koke_backend.user.controller;
 
 import com.koke.koke_backend.base.AbstractIntegrationTest;
-import com.koke.koke_backend.common.security.AccessToken;
-import com.koke.koke_backend.common.security.RefreshToken;
+import com.koke.koke_backend.common.security.token.AccessToken;
+import com.koke.koke_backend.common.security.token.RefreshToken;
 import com.koke.koke_backend.user.dto.LoginRequestDto;
 import com.koke.koke_backend.user.dto.RefreshRequestDto;
 import com.koke.koke_backend.user.dto.SignUpRequestDto;

@@ -1,7 +1,7 @@
 package com.koke.koke_backend.common.config;
 
-import com.koke.koke_backend.common.security.AccessToken;
-import com.koke.koke_backend.common.security.RefreshToken;
+import com.koke.koke_backend.common.security.token.AccessToken;
+import com.koke.koke_backend.common.security.token.RefreshToken;
 import io.lettuce.core.RedisURI;
 import lombok.RequiredArgsConstructor;
 import org.springframework.boot.autoconfigure.data.redis.RedisProperties;

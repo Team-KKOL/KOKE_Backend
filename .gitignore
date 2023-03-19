@@ -9,6 +9,7 @@ build/
 /src/main/resources/roasterys.json
 KOKE_BACKEND_LOG(local)
 KOKE_BACKEND_LOG(test)
+/src/main/resources/key/**
 
 ### STS ###
 .apt_generated

@@ -1,5 +1,6 @@
 package com.koke.koke_backend.user.service;
 
+import com.koke.koke_backend.common.security.CustomUser;
 import com.koke.koke_backend.user.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -19,7 +20,9 @@ public class CustomUserDetailsService implements UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        return userRepository.findById(username).orElseThrow(getNSEE.apply("사용자 정보"));
+        return userRepository.findById(username)
+                .map(CustomUser::new)
+                .orElseThrow(getNSEE.apply("사용자 정보"));
     }
 
 }
