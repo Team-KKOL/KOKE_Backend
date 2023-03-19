@@ -35,15 +35,13 @@ public class FavService {
     private final JwtTokenProvider jwtTokenProvider;
 
     @Transactional
-    public ResponseEntity<ApiResponse<Object>> saveFavRoastery(String roasteryId) {
-        String userId = jwtTokenProvider.getUserIdFromCurrentRequest();
-        User user = userRepository.findById(userId).orElseThrow(getNSEE.apply("사용자 정보"));
+    public ResponseEntity<ApiResponse<Object>> saveFavRoastery(User current, String roasteryId) {
         Roastery roastery = roasteryRepository.findById(roasteryId).orElseThrow(getNSEE.apply("로스터리 정보"));
 
-        favRepository.getFavRoastery(userId, roasteryId)
+        favRepository.getFavRoastery(current.getUserId(), roasteryId)
                 .ifPresentOrElse(favRepository::delete,
                         () -> {
-                    Fav fav = favMapper.createFavRoastery(user, roastery);
+                    Fav fav = favMapper.createFavRoastery(current, roastery);
                     favRepository.save(fav);
                 });
 
@@ -51,23 +49,19 @@ public class FavService {
     }
 
     @Transactional
-    public ResponseEntity<ApiResponse<List<FavRoasteryDto>>> getFavRoastery() {
-        String userId = jwtTokenProvider.getUserIdFromCurrentRequest();
-
-        List<FavRoasteryDto> list = favRepository.favRoasteryList(userId);
+    public ResponseEntity<ApiResponse<List<FavRoasteryDto>>> getFavRoastery(User current) {
+        List<FavRoasteryDto> list = favRepository.favRoasteryList(current.getUserId());
         return ApiResponse.success(list);
     }
 
     @Transactional
-    public ResponseEntity<ApiResponse<Object>> saveFavProduct(String productId) {
-        String userId = jwtTokenProvider.getUserIdFromCurrentRequest();
-        User user = userRepository.findById(userId).orElseThrow(getNSEE.apply("사용자 정보"));
+    public ResponseEntity<ApiResponse<Object>> saveFavProduct(User current, String productId) {
         Product product = productRepository.findById(productId).orElseThrow(getNSEE.apply("커피 정보"));
 
-        favRepository.getFavProduct(userId, productId)
+        favRepository.getFavProduct(current.getUserId(), productId)
                 .ifPresentOrElse(favRepository::delete,
                         () -> {
-                            Fav fav = favMapper.createFavProduct(user, product);
+                            Fav fav = favMapper.createFavProduct(current, product);
                             favRepository.save(fav);
                         });
 
@@ -75,10 +69,8 @@ public class FavService {
     }
 
     @Transactional
-    public ResponseEntity<ApiResponse<List<FavProductDto>>> getFavProduct() {
-        String userId = jwtTokenProvider.getUserIdFromCurrentRequest();
-
-        List<FavProductDto> list = favRepository.favProductList(userId);
+    public ResponseEntity<ApiResponse<List<FavProductDto>>> getFavProduct(User current) {
+        List<FavProductDto> list = favRepository.favProductList(current.getUserId());
         return ApiResponse.success(list);
     }
 }
