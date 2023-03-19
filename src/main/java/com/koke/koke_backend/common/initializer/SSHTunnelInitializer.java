@@ -45,7 +45,7 @@ public class SSHTunnelInitializer {
 
     @PreDestroy
     public void closeSSH() {
-        if (session.isConnected()) {
+        if (session != null && session.isConnected()) {
             session.disconnect();
         }
     }

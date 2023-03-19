@@ -1,5 +1,6 @@
 package com.koke.koke_backend.order.entity;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.koke.koke_backend.common.entity.BaseTimeEntity;
 import com.koke.koke_backend.user.entity.User;
 import jakarta.persistence.*;
@@ -19,7 +20,7 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 @Table
-public class Order extends BaseTimeEntity {
+public class OrderInfo extends BaseTimeEntity {
 
     @Id
     @Column(length = 50)
@@ -31,8 +32,9 @@ public class Order extends BaseTimeEntity {
     @Comment("사용자 ID")
     private User user;
 
+    @JsonManagedReference
     @Builder.Default
-    @OneToMany(mappedBy = "order",
+    @OneToMany(mappedBy = "orderInfo",
             cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REMOVE}, orphanRemoval = true)
     private List<OrderProduct> orderProducts = new ArrayList<>();
 

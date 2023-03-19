@@ -1,8 +1,7 @@
-package com.koke.koke_backend.subscribe.entity;
+package com.koke.koke_backend.order.entity;
 
 import com.koke.koke_backend.common.entity.BaseTimeEntity;
-import com.koke.koke_backend.order.entity.OrderProduct;
-import com.koke.koke_backend.subscribe.enums.Cycle;
+import com.koke.koke_backend.order.enums.Cycle;
 import com.koke.koke_backend.user.entity.User;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -40,7 +39,5 @@ public class Subscribe extends BaseTimeEntity {
     @JoinColumn(name = "orderProductId", referencedColumnName = "id")
     @Comment("상품 주문 ID")
     private OrderProduct orderProduct;
-
-
 
 }

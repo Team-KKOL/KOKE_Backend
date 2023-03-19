@@ -19,10 +19,12 @@ public class CustomUserDetailsService implements UserDetailsService {
     private final UserRepository userRepository;
 
     @Override
+    @Transactional(readOnly = true)
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        return userRepository.findById(username)
+        CustomUser customUser = userRepository.findById(username)
                 .map(CustomUser::new)
                 .orElseThrow(getNSEE.apply("사용자 정보"));
+        return customUser;
     }
 
 }

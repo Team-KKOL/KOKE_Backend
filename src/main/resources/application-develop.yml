@@ -4,8 +4,7 @@ server:
     remoteip:
       protocol-header: x-forwarded-proto
   ssl:
-#    key-store: classpath:/key/keystore.p12
-    key-store: '${user.home}/key/keystore.p12'
+    key-store: classpath:key/keystore.p12
     key-store-type: PKCS12
     key-store-password: khb0915
     enabled: true

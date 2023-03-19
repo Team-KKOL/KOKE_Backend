@@ -1,5 +1,6 @@
 package com.koke.koke_backend.common.mapper;
 
+import com.koke.koke_backend.product.entity.Product;
 import org.mapstruct.*;
 
 @Mapper(componentModel = "spring",
@@ -11,5 +12,7 @@ import org.mapstruct.*;
 		nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE
 )
 public interface EntityMapper {
+
+	Product stringToProduct(String productId);
 
 }

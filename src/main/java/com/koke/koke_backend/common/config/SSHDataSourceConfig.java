@@ -24,8 +24,8 @@ public class SSHDataSourceConfig {
     @Primary
     public DataSource dataSource(DataSourceProperties properties) {
         Integer forwardedPort = initializer.buildSSHConnection();
-        String url = properties.getUrl().replace("[forwardPort]", Integer.toString(forwardedPort));
-        log.info(url);
+        String url = String.format("jdbc:mariadb://localhost:%d/KOKE_DEV", forwardedPort);
+        log.info("JDBC Connection Url: " + url);
 
         return DataSourceBuilder.create()
                 .url(url)

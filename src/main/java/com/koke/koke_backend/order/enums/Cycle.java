@@ -1,4 +1,4 @@
-package com.koke.koke_backend.subscribe.enums;
+package com.koke.koke_backend.order.enums;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
