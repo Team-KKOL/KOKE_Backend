@@ -18,7 +18,6 @@ import org.springframework.test.web.servlet.MvcResult;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.context.WebApplicationContext;
 
-import static org.springframework.restdocs.mockmvc.MockMvcRestDocumentation.document;
 import static org.springframework.restdocs.mockmvc.MockMvcRestDocumentation.documentationConfiguration;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
@@ -44,19 +43,6 @@ class RoasteryControllerTest extends AbstractIntegrationTest {
 
     @Test
     @Order(1)
-    @DisplayName("로스터리 데이터 파싱 생성")
-    void parse() throws Exception {
-        mockMvc.perform(get("/roastery/parse"))
-                .andExpectAll(
-                        status().isOk(),
-                        jsonPath("$.message").value("SUCCESS")
-                )
-                .andDo(print())
-                .andDo(document("로스터리 데이터 파싱 생성"));
-    }
-
-    @Test
-    @Order(2)
     @DisplayName("로스터리 카페 리스트 조회 API - 이름순")
     void list() throws Exception {
         MvcResult result = mockMvc.perform(
@@ -77,7 +63,7 @@ class RoasteryControllerTest extends AbstractIntegrationTest {
     }
 
     @Test
-    @Order(3)
+    @Order(2)
     @DisplayName("로스터리 상위 4개 조회")
     void top4() throws Exception {
         mockMvc.perform(
@@ -91,7 +77,7 @@ class RoasteryControllerTest extends AbstractIntegrationTest {
     }
 
     @Test
-    @Order(4)
+    @Order(3)
     @DisplayName("로스터리 카페 상세 조회 API")
     void detail() throws Exception {
 //        mockMvc.perform(

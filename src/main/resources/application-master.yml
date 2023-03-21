@@ -11,6 +11,9 @@ server:
 spring:
   application:
     name: koke_backend
+  config:
+    activate:
+      on-profile: master
   devtools:
     restart:
       enabled: true
@@ -30,9 +33,6 @@ spring:
   mvc:
     pathmatch:
       matching-strategy: ant_path_matcher
-  config:
-    activate:
-      on-profile: master
   data:
     redis:
       host: koke-redis-001.phbkid.0001.apn2.cache.amazonaws.com

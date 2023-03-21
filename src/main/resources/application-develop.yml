@@ -12,6 +12,9 @@ server:
 spring:
   application:
     name: koke_backend
+  config:
+    activate:
+      on-profile: develop
   devtools:
     restart:
       enabled: true

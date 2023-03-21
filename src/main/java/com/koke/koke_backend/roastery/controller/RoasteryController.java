@@ -15,7 +15,6 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.io.IOException;
 import java.util.List;
 
 
@@ -61,13 +60,6 @@ public class RoasteryController {
     @PostMapping(value = Uris.ROASTERY_ROOT)
     public ResponseEntity<ApiResponse<Object>> create(@Valid @RequestBody RoasteryCreateRequestDto dto) {
         return roasteryService.create(dto);
-    }
-
-    @Tag(name = "로스터리 관리", description = "로스터리 관리 API")
-    @Operation(summary = "로스터리 데이터 파싱 생성 - 테스트", description = "로스터리 데이터 파싱 생성 API - 테스트")
-    @GetMapping(value = Uris.ROASTERY_ROOT + Uris.PARSE)
-    public ResponseEntity<ApiResponse<Object>> parse() throws IOException {
-        return roasteryService.parse();
     }
 
 }

@@ -4,7 +4,7 @@ server:
     remoteip:
       protocol-header: x-forwarded-proto
   ssl:
-    key-store: classpath:/key/keystore.p12
+    key-store: classpath:key/keystore.p12
     key-store-type: PKCS12
     key-store-password: khb0915
     enabled: true
@@ -14,6 +14,9 @@ server:
 spring:
   application:
     name: koke_backend
+  config:
+    activate:
+      on-profile: test
   devtools:
     restart:
       enabled: true
@@ -26,16 +29,13 @@ spring:
     database-platform: org.hibernate.dialect.MariaDBDialect
     show-sql: false
     hibernate:
-      ddl-auto: none
+      ddl-auto: create
       naming:
         physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
       metadata_builder_contributor: com.koke.koke_backend.module.jpa.SqlFunctionsMetadataBuilderContributor
   mvc:
     pathmatch:
       matching-strategy: ant_path_matcher
-  config:
-    activate:
-      on-profile: local
   data:
     redis:
       database: 0
@@ -43,6 +43,7 @@ spring:
       port: 6379
       username:
       password:
+
 jwt:
   accessTokenValidity: 14d
   refreshTokenValidity: 1M
@@ -58,7 +59,7 @@ springdoc:
   enable-native-support: true
 
 logging:
-  config: classpath:logback-spring.xml
+#  config: classpath:logback-spring.xml
   charset:
     console: UTF-8
     file: UTF-8

@@ -11,7 +11,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.io.IOException;
 import java.util.List;
 
 @Tag(name = "셀럽 추천사 관리", description = "셀럽 추천사 관리 API")
@@ -26,13 +25,6 @@ public class CelebrityCommentController {
     @GetMapping(value = Uris.CELEBRITY_ROOT)
     public ResponseEntity<ApiResponse<List<CelebrityComment>>> list() {
         return celebrityCommentService.list();
-    }
-
-    @Tag(name = "셀럽 추천사 관리", description = "셀럽 추천사 관리 API")
-    @Operation(summary = "셀럽 추천사 파싱 저장 - 테스트", description = "셀럽 추천사 파싱 저장 API - 테스트")
-    @GetMapping(value = Uris.CELEBRITY_ROOT + Uris.PARSE)
-    public ResponseEntity<ApiResponse<Object>> save() throws IOException {
-        return celebrityCommentService.parse();
     }
 
 }

@@ -14,8 +14,6 @@ import org.springframework.data.domain.Page;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.io.IOException;
-
 @Tag(name = "커피 관리", description = "커피 관리 API")
 @RestController
 @RequiredArgsConstructor
@@ -35,13 +33,6 @@ public class ProductController {
     @GetMapping(value = Uris.PRODUCT_ROOT + Uris.REST_NAME_ID)
     public ResponseEntity<ApiResponse<ProductDetailResponseDto>> detail(@PathVariable String id) {
         return productService.detail(id);
-    }
-
-    @Tag(name = "커피 관리", description = "커피 관리 API")
-    @Operation(summary = "커피 데이터 파싱 생성 - 테스트", description = "커피 데이터 파싱 생성 API - 테스트")
-    @GetMapping(value = Uris.PRODUCT_ROOT + Uris.PARSE)
-    public ResponseEntity<ApiResponse<Object>> parse() throws IOException {
-        return productService.parse();
     }
 
 }
