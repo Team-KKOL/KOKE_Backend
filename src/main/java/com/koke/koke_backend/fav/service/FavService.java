@@ -1,7 +1,6 @@
 package com.koke.koke_backend.fav.service;
 
-import com.koke.koke_backend.common.dto.ApiResponse;
-import com.koke.koke_backend.common.security.JwtTokenProvider;
+import com.koke.koke_backend.application.response.ResponseMapper;
 import com.koke.koke_backend.fav.dto.FavProductDto;
 import com.koke.koke_backend.fav.dto.FavRoasteryDto;
 import com.koke.koke_backend.fav.entity.Fav;
@@ -12,7 +11,6 @@ import com.koke.koke_backend.product.repository.ProductRepository;
 import com.koke.koke_backend.roastery.entity.Roastery;
 import com.koke.koke_backend.roastery.repository.RoasteryRepository;
 import com.koke.koke_backend.user.entity.User;
-import com.koke.koke_backend.user.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
@@ -28,49 +26,47 @@ import static com.koke.koke_backend.common.singleton.Constant.getNSEE;
 public class FavService {
 
     private final FavRepository favRepository;
-    private final UserRepository userRepository;
     private final RoasteryRepository roasteryRepository;
     private final ProductRepository productRepository;
     private final FavMapper favMapper;
-    private final JwtTokenProvider jwtTokenProvider;
 
     @Transactional
-    public ResponseEntity<ApiResponse<Object>> saveFavRoastery(User current, String roasteryId) {
-        Roastery roastery = roasteryRepository.findById(roasteryId).orElseThrow(getNSEE.apply("로스터리 정보"));
+    public ResponseEntity<ResponseMapper<Object>> saveFavRoastery(User current, String roasteryUuid) {
+        Roastery roastery = roasteryRepository.findByUuid(roasteryUuid).orElseThrow(getNSEE.apply("로스터리 정보"));
 
-        favRepository.getFavRoastery(current.getUserId(), roasteryId)
+        favRepository.getFavRoastery(current.getId(), roasteryUuid)
                 .ifPresentOrElse(favRepository::delete,
                         () -> {
                     Fav fav = favMapper.createFavRoastery(current, roastery);
                     favRepository.save(fav);
                 });
 
-        return ApiResponse.success();
+        return ResponseMapper.success();
     }
 
     @Transactional
-    public ResponseEntity<ApiResponse<List<FavRoasteryDto>>> getFavRoastery(User current) {
-        List<FavRoasteryDto> list = favRepository.favRoasteryList(current.getUserId());
-        return ApiResponse.success(list);
+    public ResponseEntity<ResponseMapper<List<FavRoasteryDto>>> getFavRoastery(User current) {
+        List<FavRoasteryDto> list = favRepository.favRoasteryList(current.getId());
+        return ResponseMapper.success(list);
     }
 
     @Transactional
-    public ResponseEntity<ApiResponse<Object>> saveFavProduct(User current, String productId) {
-        Product product = productRepository.findById(productId).orElseThrow(getNSEE.apply("커피 정보"));
+    public ResponseEntity<ResponseMapper<Object>> saveFavProduct(User current, String productUuid) {
+        Product product = productRepository.findByUuid(productUuid).orElseThrow(getNSEE.apply("커피 정보"));
 
-        favRepository.getFavProduct(current.getUserId(), productId)
+        favRepository.getFavProduct(current.getId(), productUuid)
                 .ifPresentOrElse(favRepository::delete,
                         () -> {
                             Fav fav = favMapper.createFavProduct(current, product);
                             favRepository.save(fav);
                         });
 
-        return ApiResponse.success();
+        return ResponseMapper.success();
     }
 
     @Transactional
-    public ResponseEntity<ApiResponse<List<FavProductDto>>> getFavProduct(User current) {
-        List<FavProductDto> list = favRepository.favProductList(current.getUserId());
-        return ApiResponse.success(list);
+    public ResponseEntity<ResponseMapper<List<FavProductDto>>> getFavProduct(User current) {
+        List<FavProductDto> list = favRepository.favProductList(current.getId());
+        return ResponseMapper.success(list);
     }
 }

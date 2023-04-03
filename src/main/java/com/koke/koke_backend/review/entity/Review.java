@@ -1,6 +1,6 @@
 package com.koke.koke_backend.review.entity;
 
-import com.koke.koke_backend.common.entity.BaseTimeEntity;
+import com.koke.koke_backend.common.entity.BaseIdEntity;
 import com.koke.koke_backend.order.entity.OrderProduct;
 import com.koke.koke_backend.user.entity.User;
 import jakarta.persistence.*;
@@ -17,21 +17,16 @@ import static jakarta.persistence.FetchType.LAZY;
 @NoArgsConstructor
 @AllArgsConstructor
 @Table
-public class Review extends BaseTimeEntity {
+public class Review extends BaseIdEntity {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(length = 20)
-    private Long id;
-
-    @Column(nullable = false, length = 1)
-    private Integer score;
+    @Column(nullable = false, length = 3)
+    private String score;
 
     @Column(nullable = false, length = 500)
     private String content;
 
     @ManyToOne(fetch = LAZY)
-    @JoinColumn(name = "userId", referencedColumnName = "userId")
+    @JoinColumn(name = "userId", referencedColumnName = "id")
     private User user;
 
     @OneToOne(fetch = LAZY)

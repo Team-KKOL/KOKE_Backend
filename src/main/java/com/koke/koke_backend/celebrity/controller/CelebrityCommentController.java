@@ -1,9 +1,9 @@
 package com.koke.koke_backend.celebrity.controller;
 
+import com.koke.koke_backend.application.response.ResponseMapper;
 import com.koke.koke_backend.celebrity.entity.CelebrityComment;
 import com.koke.koke_backend.celebrity.service.CelebrityCommentService;
 import com.koke.koke_backend.common.config.Uris;
-import com.koke.koke_backend.common.dto.ApiResponse;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
@@ -23,7 +23,7 @@ public class CelebrityCommentController {
     @Tag(name = "셀럽 추천사 관리", description = "셀럽 추천사 관리 API")
     @Operation(summary = "셀럽 추천사 리스트 조회", description = "셀럽 추천사 리스트 조회 API")
     @GetMapping(value = Uris.CELEBRITY_ROOT)
-    public ResponseEntity<ApiResponse<List<CelebrityComment>>> list() {
+    public ResponseEntity<ResponseMapper<List<CelebrityComment>>> list() {
         return celebrityCommentService.list();
     }
 

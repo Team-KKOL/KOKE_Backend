@@ -3,15 +3,15 @@ package com.koke.koke_backend.user.service;
 import com.koke.koke_backend.address.entity.AddressBook;
 import com.koke.koke_backend.address.mapper.AddressBookMapper;
 import com.koke.koke_backend.address.repository.AddressBookRepository;
+import com.koke.koke_backend.application.response.ResponseMapper;
 import com.koke.koke_backend.cart.entity.Cart;
 import com.koke.koke_backend.cart.mapper.CartMapper;
 import com.koke.koke_backend.cart.repository.CartRepository;
-import com.koke.koke_backend.common.dto.ApiResponse;
+import com.koke.koke_backend.common.properties.JwtProperty;
 import com.koke.koke_backend.common.security.JwtTokenProvider;
 import com.koke.koke_backend.common.security.Role;
 import com.koke.koke_backend.common.security.token.AccessToken;
 import com.koke.koke_backend.common.security.token.RefreshToken;
-import com.koke.koke_backend.common.yml.JwtProperty;
 import com.koke.koke_backend.user.dto.LoginRequestDto;
 import com.koke.koke_backend.user.dto.RefreshRequestDto;
 import com.koke.koke_backend.user.dto.SignUpRequestDto;
@@ -52,25 +52,25 @@ public class AuthService {
     private final JwtProperty jwtProperty;
 
     @Transactional(readOnly = true)
-    public ResponseEntity<ApiResponse<Object>> checkUserId(String userId) {
+    public ResponseEntity<ResponseMapper<Object>> checkUserId(String userId) {
         return userRepository.findById(userId)
-                .map(user -> ApiResponse.badRequest("이미 사용중인 사용자 ID입니다."))
-                .orElse(ApiResponse.success("사용 가능한 사용자 ID입니다."));
+                .map(user -> ResponseMapper.badRequest("이미 사용중인 사용자 ID입니다."))
+                .orElse(ResponseMapper.success("사용 가능한 사용자 ID입니다."));
     }
 
     @Transactional(readOnly = true)
-    public ResponseEntity<ApiResponse<Object>> checkEmail(String email) {
+    public ResponseEntity<ResponseMapper<Object>> checkEmail(String email) {
         return userRepository.findByEmail(email)
-                .map(user -> ApiResponse.badRequest("이미 사용중인 이메일입니다."))
-                .orElse(ApiResponse.success("사용 가능한 이메일입니다."));
+                .map(user -> ResponseMapper.badRequest("이미 사용중인 이메일입니다."))
+                .orElse(ResponseMapper.success("사용 가능한 이메일입니다."));
     }
 
     @Transactional
-    public ResponseEntity<ApiResponse<Object>> signUp(SignUpRequestDto signUpRequestDto) {
+    public ResponseEntity<ResponseMapper<Object>> signUp(SignUpRequestDto signUpRequestDto) {
         User user = userMapper.signUpRequestDtoToUser(signUpRequestDto);
         userRepository.saveAndFlush(user);
 
-        user = userRepository.findById(user.getUserId())
+        user = userRepository.findById(user.getId())
                 .orElseThrow(() -> new NoSuchElementException("사용자가 존재하지 않습니다."));
 
         AddressBook addressBook = addressBookMapper.createAddressBook(user);
@@ -79,33 +79,33 @@ public class AuthService {
         Cart cart = cartMapper.createCart(user);
         cartRepository.save(cart);
 
-        return ApiResponse.success("회원가입에 성공했습니다.");
+        return ResponseMapper.success("회원가입에 성공했습니다.");
     }
 
     @Transactional
-    public ResponseEntity<ApiResponse<Object>> login(LoginRequestDto loginRequestDto) {
-        User user = userRepository.findById(loginRequestDto.getUserId())
+    public ResponseEntity<ResponseMapper<Object>> login(LoginRequestDto loginRequestDto) {
+        User user = userRepository.findById(loginRequestDto.getId())
                 .orElseThrow(() -> new NoSuchElementException("가입되지 않은 ID입니다."));
 
         boolean pwIsMatch = passwordEncoder.matches(loginRequestDto.getPassword(), user.getPassword());
 
         if (pwIsMatch) {
-            AccessToken accessToken = jwtTokenProvider.createAccessToken(loginRequestDto.getUserId(), Role.USER);
-            RefreshToken refreshToken = jwtTokenProvider.createRefreshToken(loginRequestDto.getUserId(), Role.USER);
+            AccessToken accessToken = jwtTokenProvider.createAccessToken(loginRequestDto.getId(), Role.USER);
+            RefreshToken refreshToken = jwtTokenProvider.createRefreshToken(loginRequestDto.getId(), Role.USER);
 
             Map<String, Object> result = new HashMap<>();
             result.put("accessToken", accessToken);
             result.put("refreshToken", refreshToken);
-            result.put("userId", user.getUserId());
+            result.put("userId", user.getId());
             result.put("name", user.getName());
 
-            return ApiResponse.success(result);
+            return ResponseMapper.success(result);
         } else {
-            return ApiResponse.badRequest("비밀번호가 일치하지 않습니다.");
+            return ResponseMapper.badRequest("비밀번호가 일치하지 않습니다.");
         }
     }
 
-    public ResponseEntity<ApiResponse<Object>> logout() {
+    public ResponseEntity<ResponseMapper<Object>> logout() {
         String accessToken = jwtTokenProvider.getUserIdFromCurrentRequest();
         ValueOperations<String, AccessToken> opsForValue = redisTemplateAccess.opsForValue();
         ValueOperations<String, RefreshToken> opsForValue2 = redisTemplateRefresh.opsForValue();
@@ -138,20 +138,20 @@ public class AuthService {
 
         log.info(" logout ing : " + accessToken);
 
-        return ApiResponse.success("로그아웃 되었습니다.");
+        return ResponseMapper.success("로그아웃 되었습니다.");
     }
 
     @Transactional
-    public ResponseEntity<ApiResponse<Object>> refresh(RefreshRequestDto dto) {
+    public ResponseEntity<ResponseMapper<Object>> refresh(RefreshRequestDto dto) {
         if (!jwtTokenProvider.isRefreshTokenExpired(dto.getRefreshToken())) { // refresh token 만료되지 않았을때 -> 여기서 예외가 터짐
             String userId = jwtTokenProvider.getIdFromToken(dto.getRefreshToken()); // access_token에서 user_id 가져옴(유효성 검사)
             User user = userRepository.findById(userId).orElseThrow((() -> new NoSuchElementException("가입되지 않은 계정입니다.")));
 
-            AccessToken newAccessToken = jwtTokenProvider.createAccessToken(user.getUserId(), Role.USER);
+            AccessToken newAccessToken = jwtTokenProvider.createAccessToken(user.getId(), Role.USER);
 
-            return ApiResponse.success(newAccessToken);
+            return ResponseMapper.success(newAccessToken);
         } else { // refresh 토큰 expire
-            return ApiResponse.badRequest("refreshToken이 만료되었습니다. 다시 로그인해주세요.");
+            return ResponseMapper.badRequest("refreshToken이 만료되었습니다. 다시 로그인해주세요.");
         }
     }
 }

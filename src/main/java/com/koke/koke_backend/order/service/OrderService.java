@@ -1,9 +1,7 @@
 package com.koke.koke_backend.order.service;
 
-import com.koke.koke_backend.common.dto.ApiResponse;
-import com.koke.koke_backend.order.dto.OrderCreateRequestDto;
-import com.koke.koke_backend.order.dto.SubscribeCreateRequestDto;
-import com.koke.koke_backend.order.dto.SubscribeListResponseDto;
+import com.koke.koke_backend.application.response.ResponseMapper;
+import com.koke.koke_backend.order.dto.*;
 import com.koke.koke_backend.order.entity.OrderInfo;
 import com.koke.koke_backend.order.entity.OrderProduct;
 import com.koke.koke_backend.order.entity.Subscribe;
@@ -24,31 +22,37 @@ public class OrderService {
 
 
     @Transactional
-    public ResponseEntity<ApiResponse<Object>> createOrder(User current, OrderCreateRequestDto dto) {
+    public ResponseEntity<ResponseMapper<Object>> createOrder(User current, OrderCreateRequestDto dto) {
         OrderInfo orderInfo = orderGateway.processFirstOrder(current);
         OrderProduct orderProduct = orderGateway.processOrderProduct(dto, orderInfo);
 
-        return ApiResponse.success();
+        return ResponseMapper.success();
     }
 
     @Transactional(readOnly = true)
-    public ResponseEntity<ApiResponse<Object>> orderList(User current) {
-
+    public ResponseEntity<ResponseMapper<Object>> orderList(User current, OrderListRequestDto dto) {
+        List<OrderListResponseDto> list = orderGateway.orderList(current, dto);
         return null;
     }
 
     @Transactional
-    public ResponseEntity<ApiResponse<Object>> createSubscribe(User current, SubscribeCreateRequestDto dto) {
+    public ResponseEntity<ResponseMapper<Object>> createSubscribe(User current, SubscribeCreateRequestDto dto) {
         OrderInfo orderInfo = orderGateway.processFirstOrder(current);
         OrderProduct orderProduct = orderGateway.processOrderProduct(dto, orderInfo);
         Subscribe subscribe = orderGateway.processSubscribe(current, orderProduct, dto);
 
-        return ApiResponse.success();
+        return ResponseMapper.success(subscribe);
     }
 
     @Transactional(readOnly = true)
-    public ResponseEntity<ApiResponse<Object>> subscribeList(User current) {
+    public ResponseEntity<ResponseMapper<Object>> subscribeList(User current) {
         List<SubscribeListResponseDto> list = orderGateway.subscribeList(current);
-        return ApiResponse.success(list);
+        return ResponseMapper.success(list);
+    }
+
+    @Transactional
+    public ResponseEntity<ResponseMapper<Object>> cancelSubscribe(User current, String uuid) {
+        Subscribe subscribe = orderGateway.cancelSubscribe(current, uuid);
+        return ResponseMapper.success(subscribe);
     }
 }

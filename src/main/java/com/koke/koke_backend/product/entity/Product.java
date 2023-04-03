@@ -1,6 +1,6 @@
 package com.koke.koke_backend.product.entity;
 
-import com.koke.koke_backend.common.entity.BaseTimeEntity;
+import com.koke.koke_backend.common.entity.BaseIdEntity;
 import com.koke.koke_backend.common.jpa.StringListConverter;
 import com.koke.koke_backend.roastery.entity.Roastery;
 import jakarta.persistence.*;
@@ -20,7 +20,7 @@ import static jakarta.persistence.FetchType.LAZY;
 @NoArgsConstructor
 @AllArgsConstructor
 @Table
-public class Product extends BaseTimeEntity {
+public class Product extends BaseIdEntity {
 
 //    {
 //        "CoffeeName" :"Campfire (캠프파이어)",
@@ -36,10 +36,9 @@ public class Product extends BaseTimeEntity {
 //        "style" : ["3일 내 볶은 원두만 배송 산미가 없어요 신 맛이 없어서 고소해요. 블렌드 브라질 산타루시아, 인도 마이소르 미디엄 다크 로스팅" ]
 //    }
 
-    @Id
-    @Column(length = 30)
-    @Comment("상품 ID")
-    private String id;
+    @Column(unique = true, length = 50)
+    @Comment("고유번호")
+    private String uuid;
 
     @Column(nullable = false, length = 30)
     @Comment("상품명")

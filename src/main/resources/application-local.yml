@@ -29,7 +29,7 @@ spring:
     database-platform: org.hibernate.dialect.MariaDBDialect
     show-sql: false
     hibernate:
-      ddl-auto: update
+      ddl-auto: none
       naming:
         physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
       metadata_builder_contributor: com.koke.koke_backend.module.jpa.SqlFunctionsMetadataBuilderContributor
@@ -47,6 +47,10 @@ jwt:
   accessTokenValidity: 14d
   refreshTokenValidity: 1M
   secret: YnBucy1oZXBjLWJhY2tlbmQtanNvbndlYnRva2VuLXNlY3JldEtleQo=YnBucy1oZXBjLWJhY2tlbmQtanNvbndlYnRva2VuLXNlY3JldEtleQo=YnBucy1oZXBjLWJhY2tlbmQtanNvbndlYnRva2VuLXNlY3JldEtleQo=YnBucy1oZXBjLWJhY2tlbmQtanNvbndlYnRva2VuLXNlY3JldEtleQo=YnBucy1oZXBjLWJhY2tlbmQtanNvbndlYnRva2VuLXNlY3JldEtleQo=YnBucy1oZXBjLWJhY2tlbmQtanNvbndlYnRva2VuLXNlY3JldEtleQo=YnBucy1oZXBjLWJhY2tlbmQtanNvbndlYnRva2VuLXNlY3JldEtleQo=YnBucy1oZXBjLWJhY2tlbmQtanNvbndlYnRva2VuLXNlY3JldEtleQo=
+
+encryption:
+  key: 9JE1KdyTPg2sscTr
+  iv: 5zHPNXmgNyZPX2Ba
 
 springdoc:
   model-and-view-allowed: true
@@ -70,6 +74,7 @@ ssh:
   privateKey: ${user.home}/KKOL-Keypair.pem
   databaseHost: koke-mariadb.cpf9wcpesdv2.ap-northeast-2.rds.amazonaws.com
   databasePort: 3306
+  databaseName: KOKE_DEV
 
 custom:
   path: '${user.home}/koke_file_test'

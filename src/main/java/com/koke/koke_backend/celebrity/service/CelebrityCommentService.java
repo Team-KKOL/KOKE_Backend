@@ -1,8 +1,8 @@
 package com.koke.koke_backend.celebrity.service;
 
+import com.koke.koke_backend.application.response.ResponseMapper;
 import com.koke.koke_backend.celebrity.entity.CelebrityComment;
 import com.koke.koke_backend.celebrity.repository.CelebrityCommentRepository;
-import com.koke.koke_backend.common.dto.ApiResponse;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
@@ -20,9 +20,9 @@ public class CelebrityCommentService {
     private final CelebrityCommentRepository celebrityCommentRepository;
 
     @Transactional(readOnly = true)
-    public ResponseEntity<ApiResponse<List<CelebrityComment>>> list() {
+    public ResponseEntity<ResponseMapper<List<CelebrityComment>>> list() {
         List<CelebrityComment> findAll = celebrityCommentRepository.findAll();
-        return ApiResponse.success(findAll);
+        return ResponseMapper.success(findAll);
     }
 
 }

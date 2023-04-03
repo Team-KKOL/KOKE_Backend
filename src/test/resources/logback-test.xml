@@ -88,6 +88,40 @@
         </appender>
     </springProfile>
 
+    <springProfile name="local_v2">
+        <logger level="OFF" appender-ref="console" name="org.hibernate.engine.internal.TwoPhaseLoad"/>
+        <logger level="OFF" appender-ref="console" name="org.hibernate.loader.Loader"/>
+        <logger level="OFF" appender-ref="console" name="org.hibernate.SQL"/>
+        <logger level="OFF" appender-ref="console"
+                name="org.hibernate.loader.plan.exec.process.internal.EntityReferenceInitializerImpl"/>
+        <logger level="OFF" appender-ref="console"
+                name="org.hibernate.loader.plan.exec.process.internal.CollectionReferenceInitializerImpl"/>
+        <logger level="OFF" appender-ref="console"
+                name="org.hibernate.loader.entity.plan.AbstractLoadPlanBasedEntityLoader"/>
+        <logger level="OFF" appender-ref="console" name="org.hibernate.engine.loading.internal.CollectionLoadContext"/>
+        <logger level="OFF" appender-ref="console" name="com.zaxxer.hikari.pool.HikariPool"/>
+        <logger level="OFF" appender-ref="console" name="com.zaxxer.hikari.pool.PoolBase"/>
+        <appender name="ROLLING" class="ch.qos.logback.core.rolling.RollingFileAppender">
+            <filter class="ch.qos.logback.classic.filter.LevelFilter">
+                <level>INFO</level>
+                <onMatch>ACCEPT</onMatch>
+                <onMismatch>ACCEPT</onMismatch>
+            </filter>
+            <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+                <!-- rollover daily -->
+                <fileNamePattern>KOKE_BACKEND_LOG(local_v2)/KOKE_BACKEND_local_logback-%d{yyyy-MM-dd}.%i.log
+                </fileNamePattern>
+                <timeBasedFileNamingAndTriggeringPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP">
+                    <!-- or whenever the file size reaches 20MB -->
+                    <maxFileSize>10MB</maxFileSize>
+                </timeBasedFileNamingAndTriggeringPolicy>
+            </rollingPolicy>
+            <encoder>
+                <pattern>%d{HH:mm:ss.SSS} %-5level %logger{36} - %msg%n</pattern>
+            </encoder>
+        </appender>
+    </springProfile>
+
     <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
         <layout class="ch.qos.logback.classic.PatternLayout">
             <pattern>%d{yyyy-MM-dd HH:mm:ss.SSS} %highlight(%-5level) %magenta(%-4relative) --- [ %thread{10} ]

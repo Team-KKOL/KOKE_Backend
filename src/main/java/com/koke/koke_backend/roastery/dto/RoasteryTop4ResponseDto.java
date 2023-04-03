@@ -15,9 +15,9 @@ import java.util.List;
 @AllArgsConstructor
 public class RoasteryTop4ResponseDto {
 
-    private String id;
+    private String uuid;
 
-    private String roasteryNm;
+    private String name;
 
     private String logoImgUrl;
 

@@ -26,10 +26,11 @@ public class QProductRepositoryImpl implements QProductRepository {
     private final JPAQueryFactory queryFactory;
 
     @Override
-    public Optional<ProductDetailResponseDto> detail(String id) {
+    public Optional<ProductDetailResponseDto> detail(String uuid) {
         ProductDetailResponseDto result = queryFactory
                 .select(fields(ProductDetailResponseDto.class,
                         product.id,
+                        product.uuid,
                         product.name.as("productNm"),
                         product.description,
                         product.flavor,
@@ -39,12 +40,12 @@ public class QProductRepositoryImpl implements QProductRepository {
                         product.style,
                         product.price,
                         product.photoImgUrl,
-                        roastery.id.as("roasteryId"),
-                        roastery.roasteryNm
+                        roastery.uuid.as("roasteryId"),
+                        roastery.name.as("roasteryNm")
                 ))
                 .from(product)
                 .join(product.roastery, roastery)
-                .where(product.id.eq(id))
+                .where(product.uuid.eq(uuid))
                 .fetchOne();
 
         return Optional.ofNullable(result);
@@ -56,18 +57,19 @@ public class QProductRepositoryImpl implements QProductRepository {
 
         Predicate predicate = PredicateBuilder.builder()
                 .containsString(product.name, dto.getProductNm())
-                .containsString(roastery.roasteryNm, dto.getRoasteryNm())
+                .containsString(roastery.name, dto.getRoasteryNm())
                 .eqStringList(product.flavor, dto.getFlavor())
                 .build();
 
         List<ProductListResponseDto> fetch = queryFactory
                 .select(fields(ProductListResponseDto.class,
                         product.id,
+                        product.uuid,
                         product.photoImgUrl,
                         product.flavor,
                         product.name.as("productNm"),
                         product.price,
-                        roastery.roasteryNm
+                        roastery.name.as("roasteryNm")
                 ))
                 .from(product)
                 .join(product.roastery, roastery)

@@ -1,6 +1,6 @@
 package com.koke.koke_backend.roastery.service;
 
-import com.koke.koke_backend.common.dto.ApiResponse;
+import com.koke.koke_backend.application.response.ResponseMapper;
 import com.koke.koke_backend.roastery.dto.RoasteryCreateRequestDto;
 import com.koke.koke_backend.roastery.dto.RoasteryDetailResponseDto;
 import com.koke.koke_backend.roastery.dto.RoasteryListResponseDto;
@@ -28,31 +28,31 @@ public class RoasteryService {
     private final RoasteryMapper roasteryMapper;
 
     @Transactional(readOnly = true)
-    public ResponseEntity<ApiResponse<List<RoasteryListResponseDto>>> list(SortType sortType) {
+    public ResponseEntity<ResponseMapper<List<RoasteryListResponseDto>>> list(SortType sortType) {
         List<RoasteryListResponseDto> list = roasteryRepository.list(sortType);
-        return ApiResponse.success(list);
+        return ResponseMapper.success(list);
     }
 
 
     @Transactional(readOnly = true)
-    public ResponseEntity<ApiResponse<List<RoasteryTop4ResponseDto>>> top4() {
+    public ResponseEntity<ResponseMapper<List<RoasteryTop4ResponseDto>>> top4() {
         List<RoasteryTop4ResponseDto> list = roasteryRepository.top4();
-        return ApiResponse.success(list);
+        return ResponseMapper.success(list);
     }
 
     @Transactional(readOnly = true)
-    public ResponseEntity<ApiResponse<RoasteryDetailResponseDto>> detail(String id) {
-        Optional<RoasteryDetailResponseDto> detailOptional = roasteryRepository.detail(id);
+    public ResponseEntity<ResponseMapper<RoasteryDetailResponseDto>> detail(String uuid) {
+        Optional<RoasteryDetailResponseDto> detailOptional = roasteryRepository.detail(uuid);
         RoasteryDetailResponseDto detail =
                 detailOptional.orElseThrow(() -> new IllegalArgumentException("해당 로스터리가 존재하지 않습니다."));
 
-        return ApiResponse.success(detail);
+        return ResponseMapper.success(detail);
     }
 
     @Transactional
-    public ResponseEntity<ApiResponse<Object>> create(RoasteryCreateRequestDto dto) {
+    public ResponseEntity<ResponseMapper<Object>> create(RoasteryCreateRequestDto dto) {
         Roastery roastery = roasteryMapper.createDtoToEntity(dto);
         roasteryRepository.save(roastery);
-        return ApiResponse.success();
+        return ResponseMapper.success();
     }
 }

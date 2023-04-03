@@ -13,7 +13,7 @@ import org.springframework.context.annotation.Profile;
 import javax.sql.DataSource;
 
 @Slf4j
-@Profile("local")
+@Profile({"local", "local_v2"})
 @Configuration
 @RequiredArgsConstructor
 public class SSHDataSourceConfig {
@@ -24,7 +24,7 @@ public class SSHDataSourceConfig {
     @Primary
     public DataSource dataSource(DataSourceProperties properties) {
         Integer forwardedPort = initializer.buildSSHConnection();
-        String url = String.format("jdbc:mariadb://localhost:%d/KOKE_DEV", forwardedPort);
+        String url = String.format("jdbc:mariadb://localhost:%d/%s", forwardedPort, initializer.getDatabaseName());
         log.info("JDBC Connection Url: " + url);
 
         return DataSourceBuilder.create()

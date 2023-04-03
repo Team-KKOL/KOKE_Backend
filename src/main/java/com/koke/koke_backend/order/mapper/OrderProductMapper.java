@@ -17,6 +17,7 @@ import org.mapstruct.*;
 public interface OrderProductMapper {
 
 	@Mapping(target = "id", ignore = true)
+	@Mapping(target = "uuid", source = "dto", qualifiedByName = "uuid")
 	@Mapping(target = "review", ignore = true)
 	@Mapping(target = "orderStatus", constant = "ORDERED")
 	@Mapping(target = "volume", source = "dto.volume")

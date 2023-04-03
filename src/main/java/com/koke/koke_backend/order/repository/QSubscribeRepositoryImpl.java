@@ -22,13 +22,14 @@ public class QSubscribeRepositoryImpl implements QSubscribeRepository {
     public List<SubscribeListResponseDto> list(String userId) {
         return queryFactory.select(
                         Projections.fields(SubscribeListResponseDto.class,
-                                subscribe.subscribeId,
+                                subscribe.id,
                                 product.id.as("productId"),
                                 product.name.as("productNm"),
                                 product.photoImgUrl.as("photoImgUrl"),
                                 product.flavor,
-                                roastery.roasteryNm,
-                                subscribe.insDtm.as("subscribeDtm")
+                                roastery.name.as("roasteryNm"),
+                                subscribe.subscribeDt,
+                                subscribe.deliveryDt
                                 )
                 )
                 .from(subscribe)
@@ -36,7 +37,7 @@ public class QSubscribeRepositoryImpl implements QSubscribeRepository {
                 .join(subscribe.orderProduct, orderProduct)
                 .join(orderProduct.product, product)
                 .join(product.roastery, roastery)
-                .where(user.userId.eq(userId))
+                .where(user.id.eq(userId))
                 .fetch();
     }
 

@@ -1,7 +1,7 @@
 package com.koke.koke_backend.common.security;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.koke.koke_backend.common.dto.ApiResponse;
+import com.koke.koke_backend.application.response.ResponseMapper;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
@@ -35,8 +35,8 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
 
 		if (token != null && jwtTokenProvider.isAccessTokenExpired(token)) {
 			ObjectMapper om = new ObjectMapper();
-			ResponseEntity<ApiResponse<Object>> apiResponse =
-					ApiResponse.forbidden("accessToken이 만료되었습니다. accessToken 재발급을 진행해주세요.");
+			ResponseEntity<ResponseMapper<Object>> apiResponse =
+					ResponseMapper.forbidden("accessToken이 만료되었습니다. accessToken 재발급을 진행해주세요.");
 
 			response.setCharacterEncoding("UTF-8");
 			response.setContentType(MediaType.APPLICATION_JSON_VALUE + ";charset=UTF-8");

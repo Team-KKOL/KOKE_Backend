@@ -1,5 +1,6 @@
 package com.koke.koke_backend.address.entity;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.koke.koke_backend.common.entity.BaseTimeEntity;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -9,7 +10,6 @@ import lombok.experimental.SuperBuilder;
 import org.hibernate.annotations.Comment;
 
 import static jakarta.persistence.FetchType.LAZY;
-import static jakarta.persistence.GenerationType.IDENTITY;
 
 @SuperBuilder(toBuilder = true)
 @Entity
@@ -18,12 +18,6 @@ import static jakarta.persistence.GenerationType.IDENTITY;
 @AllArgsConstructor
 @Table
 public class Address extends BaseTimeEntity {
-
-    @Id
-    @GeneratedValue(strategy = IDENTITY)
-    @Column(length = 30)
-    @Comment("주소 ID")
-    private Integer id;
 
     @Column(length = 100)
     @Comment("주소명")
@@ -41,6 +35,7 @@ public class Address extends BaseTimeEntity {
     @Comment("우편 번호")
     private String postalCode;
 
+    @JsonBackReference
     @ManyToOne(fetch = LAZY)
     @JoinColumn(nullable = false, name = "addressBookId", referencedColumnName = "id")
     private AddressBook addressBook;

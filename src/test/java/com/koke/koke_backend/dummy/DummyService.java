@@ -28,6 +28,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.stereotype.Service;
+import org.springframework.test.annotation.Rollback;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.transaction.annotation.Transactional;
@@ -40,13 +41,14 @@ import java.util.List;
 @Service
 @Transactional
 @RequiredArgsConstructor
-@ActiveProfiles("test")
+//@ActiveProfiles("test")
+@ActiveProfiles("local_v2")
 @SpringBootTest(
         classes = KokeBackendApplication.class,
-        args = {"--encrypt=123"}
+        args = {"--encrypt=koke"}
 )
 @ContextConfiguration(initializers = EncryptInitializer.class)
-class DummyService {
+public class DummyService {
 
     @Autowired
     private RoasteryRepository roasteryRepository;
@@ -69,6 +71,11 @@ class DummyService {
     @Autowired
     private ObjectMapper objectMapper;
 
+    private List<Roastery> defaultRoasteryData = null;
+    private List<Product> defaultProductData = null;
+    private List<CelebrityComment> defaultCelebrityCommentData = null;
+
+
     @Before
     public void before() {
         objectMapper.enable(DeserializationFeature.ACCEPT_EMPTY_STRING_AS_NULL_OBJECT);
@@ -76,25 +83,25 @@ class DummyService {
         objectMapper.configure(JsonReadFeature.ALLOW_BACKSLASH_ESCAPING_ANY_CHARACTER.mappedFeature(), true);
     }
 
+    @Rollback(false)
     @DisplayName("로스터리 데이터 파싱 저장")
     @Test
     @Transactional
-//    @Rollback(false)
-    void defaultRoasteryData() throws IOException {
+    public void defaultRoasteryData() throws IOException {
         File file = new ClassPathResource("roastery.json").getFile();
         List<RoasteryDataDto> roasteryDataDtos = objectMapper.readValue(file, new TypeReference<>() {
         });
         log.info(objectMapper.writerWithDefaultPrettyPrinter().writeValueAsString(roasteryDataDtos));
 
         List<Roastery> list = roasteryMapper.toEntityList(roasteryDataDtos);
-        roasteryRepository.saveAll(list);
+        defaultRoasteryData = roasteryRepository.saveAll(list);
     }
 
+    @Rollback(false)
     @DisplayName("커피 데이터 파싱 저장")
     @Test
     @Transactional
-//    @Rollback(false)
-    void defaultProductData() throws IOException {
+    public void defaultProductData() throws IOException {
         File file = new ClassPathResource("product.json").getFile();
 
         List<ProductDataDto> productDataDtos = objectMapper.readValue(file, new TypeReference<>() {
@@ -102,21 +109,32 @@ class DummyService {
         log.info(objectMapper.writerWithDefaultPrettyPrinter().writeValueAsString(productDataDtos));
 
         List<Product> list = productMapper.toEntityList(productDataDtos);
-        productRepository.saveAll(list);
+        defaultProductData = productRepository.saveAll(list);
     }
 
+    @Rollback(false)
     @DisplayName("셀럽 추천사 데이터 파싱 저장")
     @Test
     @Transactional
-//    @Rollback(false)
-    void defaultCelebrityCommentData() throws IOException {
+    public void defaultCelebrityCommentData() throws IOException {
         File file = new ClassPathResource("celeb.json").getFile();
         List<CelebrityCommentDataDto> celebrityCommentDtos = objectMapper.readValue(file, new TypeReference<>() {
         });
         log.info(objectMapper.writerWithDefaultPrettyPrinter().writeValueAsString(celebrityCommentDtos));
 
         List<CelebrityComment> list = celebrityCommentMapper.toEntityList(celebrityCommentDtos);
-        celebrityCommentRepository.saveAll(list);
+        defaultCelebrityCommentData = celebrityCommentRepository.saveAll(list);
     }
 
+    public List<Roastery> getDefaultRoasteryData() {
+        return defaultRoasteryData;
+    }
+
+    public List<Product> getDefaultProductData() {
+        return defaultProductData;
+    }
+
+    public List<CelebrityComment> getDefaultCelebrityCommentData() {
+        return defaultCelebrityCommentData;
+    }
 }

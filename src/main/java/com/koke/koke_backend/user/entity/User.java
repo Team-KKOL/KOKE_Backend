@@ -27,7 +27,7 @@ public class User extends BaseTimeEntity implements UserDetails {
     @Id
     @Column(length = 30)
     @Comment("사용자 ID")
-    private String userId;
+    private String id;
 
     @Column(length = 100)
     @Comment("비밀번호")
@@ -51,7 +51,7 @@ public class User extends BaseTimeEntity implements UserDetails {
 
     @Override
     public String getUsername() {
-        return userId;
+        return id;
     }
 
     @Override

@@ -1,5 +1,6 @@
 package com.koke.koke_backend.user.dto;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Pattern;
@@ -15,10 +16,11 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class SignUpRequestDto {
 
+    @JsonProperty("userId")
     @NotBlank(message = "사용자 ID를 입력하지 않으셨습니다.")
     @Size(min = 8, max = 30, message = "사용자 ID는 30자 이하로 입력해주세요.")
     @Pattern(regexp = "^(?=.*[a-z])(?=.*\\d)[a-z\\d]{8,20}$", message = "사용자 ID는 영소문자와 숫자만 입력해주세요.")
-    private String userId;
+    private String id;
 
     @NotBlank(message = "패스워드를 입력하지 않으셨습니다.")
     @Size(min = 8, max = 20, message = "패스워드는 8자 이상 20자 이하로 입력해주세요.")

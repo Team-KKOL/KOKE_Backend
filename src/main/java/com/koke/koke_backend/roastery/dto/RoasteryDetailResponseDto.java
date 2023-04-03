@@ -1,7 +1,6 @@
 package com.koke.koke_backend.roastery.dto;
 
-import com.fasterxml.jackson.databind.annotation.JsonSerialize;
-import com.koke.koke_backend.common.json.serializer.CustomLocalDateTimeSerializer;
+import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -16,7 +15,7 @@ import java.util.List;
 @AllArgsConstructor
 public class RoasteryDetailResponseDto {
 
-    private String id;
+    private String uuid;
     private String roasteryNm;
     private List<String> description;
     private List<String> awards;
@@ -26,7 +25,7 @@ public class RoasteryDetailResponseDto {
     private String logoImgUrl;
     private List<String> photoImgUrl;
 
-    @JsonSerialize(using = CustomLocalDateTimeSerializer.class)
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm:ss")
     private LocalDateTime insDtm;
 
 }

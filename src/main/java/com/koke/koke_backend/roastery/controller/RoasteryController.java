@@ -1,7 +1,7 @@
 package com.koke.koke_backend.roastery.controller;
 
+import com.koke.koke_backend.application.response.ResponseMapper;
 import com.koke.koke_backend.common.config.Uris;
-import com.koke.koke_backend.common.dto.ApiResponse;
 import com.koke.koke_backend.roastery.dto.RoasteryCreateRequestDto;
 import com.koke.koke_backend.roastery.dto.RoasteryDetailResponseDto;
 import com.koke.koke_backend.roastery.dto.RoasteryListResponseDto;
@@ -37,28 +37,28 @@ public class RoasteryController {
     @Tag(name = "로스터리 관리", description = "로스터리 관리 API")
     @Operation(summary = "로스터리 리스트 조회", description = "로스터리 리스트 조회 API")
     @GetMapping(value = Uris.ROASTERY_ROOT)
-    public ResponseEntity<ApiResponse<List<RoasteryListResponseDto>>> list(@RequestParam(name = "sort") SortType sortType) {
+    public ResponseEntity<ResponseMapper<List<RoasteryListResponseDto>>> list(@RequestParam(name = "sort") SortType sortType) {
         return roasteryService.list(sortType);
     }
 
     @Tag(name = "로스터리 관리", description = "로스터리 관리 API")
     @Operation(summary = "로스터리 상위 4개 조회", description = "로스터리 상위 4개 조회 API")
     @GetMapping(value = Uris.ROASTERY_ROOT + Uris.ROASTERY_TOP4)
-    public ResponseEntity<ApiResponse<List<RoasteryTop4ResponseDto>>> top4() {
+    public ResponseEntity<ResponseMapper<List<RoasteryTop4ResponseDto>>> top4() {
         return roasteryService.top4();
     }
 
     @Tag(name = "로스터리 관리", description = "로스터리 관리 API")
     @Operation(summary = "로스터리 상세 조회", description = "로스터리 상세 조회 API")
-    @GetMapping(value = Uris.ROASTERY_ROOT + Uris.REST_NAME_ID)
-    public ResponseEntity<ApiResponse<RoasteryDetailResponseDto>> detail(@PathVariable(name = "id") String id) {
-        return roasteryService.detail(id);
+    @GetMapping(value = Uris.ROASTERY_ROOT + Uris.REST_NAME_UUID)
+    public ResponseEntity<ResponseMapper<RoasteryDetailResponseDto>> detail(@PathVariable(name = "uuid") String uuid) {
+        return roasteryService.detail(uuid);
     }
 
     @Tag(name = "로스터리 관리", description = "로스터리 관리 API")
     @Operation(summary = "로스터리 생성 - 관리자전용", description = "로스터리 생성 API - 관리자전용")
     @PostMapping(value = Uris.ROASTERY_ROOT)
-    public ResponseEntity<ApiResponse<Object>> create(@Valid @RequestBody RoasteryCreateRequestDto dto) {
+    public ResponseEntity<ResponseMapper<Object>> create(@Valid @RequestBody RoasteryCreateRequestDto dto) {
         return roasteryService.create(dto);
     }
 

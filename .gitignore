@@ -8,6 +8,7 @@ build/
 /src/main/resources/coffee.json
 /src/main/resources/roasterys.json
 KOKE_BACKEND_LOG(local)
+KOKE_BACKEND_LOG(local_v2)
 KOKE_BACKEND_LOG(test)
 /src/main/resources/key/**
 

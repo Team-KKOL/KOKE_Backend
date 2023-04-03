@@ -15,6 +15,8 @@ public class ProductDetailResponseDto {
 
     private String id;
 
+    private String uuid;
+
     private String productNm;
 
     private String description;

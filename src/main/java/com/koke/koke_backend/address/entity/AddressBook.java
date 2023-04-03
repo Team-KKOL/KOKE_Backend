@@ -1,6 +1,7 @@
 package com.koke.koke_backend.address.entity;
 
-import com.koke.koke_backend.common.entity.BaseTimeEntity;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.koke.koke_backend.common.entity.BaseIdEntity;
 import com.koke.koke_backend.user.entity.User;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -13,28 +14,22 @@ import org.hibernate.annotations.Comment;
 import java.util.ArrayList;
 import java.util.List;
 
-import static jakarta.persistence.GenerationType.IDENTITY;
-
 @SuperBuilder(toBuilder = true)
 @Entity
 @Getter
 @NoArgsConstructor
 @AllArgsConstructor
 @Table
-public class AddressBook extends BaseTimeEntity {
+public class AddressBook extends BaseIdEntity {
 
-    @Id
-    @GeneratedValue(strategy = IDENTITY)
-    @Comment("주소록 ID")
-    private Integer id;
-
+    @JsonManagedReference
     @Builder.Default
     @OneToMany(mappedBy = "addressBook",
             cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REMOVE}, orphanRemoval = true)
     private List<Address> addresses = new ArrayList<>();
 
     @OneToOne
-    @JoinColumn(name = "userId", referencedColumnName = "userId")
+    @JoinColumn(name = "userId", referencedColumnName = "id")
     @Comment("사용자 ID")
     private User user;
 

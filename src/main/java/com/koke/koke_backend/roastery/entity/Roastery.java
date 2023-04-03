@@ -1,8 +1,11 @@
 package com.koke.koke_backend.roastery.entity;
 
-import com.koke.koke_backend.common.entity.BaseEntity;
+import com.koke.koke_backend.common.entity.BaseIdEntity;
 import com.koke.koke_backend.common.jpa.StringListConverter;
-import jakarta.persistence.*;
+import jakarta.persistence.Column;
+import jakarta.persistence.Convert;
+import jakarta.persistence.Entity;
+import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -17,16 +20,15 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 @Table
-public class Roastery extends BaseEntity {
+public class Roastery extends BaseIdEntity {
 
-    @Id
-    @Column(length = 40)
-    @Comment("로스터리 카페 ID")
-    private String id;
+    @Column(unique = true, length = 50)
+    @Comment("고유번호")
+    private String uuid;
 
     @Column(length = 30, nullable = false)
     @Comment("로스터리 카페명")
-    private String roasteryNm;
+    private String name;
 
     @Column(columnDefinition = "MEDIUMTEXT NOT NULL")
     @Convert(converter = StringListConverter.class)

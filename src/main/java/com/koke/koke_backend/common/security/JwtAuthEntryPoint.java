@@ -1,7 +1,7 @@
 package com.koke.koke_backend.common.security;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.koke.koke_backend.common.dto.ApiResponse;
+import com.koke.koke_backend.application.response.ResponseMapper;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
@@ -42,7 +42,7 @@ public class JwtAuthEntryPoint implements AuthenticationEntryPoint {
 
         try (OutputStream os = response.getOutputStream()) {
             ObjectMapper om = new ObjectMapper();
-            om.writeValue(os, ApiResponse.unauthorized("권한이 없습니다. 로그인해주세요."));
+            om.writeValue(os, ResponseMapper.unauthorized("권한이 없습니다. 로그인해주세요."));
             os.flush();
         }
     }

@@ -1,6 +1,6 @@
 package com.koke.koke_backend.fav.entity;
 
-import com.koke.koke_backend.common.entity.BaseEntity;
+import com.koke.koke_backend.common.entity.BaseIdEntity;
 import com.koke.koke_backend.fav.enums.FavType;
 import com.koke.koke_backend.product.entity.Product;
 import com.koke.koke_backend.roastery.entity.Roastery;
@@ -13,7 +13,6 @@ import lombok.experimental.SuperBuilder;
 import org.hibernate.annotations.Comment;
 
 import static jakarta.persistence.FetchType.LAZY;
-import static jakarta.persistence.GenerationType.IDENTITY;
 
 @SuperBuilder(toBuilder = true)
 @Entity
@@ -21,15 +20,13 @@ import static jakarta.persistence.GenerationType.IDENTITY;
 @NoArgsConstructor
 @AllArgsConstructor
 @Table
-public class Fav extends BaseEntity {
+public class Fav extends BaseIdEntity {
 
     // 상품, 로스터리 찜할 수 있어야 함
 
-    @Id
-    @GeneratedValue(strategy =  IDENTITY)
-    @Column(length = 30)
-    @Comment("좋아요 ID")
-    private Long favId;
+    @Column(unique = true, length = 50)
+    @Comment("고유번호")
+    private String uuid;
 
     @Enumerated(EnumType.STRING)
     @Column(length = 20, nullable = false)
@@ -47,7 +44,7 @@ public class Fav extends BaseEntity {
     private Roastery roastery;
 
     @ManyToOne(fetch = LAZY)
-    @JoinColumn(name = "userId", referencedColumnName = "userId")
+    @JoinColumn(name = "userId", referencedColumnName = "id")
     @Comment("좋아요한 사용자 ID")
     private User user;
 

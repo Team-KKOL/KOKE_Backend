@@ -22,21 +22,21 @@ public class QFavRepositoryImpl implements QFavRepository {
     private final JPAQueryFactory queryFactory;
 
     @Override
-    public Optional<Fav> getFavRoastery(String userId, String roasteryId) {
+    public Optional<Fav> getFavRoastery(String userId, String roasteryUuid) {
         Fav favEntity = queryFactory.selectFrom(fav)
                 .join(fav.user, user)
                 .join(fav.roastery)
-                .where(user.userId.eq(userId), roastery.id.eq(roasteryId), fav.favType.eq(FavType.ROASTERY))
+                .where(user.id.eq(userId), roastery.uuid.eq(roasteryUuid), fav.favType.eq(FavType.ROASTERY))
                 .fetchOne();
         return Optional.ofNullable(favEntity);
     }
 
     @Override
-    public Optional<Fav> getFavProduct(String userId, String productId) {
+    public Optional<Fav> getFavProduct(String userId, String productUuid) {
         Fav favEntity = queryFactory.selectFrom(fav)
                 .join(fav.user, user)
                 .join(fav.product, product)
-                .where(user.userId.eq(userId), product.id.eq(productId), fav.favType.eq(FavType.PRODUCT))
+                .where(user.id.eq(userId), product.uuid.eq(productUuid), fav.favType.eq(FavType.PRODUCT))
                 .fetchOne();
         return Optional.ofNullable(favEntity);
     }
@@ -46,13 +46,13 @@ public class QFavRepositoryImpl implements QFavRepository {
     public List<FavRoasteryDto> favRoasteryList(String userId) {
         return queryFactory
                 .select(Projections.fields(FavRoasteryDto.class,
-                        roastery.roasteryNm,
+                        roastery.name,
                         roastery.photoImgUrl
                 ))
                 .from(fav)
                 .join(fav.user, user)
                 .join(fav.roastery, roastery)
-                .where(user.userId.eq(userId), fav.favType.eq(FavType.ROASTERY))
+                .where(user.id.eq(userId), fav.favType.eq(FavType.ROASTERY))
                 .fetch();
     }
 
@@ -65,13 +65,13 @@ public class QFavRepositoryImpl implements QFavRepository {
                         product.photoImgUrl.as("photoImgUrl"),
                         product.flavor,
                         product.price,
-                        roastery.roasteryNm
+                        roastery.name.as("roasteryNm")
                 ))
                 .from(fav)
                 .join(fav.user, user)
                 .join(fav.product, product)
                 .join(product.roastery, roastery)
-                .where(user.userId.eq(userId), fav.favType.eq(FavType.PRODUCT))
+                .where(user.id.eq(userId), fav.favType.eq(FavType.PRODUCT))
                 .fetch();
     }
 }

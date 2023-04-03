@@ -49,6 +49,10 @@ jwt:
   refreshTokenValidity: 1M
   secret: YnBucy1oZXBjLWJhY2tlbmQtanNvbndlYnRva2VuLXNlY3JldEtleQo=YnBucy1oZXBjLWJhY2tlbmQtanNvbndlYnRva2VuLXNlY3JldEtleQo=YnBucy1oZXBjLWJhY2tlbmQtanNvbndlYnRva2VuLXNlY3JldEtleQo=YnBucy1oZXBjLWJhY2tlbmQtanNvbndlYnRva2VuLXNlY3JldEtleQo=YnBucy1oZXBjLWJhY2tlbmQtanNvbndlYnRva2VuLXNlY3JldEtleQo=YnBucy1oZXBjLWJhY2tlbmQtanNvbndlYnRva2VuLXNlY3JldEtleQo=YnBucy1oZXBjLWJhY2tlbmQtanNvbndlYnRva2VuLXNlY3JldEtleQo=YnBucy1oZXBjLWJhY2tlbmQtanNvbndlYnRva2VuLXNlY3JldEtleQo=
 
+encryption:
+  key: 1sWTtSa2AtNDNSwj
+  iv: hGQHYPQtGQarP7RJ
+
 springdoc:
   model-and-view-allowed: true
   default-consumes-media-type: application/json

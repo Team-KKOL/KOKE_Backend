@@ -1,8 +1,11 @@
 package com.koke.koke_backend.celebrity.entity;
 
-import com.koke.koke_backend.common.entity.BaseTimeEntity;
+import com.koke.koke_backend.common.entity.BaseIdEntity;
 import com.koke.koke_backend.common.jpa.StringListConverter;
-import jakarta.persistence.*;
+import jakarta.persistence.Column;
+import jakarta.persistence.Convert;
+import jakarta.persistence.Entity;
+import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -11,20 +14,13 @@ import org.hibernate.annotations.Comment;
 
 import java.util.List;
 
-import static jakarta.persistence.GenerationType.IDENTITY;
-
 @SuperBuilder(toBuilder = true)
 @Entity
 @Getter
 @NoArgsConstructor
 @AllArgsConstructor
 @Table
-public class CelebrityComment extends BaseTimeEntity {
-
-    @Id
-    @GeneratedValue(strategy = IDENTITY)
-    @Comment("셀럽 추천사 ID")
-    private Integer id;
+public class CelebrityComment extends BaseIdEntity {
 
     @Column(nullable = false, length = 10)
     @Comment("셀럽 이름")

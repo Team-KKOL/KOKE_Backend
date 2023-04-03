@@ -10,11 +10,10 @@ import java.util.concurrent.ConcurrentHashMap;
 @Slf4j
 public class SseEmitters {
 
-    // Thread-Safe한 HashMap
     private final ConcurrentHashMap<String, SseEmitter> emitterMap = new ConcurrentHashMap<>();
 
-    public SseEmitter add(String did, SseEmitter emitter) {
-        this.emitterMap.put(did, emitter);
+    public SseEmitter add(String id, SseEmitter emitter) {
+        this.emitterMap.put(id, emitter);
 
         log.info("new emitter added: {}", emitter);
         log.info("emitter Map size: {}", emitterMap.entrySet().size());
@@ -22,12 +21,12 @@ public class SseEmitters {
         emitter.onCompletion(() -> {
             log.info("onCompletion callback");
             emitter.complete();
-            this.emitterMap.remove(did); // 만료되면 리스트에서 삭제
+            this.emitterMap.remove(id); // 만료되면 리스트에서 삭제
         });
 
         emitter.onError((e) -> {
             log.error("SseEmitter Error : ", e);
-            this.emitterMap.remove(did);
+            this.emitterMap.remove(id);
         });
 
         emitter.onTimeout(() -> {

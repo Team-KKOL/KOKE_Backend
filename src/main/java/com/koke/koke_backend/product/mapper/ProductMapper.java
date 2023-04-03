@@ -7,8 +7,7 @@ import com.koke.koke_backend.product.mapper.decorator.ProductDecorator;
 import org.mapstruct.*;
 
 import java.util.List;
-
-import static java.util.UUID.randomUUID;
+import java.util.UUID;
 
 @Mapper(
 		componentModel = "spring",
@@ -22,19 +21,18 @@ import static java.util.UUID.randomUUID;
 public interface ProductMapper {
 
 	@Named("toEntity")
-	@Mapping(target = "id", source = "dto", qualifiedByName = "getIdFromProductDataDto")
+	@Mapping(target = "uuid", source = "dto", qualifiedByName = "uuid")
 	@Mapping(target = "description", source = "summary")
 	@Mapping(target = "roastery", ignore = true)
 	@Mapping(target = "weight", ignore = true)
-//	@Mapping(target = "productCategories", ignore = true)
 	Product toEntity(ProductDataDto dto);
 
 	@IterableMapping(qualifiedByName = "toEntity")
     List<Product> toEntityList(List<ProductDataDto> productDataDtos);
 
-	@Named("getIdFromProductDataDto")
-	default String getIdFromProductDataDto(ProductDataDto dto) {
-		return System.currentTimeMillis() + randomUUID().toString().substring(0, 5);
+	@Named("uuid")
+	default String uuid(ProductDataDto dto) {
+		return UUID.randomUUID().toString();
 	}
 
 }

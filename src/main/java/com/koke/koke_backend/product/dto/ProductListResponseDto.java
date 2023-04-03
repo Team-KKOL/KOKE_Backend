@@ -13,7 +13,7 @@ import java.util.List;
 @AllArgsConstructor
 public class ProductListResponseDto {
 
-    private String id;
+    private String uuid;
     private String photoImgUrl;
     private List<String> flavor;
     private String productNm;

@@ -1,0 +1,71 @@
+server:
+  port: 9003
+  tomcat:
+    remoteip:
+      protocol-header: x-forwarded-proto
+  ssl:
+    key-store: classpath:key/keystore.p12
+    key-store-type: PKCS12
+    key-store-password: khb0915
+    enabled: true
+
+spring:
+  application:
+    name: koke_backend
+  config:
+    activate:
+      on-profile: develop_v2
+  devtools:
+    restart:
+      enabled: true
+  datasource:
+    url: ENC(BzzU8Z8hG3BL3y50gl7SBCdNbIx/pB4HoslUGBeFCUFLf5QCYYbhZwtYrdNgPM/31U4O5gbluhh8ltOVAGTJfJ3EOYFT0x+raQ6d7k9Iq7wWsZCDH/4mO+6XlN0v9bJCkcbrwyIz/zBETgNCvAj8kw==)
+    username: ENC(UHlF351brOUFhxWrkrrB/ds9xQaPlanX3pXME6o3Rbs=)
+    password: ENC(Zi1Wzawi+DVlzHYGOdYRzagyGfdtb6mL/IV12Mzl9Xw=)
+    driver-class-name: org.mariadb.jdbc.Driver
+  jpa:
+    database-platform: org.hibernate.dialect.MariaDBDialect
+    show-sql: false
+    hibernate:
+      ddl-auto: update
+      naming:
+        physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
+      metadata_builder_contributor: com.koke.koke_backend.module.jpa.SqlFunctionsMetadataBuilderContributor
+  mvc:
+    pathmatch:
+      matching-strategy: ant_path_matcher
+  data:
+    redis:
+      host: koke-redis-001.phbkid.0001.apn2.cache.amazonaws.com
+      port: 6379
+      database: 1
+      username:
+      password:
+
+jwt:
+  accessTokenValidity: 14d
+  refreshTokenValidity: 1M
+  secret: YnBucy1oZXBjLWJhY2tlbmQtanNvbndlYnRva2VuLXNlY3JldEtleQo=YnBucy1oZXBjLWJhY2tlbmQtanNvbndlYnRva2VuLXNlY3JldEtleQo=YnBucy1oZXBjLWJhY2tlbmQtanNvbndlYnRva2VuLXNlY3JldEtleQo=YnBucy1oZXBjLWJhY2tlbmQtanNvbndlYnRva2VuLXNlY3JldEtleQo=YnBucy1oZXBjLWJhY2tlbmQtanNvbndlYnRva2VuLXNlY3JldEtleQo=YnBucy1oZXBjLWJhY2tlbmQtanNvbndlYnRva2VuLXNlY3JldEtleQo=YnBucy1oZXBjLWJhY2tlbmQtanNvbndlYnRva2VuLXNlY3JldEtleQo=YnBucy1oZXBjLWJhY2tlbmQtanNvbndlYnRva2VuLXNlY3JldEtleQo=
+
+encryption:
+  key: NfNj0MMn2tz2F2NK
+  iv: ZXbCMwexhZ1KwQNk
+
+springdoc:
+  model-and-view-allowed: true
+  default-consumes-media-type: application/json
+  default-produces-media-type: application/json
+  swagger-ui:
+    path: /swagger-ui.html
+    default-models-expand-depth: -1
+  enable-native-support: true
+
+logging:
+  config: classpath:logback-spring.xml
+  charset:
+    console: UTF-8
+    file: UTF-8
+
+custom:
+  path: '/home/ubuntu/koke_file_test'
+

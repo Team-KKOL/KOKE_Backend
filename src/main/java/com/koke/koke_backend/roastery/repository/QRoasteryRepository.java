@@ -11,7 +11,7 @@ import java.util.Optional;
 public interface QRoasteryRepository {
     List<RoasteryListResponseDto> list(SortType sortType);
 
-    Optional<RoasteryDetailResponseDto> detail(String id);
+    Optional<RoasteryDetailResponseDto> detail(String uuid);
 
     List<RoasteryTop4ResponseDto> top4();
 }

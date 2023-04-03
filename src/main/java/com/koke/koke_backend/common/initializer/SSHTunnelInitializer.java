@@ -16,7 +16,7 @@ import java.util.Properties;
 import static java.lang.System.exit;
 
 @Slf4j
-@Profile("local")
+@Profile({"local", "local_v2"})
 @Component
 @ConfigurationProperties(prefix = "ssh")
 @Validated
@@ -40,6 +40,9 @@ public class SSHTunnelInitializer {
 
     @NotNull
     private Integer databasePort;
+
+    @NotNull
+    private String databaseName;
 
     private Session session;
 
@@ -84,4 +87,7 @@ public class SSHTunnelInitializer {
         return forwardedPort;
     }
 
+    public String getDatabaseName() {
+        return databaseName;
+    }
 }

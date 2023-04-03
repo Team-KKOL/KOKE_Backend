@@ -1,6 +1,6 @@
 package com.koke.koke_backend.common.exception;
 
-import com.koke.koke_backend.common.dto.ApiResponse;
+import com.koke.koke_backend.application.response.ResponseMapper;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.validation.ConstraintViolation;
@@ -26,7 +26,7 @@ import static java.util.stream.Collectors.joining;
 public class GlobalExceptionHandler {
 
 	@ExceptionHandler(Exception.class)
-	public ResponseEntity<ApiResponse<String>> handleException(HttpServletRequest request, HttpServletResponse response, Exception e) {
+	public ResponseEntity<ResponseMapper<String>> handleException(HttpServletRequest request, HttpServletResponse response, Exception e) {
 		// 인지할 수 없는 오류
 		String URL = request.getRequestURL().toString();
 		String exception = new StringBuilder()
@@ -40,11 +40,11 @@ public class GlobalExceptionHandler {
 		log.error("알 수 없는 오류가 발생했습니다.");
 		log.error(exception);
 
-		return ApiResponse.fail(exception);
+		return ResponseMapper.fail(exception);
 	}
 
 	@ExceptionHandler(NoSuchElementException.class)
-	public ResponseEntity<ApiResponse<String>> handleNoSuchElementException(HttpServletRequest request, HttpServletResponse response, NoSuchElementException e) {
+	public ResponseEntity<ResponseMapper<String>> handleNoSuchElementException(HttpServletRequest request, HttpServletResponse response, NoSuchElementException e) {
 		String URL = request.getRequestURL().toString();
 		String exception = new StringBuilder()
 				.append(URL)
@@ -57,11 +57,11 @@ public class GlobalExceptionHandler {
 		log.error(e.getMessage());
 		log.error(exception);
 
-		return ApiResponse.badRequest(e.getMessage(), exception);
+		return ResponseMapper.badRequest(e.getMessage(), exception);
 	}
 
 	@ExceptionHandler(ConstraintViolationException.class)
-	public ResponseEntity<ApiResponse<String>> handleConstraintViolationException(HttpServletRequest request, HttpServletResponse response, ConstraintViolationException e) {
+	public ResponseEntity<ResponseMapper<String>> handleConstraintViolationException(HttpServletRequest request, HttpServletResponse response, ConstraintViolationException e) {
 		String URL = request.getRequestURL().toString();
 		String exception = new StringBuilder()
 				.append(URL)
@@ -79,11 +79,11 @@ public class GlobalExceptionHandler {
 		log.error(e.getMessage());
 		log.error(exception);
 
-		return ApiResponse.badRequest(message, exception);
+		return ResponseMapper.badRequest(message, exception);
 	}
 
 	@ExceptionHandler(MethodArgumentNotValidException.class)
-	public ResponseEntity<ApiResponse<String>> handleMethodArgumentNotValidException(HttpServletRequest request, HttpServletResponse response, MethodArgumentNotValidException e) {
+	public ResponseEntity<ResponseMapper<String>> handleMethodArgumentNotValidException(HttpServletRequest request, HttpServletResponse response, MethodArgumentNotValidException e) {
 		String URL = request.getRequestURL().toString();
 		String exception = new StringBuilder()
 				.append(URL)
@@ -101,6 +101,6 @@ public class GlobalExceptionHandler {
 		log.error(e.getMessage());
 		log.error(exception);
 
-		return ApiResponse.badRequest(message, exception);
+		return ResponseMapper.badRequest(message, exception);
 	}
 }

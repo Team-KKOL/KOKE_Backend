@@ -10,10 +10,8 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class RoasteryListResponseDto {
-    private String id;
-
-    private String roasteryNm;
-
+    private String uuid;
+    private String name;
     private String logoImgUrl;
 
 }

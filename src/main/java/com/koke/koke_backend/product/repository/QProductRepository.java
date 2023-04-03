@@ -8,6 +8,6 @@ import org.springframework.data.domain.Page;
 import java.util.Optional;
 
 public interface QProductRepository {
-    Optional<ProductDetailResponseDto> detail(String id);
+    Optional<ProductDetailResponseDto> detail(String uuid);
     Page<ProductListResponseDto> list(ProductListRequestDto dto);
 }

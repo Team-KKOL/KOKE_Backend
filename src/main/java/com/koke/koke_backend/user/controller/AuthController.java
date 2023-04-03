@@ -1,7 +1,7 @@
 package com.koke.koke_backend.user.controller;
 
+import com.koke.koke_backend.application.response.ResponseMapper;
 import com.koke.koke_backend.common.config.Uris;
-import com.koke.koke_backend.common.dto.ApiResponse;
 import com.koke.koke_backend.user.dto.LoginRequestDto;
 import com.koke.koke_backend.user.dto.RefreshRequestDto;
 import com.koke.koke_backend.user.dto.SignUpRequestDto;
@@ -24,28 +24,28 @@ public class AuthController {
     @Tag(name = "인증 관리", description = "인증 관리 API")
     @Operation(summary = "아이디 중복확인", description = "아이디 중복확인 API")
     @GetMapping(value = Uris.AUTH_CHECK + Uris.AUTH_ID)
-    public ResponseEntity<ApiResponse<Object>> checkUserId(@RequestParam(name = "userId") String userId) {
+    public ResponseEntity<ResponseMapper<Object>> checkUserId(@RequestParam(name = "userId") String userId) {
         return authService.checkUserId(userId);
     }
 
     @Tag(name = "인증 관리", description = "인증 관리 API")
     @Operation(summary = "이메일 중복확인", description = "이메일 중복확인 API")
     @GetMapping(value = Uris.AUTH_CHECK + Uris.AUTH_EMAIL)
-    public ResponseEntity<ApiResponse<Object>> checkEmail(@RequestParam(name = "email") String email) {
+    public ResponseEntity<ResponseMapper<Object>> checkEmail(@RequestParam(name = "email") String email) {
         return authService.checkEmail(email);
     }
 
     @Tag(name = "인증 관리", description = "인증 관리 API")
     @Operation(summary = "회원가입", description = "회원가입 API")
     @PostMapping(value = Uris.AUTH_SIGNUP)
-    public ResponseEntity<ApiResponse<Object>> signUp(@Valid @RequestBody SignUpRequestDto signUpRequestDto) {
+    public ResponseEntity<ResponseMapper<Object>> signUp(@Valid @RequestBody SignUpRequestDto signUpRequestDto) {
         return authService.signUp(signUpRequestDto);
     }
 
     @Tag(name = "인증 관리", description = "인증 관리 API")
     @Operation(summary = "로그인", description = "로그인 API")
     @PostMapping(value = Uris.AUTH_LOGIN)
-    public ResponseEntity<ApiResponse<Object>> login(@Valid @RequestBody LoginRequestDto loginRequestDto) {
+    public ResponseEntity<ResponseMapper<Object>> login(@Valid @RequestBody LoginRequestDto loginRequestDto) {
         return authService.login(loginRequestDto);
     }
 
@@ -53,14 +53,14 @@ public class AuthController {
     @Operation(summary = "로그아웃", description = "로그아웃 API")
     @SecurityRequirement(name = "TOKEN")
     @GetMapping(value = Uris.AUTH_LOGOUT)
-    public ResponseEntity<ApiResponse<Object>> logout() {
+    public ResponseEntity<ResponseMapper<Object>> logout() {
         return authService.logout();
     }
 
     @Tag(name = "인증 관리", description = "인증 관리 API")
     @Operation(summary = "Access Token 재발급", description = "Access Token 재발급 API")
     @PostMapping(value = Uris.AUTH_REFRESH)
-    public ResponseEntity<ApiResponse<Object>> refresh(@RequestBody RefreshRequestDto dto) {
+    public ResponseEntity<ResponseMapper<Object>> refresh(@RequestBody RefreshRequestDto dto) {
         return authService.refresh(dto);
     }
 

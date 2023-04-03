@@ -17,7 +17,7 @@ import java.util.List;
 public class RoasteryCreateRequestDto {
 
     @NotBlank(message = "로스터리 카페명을 입력하지 않으셨습니다.")
-    private String roasteryNm;
+    private String name;
 
     @NotEmpty(message = "로스터리 카페 소개를 입력하지 않으셨습니다")
     @NotBlank(message = "로스터리 카페 소개를 입력하지 않으셨습니다")

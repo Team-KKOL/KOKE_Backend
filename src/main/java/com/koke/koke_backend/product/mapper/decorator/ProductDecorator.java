@@ -28,7 +28,7 @@ public abstract class ProductDecorator implements ProductMapper {
     @Override
     public Product toEntity(ProductDataDto dto) {
         Product product = delegate.toEntity(dto);
-        Roastery roastery = roasteryRepository.findByRoasteryNm(dto.getRoastery());
+        Roastery roastery = roasteryRepository.findByName(dto.getRoastery());
 
         Integer weightValue = parseInt(remove(dto.getWeight(), "g"));
         List<String> weight = List.of(weightValue + "g", weightValue * 2 + "g");

@@ -1,7 +1,7 @@
 package com.koke.koke_backend.order.entity;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.koke.koke_backend.common.entity.BaseTimeEntity;
+import com.koke.koke_backend.common.entity.BaseIdEntity;
 import com.koke.koke_backend.order.enums.GrindType;
 import com.koke.koke_backend.order.enums.OrderStatus;
 import com.koke.koke_backend.product.entity.Product;
@@ -14,7 +14,6 @@ import lombok.experimental.SuperBuilder;
 import org.hibernate.annotations.Comment;
 
 import static jakarta.persistence.FetchType.LAZY;
-import static jakarta.persistence.GenerationType.IDENTITY;
 
 @SuperBuilder(toBuilder = true)
 @Entity
@@ -22,12 +21,11 @@ import static jakarta.persistence.GenerationType.IDENTITY;
 @NoArgsConstructor
 @AllArgsConstructor
 @Table
-public class OrderProduct extends BaseTimeEntity {
+public class OrderProduct extends BaseIdEntity {
 
-    @Id
-    @GeneratedValue(strategy = IDENTITY)
-    @Comment("상품 주문 ID")
-    private Long id;
+    @Column(unique = true, length = 50)
+    @Comment("고유번호")
+    private String uuid;
 
     @ManyToOne(fetch = LAZY)
     @JoinColumn(name = "orderId", referencedColumnName = "id")

@@ -1,7 +1,7 @@
 package com.koke.koke_backend.order.entity;
 
 import com.fasterxml.jackson.annotation.JsonManagedReference;
-import com.koke.koke_backend.common.entity.BaseTimeEntity;
+import com.koke.koke_backend.common.entity.BaseIdEntity;
 import com.koke.koke_backend.user.entity.User;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -20,15 +20,14 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 @Table
-public class OrderInfo extends BaseTimeEntity {
+public class OrderInfo extends BaseIdEntity {
 
-    @Id
-    @Column(length = 50)
-    @Comment("주문 ID")
-    private String id;
+    @Column(unique = true, length = 50)
+    @Comment("고유번호")
+    private String uuid;
 
     @ManyToOne
-    @JoinColumn(nullable = false, name = "userId", referencedColumnName = "userId")
+    @JoinColumn(nullable = false, name = "userId", referencedColumnName = "id")
     @Comment("사용자 ID")
     private User user;
 

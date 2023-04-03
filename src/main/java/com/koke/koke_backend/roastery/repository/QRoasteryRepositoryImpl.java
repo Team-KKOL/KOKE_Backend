@@ -23,8 +23,8 @@ public class QRoasteryRepositoryImpl implements QRoasteryRepository {
     @Override
     public List<RoasteryListResponseDto> list(SortType sortType) {
         return queryFactory.select(fields(RoasteryListResponseDto.class,
-                        roastery.id,
-                        roastery.roasteryNm,
+                        roastery.uuid,
+                        roastery.name,
                         roastery.logoImgUrl
                 ))
                 .from(roastery)
@@ -33,10 +33,10 @@ public class QRoasteryRepositoryImpl implements QRoasteryRepository {
     }
 
     @Override
-    public Optional<RoasteryDetailResponseDto> detail(String id) {
+    public Optional<RoasteryDetailResponseDto> detail(String uuid) {
         RoasteryDetailResponseDto fetchOne = queryFactory.select(fields(RoasteryDetailResponseDto.class,
-                        roastery.id,
-                        roastery.roasteryNm,
+                        roastery.uuid,
+                        roastery.name,
                         roastery.description,
                         roastery.awards,
                         roastery.location,
@@ -47,7 +47,7 @@ public class QRoasteryRepositoryImpl implements QRoasteryRepository {
                         roastery.insDtm
                 ))
                 .from(roastery)
-                .where(roastery.id.eq(id))
+                .where(roastery.uuid.eq(uuid))
                 .fetchOne();
 
         return Optional.ofNullable(fetchOne);
@@ -56,8 +56,8 @@ public class QRoasteryRepositoryImpl implements QRoasteryRepository {
     @Override
     public List<RoasteryTop4ResponseDto> top4() {
         List<RoasteryTop4ResponseDto> fetch = queryFactory.select(fields(RoasteryTop4ResponseDto.class,
-                        roastery.id,
-                        roastery.roasteryNm,
+                        roastery.uuid,
+                        roastery.name,
                         roastery.logoImgUrl,
                         roastery.photoImgUrl,
                         roastery.location
@@ -73,7 +73,7 @@ public class QRoasteryRepositoryImpl implements QRoasteryRepository {
     private OrderSpecifier<?> getOrderSpecifier(SortType sortType) throws IllegalStateException {
         switch (sortType) {
             case NAME -> {
-                return roastery.roasteryNm.asc();
+                return roastery.name.asc();
             }
             case RECENT -> {
                 return roastery.insDtm.desc();

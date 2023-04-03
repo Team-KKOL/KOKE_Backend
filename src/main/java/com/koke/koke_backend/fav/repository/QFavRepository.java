@@ -8,8 +8,8 @@ import java.util.List;
 import java.util.Optional;
 
 public interface QFavRepository {
-    Optional<Fav> getFavRoastery(String userId, String roasteryId);
-    Optional<Fav> getFavProduct(String userId, String productId);
+    Optional<Fav> getFavRoastery(String userId, String roasteryUuid);
+    Optional<Fav> getFavProduct(String userId, String productUuid);
     List<FavRoasteryDto> favRoasteryList(String userId);
     List<FavProductDto> favProductList(String userId);
 }
